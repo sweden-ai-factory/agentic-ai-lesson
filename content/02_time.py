@@ -38,10 +38,10 @@ if args.enable_tools:
         Args:
             timezone: IANA timezone name, e.g. 'Europe/Stockholm'. Omit for the user's local time.
         """
+        logfire.info("tool called with {timezone=}", timezone=timezone)
         tz = ZoneInfo(timezone) if timezone else None
         now = datetime.datetime.now(tz).astimezone(tz)
         result = now.strftime("%Y-%m-%d %H:%M:%S %Z (UTC%z)")
-        logfire.info("tool called with {timezone=}", timezone=timezone)
         logfire.info("tool result: {result}", result=result)
         return result
 
