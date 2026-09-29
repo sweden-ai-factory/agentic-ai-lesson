@@ -4,7 +4,7 @@ name = "sphinx-lesson-template"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13,<3.14"
+requires-python = ">=3.13,<3.15"
 dependencies = [
   "jupytext>=1.18.1",
   "myst-nb>=1.3.0",
@@ -22,7 +22,9 @@ dev = [
   "jupyterlab-myst>=2.4.2",
 ]
 # All dependencies used within Jupyter Notebooks
-notebook = []
+notebook = [
+    "pydantic-ai>=2.51.0",
+]
 
 [build-system]
 requires = ["pdm-backend"]
