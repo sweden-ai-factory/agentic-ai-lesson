@@ -1,0 +1,925 @@
+flight_no,origin,destination,weekdays,departure_time,arrival_time,price_eur
+KL132,Amsterdam,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:45,08:50,124
+KL133,Amsterdam,Barcelona,Mon Tue Wed Thu Fri,11:45,13:50,152
+KL134,Amsterdam,Barcelona,Mon Wed Fri Sun,16:45,18:50,138
+KL109,Amsterdam,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,08:50,10:10,93
+KL110,Amsterdam,Copenhagen,Mon Tue Wed Thu Fri,13:50,15:10,102
+KL111,Amsterdam,Copenhagen,Mon Wed Fri Sun,18:50,20:10,93
+KL112,Amsterdam,Copenhagen,Fri Sat Sun,21:50,23:10,79
+KL149,Amsterdam,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,08:10,91
+KL150,Amsterdam,Dublin,Mon Tue Wed Thu Fri,11:45,13:10,111
+KL151,Amsterdam,Dublin,Mon Wed Fri Sun,16:45,18:10,101
+KL152,Amsterdam,Dublin,Fri Sat Sun,19:45,21:10,86
+KL117,Amsterdam,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,06:45,07:40,65
+KL118,Amsterdam,Frankfurt,Mon Tue Wed Thu Fri,11:45,12:40,80
+KL119,Amsterdam,Frankfurt,Mon Wed Fri Sun,16:45,17:40,72
+KL120,Amsterdam,Frankfurt,Fri Sat Sun,19:45,20:40,62
+KL100,Amsterdam,Helsinki,Mon Tue Wed Thu Fri Sat Sun,09:40,12:05,159
+KL101,Amsterdam,Helsinki,Mon Tue Wed Thu Fri,14:40,17:05,175
+KL102,Amsterdam,Helsinki,Mon Wed Fri Sun,19:40,22:05,135
+KL145,Amsterdam,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,10:00,188
+KL146,Amsterdam,Istanbul,Mon Tue Wed Thu Fri,11:45,15:00,230
+KL147,Amsterdam,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,09:20,165
+KL148,Amsterdam,Lisbon,Mon Tue Wed Thu Fri,11:30,14:20,202
+KL113,Amsterdam,London,Mon Tue Wed Thu Fri Sat Sun,08:15,09:15,73
+KL114,Amsterdam,London,Mon Tue Wed Thu Fri,13:15,14:15,80
+KL115,Amsterdam,London,Mon Wed Fri Sun,18:15,19:15,73
+KL116,Amsterdam,London,Fri Sat Sun,21:15,22:15,62
+KL129,Amsterdam,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:30,08:50,139
+KL130,Amsterdam,Madrid,Mon Tue Wed Thu Fri,11:30,13:50,170
+KL131,Amsterdam,Madrid,Mon Wed Fri Sun,16:30,18:50,155
+KL121,Amsterdam,Munich,Mon Tue Wed Thu Fri Sat Sun,06:30,07:50,85
+KL122,Amsterdam,Munich,Mon Tue Wed Thu Fri,11:30,12:50,104
+KL123,Amsterdam,Munich,Mon Wed Fri Sun,16:30,17:50,95
+KL124,Amsterdam,Munich,Fri Sat Sun,19:30,20:50,81
+KL106,Amsterdam,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:10,10:50,117
+KL107,Amsterdam,Oslo,Mon Tue Wed Thu Fri,14:10,15:50,129
+KL108,Amsterdam,Oslo,Mon Wed Fri Sun,19:10,20:50,99
+KL125,Amsterdam,Paris,Mon Tue Wed Thu Fri Sat Sun,06:45,07:45,67
+KL126,Amsterdam,Paris,Mon Tue Wed Thu Fri,11:45,12:45,82
+KL127,Amsterdam,Paris,Mon Wed Fri Sun,16:45,17:45,75
+KL128,Amsterdam,Paris,Fri Sat Sun,19:45,20:45,64
+KL135,Amsterdam,Rome,Mon Tue Wed Thu Fri Sat Sun,06:30,08:35,128
+KL136,Amsterdam,Rome,Mon Tue Wed Thu Fri,11:30,13:35,156
+KL137,Amsterdam,Rome,Mon Wed Fri Sun,16:30,18:35,142
+KL103,Amsterdam,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:10,11:05,131
+KL104,Amsterdam,Stockholm,Mon Tue Wed Thu Fri,14:10,16:05,145
+KL105,Amsterdam,Stockholm,Mon Wed Fri Sun,19:10,21:05,112
+KL138,Amsterdam,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:45,08:25,105
+KL139,Amsterdam,Vienna,Mon Tue Wed Thu Fri,11:45,13:25,129
+KL140,Amsterdam,Vienna,Mon Wed Fri Sun,16:45,18:25,117
+KL153,Amsterdam,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,08:25,115
+KL154,Amsterdam,Warsaw,Mon Tue Wed Thu Fri,11:30,13:25,140
+KL155,Amsterdam,Warsaw,Mon Wed Fri Sun,16:30,18:25,128
+KL141,Amsterdam,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,07:45,81
+KL142,Amsterdam,Zurich,Mon Tue Wed Thu Fri,11:30,12:45,99
+KL143,Amsterdam,Zurich,Mon Wed Fri Sun,16:30,17:45,90
+KL144,Amsterdam,Zurich,Fri Sat Sun,19:30,20:45,77
+VY112,Barcelona,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,09:35,11:40,138
+VY113,Barcelona,Amsterdam,Mon Tue Wed Thu Fri,14:35,16:40,152
+VY114,Barcelona,Amsterdam,Mon Wed Fri Sun,19:35,21:40,117
+VY106,Barcelona,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,10:00,12:45,178
+VY107,Barcelona,Copenhagen,Mon Tue Wed Thu Fri,15:00,17:45,178
+VY108,Barcelona,Copenhagen,Mon Wed Fri Sun,20:00,22:45,151
+VY145,Barcelona,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,08:50,141
+VY146,Barcelona,Dublin,Mon Tue Wed Thu Fri,11:30,13:50,172
+VY147,Barcelona,Dublin,Mon Wed Fri Sun,16:30,18:50,156
+VY115,Barcelona,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,09:05,10:55,127
+VY116,Barcelona,Frankfurt,Mon Tue Wed Thu Fri,14:05,15:55,140
+VY117,Barcelona,Frankfurt,Mon Wed Fri Sun,19:05,20:55,108
+VY100,Barcelona,Helsinki,Mon Tue Wed Thu Fri Sat Sun,11:15,15:00,266
+VY101,Barcelona,Helsinki,Mon Tue Wed Thu Fri,16:15,20:00,242
+VY140,Barcelona,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:30,09:45,190
+VY141,Barcelona,Istanbul,Mon Tue Wed Thu Fri,11:30,14:45,233
+VY142,Barcelona,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,08:30,108
+VY143,Barcelona,Lisbon,Mon Tue Wed Thu Fri,11:45,13:30,132
+VY144,Barcelona,Lisbon,Mon Wed Fri Sun,16:45,18:30,120
+VY109,Barcelona,London,Mon Tue Wed Thu Fri Sat Sun,09:25,11:20,131
+VY110,Barcelona,London,Mon Tue Wed Thu Fri,14:25,16:20,144
+VY111,Barcelona,London,Mon Wed Fri Sun,19:25,21:20,111
+VY125,Barcelona,Madrid,Mon Tue Wed Thu Fri Sat Sun,08:35,09:40,81
+VY126,Barcelona,Madrid,Mon Tue Wed Thu Fri,13:35,14:40,89
+VY127,Barcelona,Madrid,Mon Wed Fri Sun,18:35,19:40,81
+VY128,Barcelona,Madrid,Fri Sat Sun,21:35,22:40,69
+VY118,Barcelona,Munich,Mon Tue Wed Thu Fri Sat Sun,09:05,10:55,127
+VY119,Barcelona,Munich,Mon Tue Wed Thu Fri,14:05,15:55,140
+VY120,Barcelona,Munich,Mon Wed Fri Sun,19:05,20:55,108
+VY104,Barcelona,Oslo,Mon Tue Wed Thu Fri Sat Sun,10:30,13:45,209
+VY105,Barcelona,Oslo,Mon Tue Wed Thu Fri,15:30,18:45,209
+VY121,Barcelona,Paris,Mon Tue Wed Thu Fri Sat Sun,09:05,10:40,109
+VY122,Barcelona,Paris,Mon Tue Wed Thu Fri,14:05,15:40,120
+VY123,Barcelona,Paris,Mon Wed Fri Sun,19:05,20:40,93
+VY124,Barcelona,Paris,Fri Sat Sun,22:05,23:40,93
+VY129,Barcelona,Rome,Mon Tue Wed Thu Fri Sat Sun,06:45,08:20,98
+VY130,Barcelona,Rome,Mon Tue Wed Thu Fri,11:45,13:20,119
+VY131,Barcelona,Rome,Mon Wed Fri Sun,16:45,18:20,109
+VY132,Barcelona,Rome,Fri Sat Sun,19:45,21:20,92
+VY102,Barcelona,Stockholm,Mon Tue Wed Thu Fri Sat Sun,10:55,14:20,219
+VY103,Barcelona,Stockholm,Mon Tue Wed Thu Fri,15:55,19:20,219
+VY133,Barcelona,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:30,08:45,133
+VY134,Barcelona,Vienna,Mon Tue Wed Thu Fri,11:30,13:45,163
+VY135,Barcelona,Vienna,Mon Wed Fri Sun,16:30,18:45,148
+VY148,Barcelona,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,09:35,167
+VY149,Barcelona,Warsaw,Mon Tue Wed Thu Fri,11:45,14:35,204
+VY136,Barcelona,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:45,08:20,98
+VY137,Barcelona,Zurich,Mon Tue Wed Thu Fri,11:45,13:20,120
+VY138,Barcelona,Zurich,Mon Wed Fri Sun,16:45,18:20,109
+VY139,Barcelona,Zurich,Fri Sat Sun,19:45,21:20,93
+SK165,Copenhagen,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,06:45,08:05,83
+SK166,Copenhagen,Amsterdam,Mon Tue Wed Thu Fri,11:45,13:05,102
+SK167,Copenhagen,Amsterdam,Mon Wed Fri Sun,16:45,18:05,93
+SK168,Copenhagen,Amsterdam,Fri Sat Sun,19:45,21:05,79
+SK182,Copenhagen,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:30,09:15,160
+SK183,Copenhagen,Barcelona,Mon Tue Wed Thu Fri,11:30,14:15,195
+SK184,Copenhagen,Barcelona,Mon Wed Fri Sun,16:30,19:15,178
+SK199,Copenhagen,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,08:35,124
+SK200,Copenhagen,Dublin,Mon Tue Wed Thu Fri,11:30,13:35,152
+SK201,Copenhagen,Dublin,Mon Wed Fri Sun,16:30,18:35,138
+SK169,Copenhagen,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,06:30,07:50,86
+SK170,Copenhagen,Frankfurt,Mon Tue Wed Thu Fri,11:30,12:50,105
+SK171,Copenhagen,Frankfurt,Mon Wed Fri Sun,16:30,17:50,96
+SK172,Copenhagen,Frankfurt,Fri Sat Sun,19:30,20:50,82
+SK104,Copenhagen,Helsinki,Mon Tue Wed Thu Fri Sat Sun,08:50,10:25,112
+SK105,Copenhagen,Helsinki,Mon Tue Wed Thu Fri,13:50,15:25,123
+SK106,Copenhagen,Helsinki,Mon Wed Fri Sun,18:50,20:25,112
+SK107,Copenhagen,Helsinki,Fri Sat Sun,21:50,23:25,95
+SK195,Copenhagen,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:30,09:30,174
+SK196,Copenhagen,Istanbul,Mon Tue Wed Thu Fri,11:30,14:30,213
+SK197,Copenhagen,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,10:20,207
+SK198,Copenhagen,Lisbon,Mon Tue Wed Thu Fri,11:45,15:20,253
+SK162,Copenhagen,London,Mon Tue Wed Thu Fri Sat Sun,06:30,08:15,107
+SK163,Copenhagen,London,Mon Tue Wed Thu Fri,11:30,13:15,130
+SK164,Copenhagen,London,Mon Wed Fri Sun,16:30,18:15,118
+SK180,Copenhagen,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:45,09:50,180
+SK181,Copenhagen,Madrid,Mon Tue Wed Thu Fri,11:45,14:50,219
+SK173,Copenhagen,Munich,Mon Tue Wed Thu Fri Sat Sun,06:45,08:15,95
+SK174,Copenhagen,Munich,Mon Tue Wed Thu Fri,11:45,13:15,116
+SK175,Copenhagen,Munich,Mon Wed Fri Sun,16:45,18:15,106
+SK176,Copenhagen,Munich,Fri Sat Sun,19:45,21:15,90
+SK158,Copenhagen,Oslo,Mon Tue Wed Thu Fri Sat Sun,08:40,09:50,84
+SK159,Copenhagen,Oslo,Mon Tue Wed Thu Fri,13:40,14:50,92
+SK160,Copenhagen,Oslo,Mon Wed Fri Sun,18:40,19:50,84
+SK161,Copenhagen,Oslo,Fri Sat Sun,21:40,22:50,71
+SK177,Copenhagen,Paris,Mon Tue Wed Thu Fri Sat Sun,06:30,08:15,108
+SK178,Copenhagen,Paris,Mon Tue Wed Thu Fri,11:30,13:15,132
+SK179,Copenhagen,Paris,Mon Wed Fri Sun,16:30,18:15,120
+SK185,Copenhagen,Rome,Mon Tue Wed Thu Fri Sat Sun,06:45,09:10,144
+SK186,Copenhagen,Rome,Mon Tue Wed Thu Fri,11:45,14:10,176
+SK187,Copenhagen,Rome,Mon Wed Fri Sun,16:45,19:10,160
+SK113,Copenhagen,Stockholm,Mon Tue Wed Thu Fri Sat Sun,08:25,09:35,86
+SK115,Copenhagen,Stockholm,Mon Tue Wed Thu Fri,13:25,14:35,95
+SK117,Copenhagen,Stockholm,Mon Wed Fri Sun,18:25,19:35,86
+SK119,Copenhagen,Stockholm,Fri Sat Sun,21:25,22:35,73
+SK188,Copenhagen,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:30,08:05,100
+SK189,Copenhagen,Vienna,Mon Tue Wed Thu Fri,11:30,13:05,122
+SK190,Copenhagen,Vienna,Mon Wed Fri Sun,16:30,18:05,111
+SK191,Copenhagen,Vienna,Fri Sat Sun,19:30,21:05,94
+SK202,Copenhagen,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,08:05,85
+SK203,Copenhagen,Warsaw,Mon Tue Wed Thu Fri,11:45,13:05,104
+SK204,Copenhagen,Warsaw,Mon Wed Fri Sun,16:45,18:05,95
+SK205,Copenhagen,Warsaw,Fri Sat Sun,19:45,21:05,81
+SK192,Copenhagen,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:45,08:25,105
+SK193,Copenhagen,Zurich,Mon Tue Wed Thu Fri,11:45,13:25,128
+SK194,Copenhagen,Zurich,Mon Wed Fri Sun,16:45,18:25,116
+EI115,Dublin,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,08:55,10:20,101
+EI116,Dublin,Amsterdam,Mon Tue Wed Thu Fri,13:55,15:20,111
+EI117,Dublin,Amsterdam,Mon Wed Fri Sun,18:55,20:20,101
+EI118,Dublin,Amsterdam,Fri Sat Sun,21:55,23:20,86
+EI132,Dublin,Barcelona,Mon Tue Wed Thu Fri Sat Sun,09:35,11:55,156
+EI133,Dublin,Barcelona,Mon Tue Wed Thu Fri,14:35,16:55,172
+EI134,Dublin,Barcelona,Mon Wed Fri Sun,19:35,21:55,133
+EI108,Dublin,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,09:20,11:25,138
+EI109,Dublin,Copenhagen,Mon Tue Wed Thu Fri,14:20,16:25,152
+EI110,Dublin,Copenhagen,Mon Wed Fri Sun,19:20,21:25,117
+EI119,Dublin,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,09:05,10:55,126
+EI120,Dublin,Frankfurt,Mon Tue Wed Thu Fri,14:05,15:55,139
+EI121,Dublin,Frankfurt,Mon Wed Fri Sun,19:05,20:55,107
+EI100,Dublin,Helsinki,Mon Tue Wed Thu Fri Sat Sun,10:30,13:30,197
+EI101,Dublin,Helsinki,Mon Tue Wed Thu Fri,15:30,18:30,197
+EI143,Dublin,Istanbul,Mon Tue Wed Thu Fri Sat Sun,11:25,15:35,291
+EI144,Dublin,Istanbul,Mon Tue Wed Thu Fri,16:25,20:35,264
+EI145,Dublin,Lisbon,Mon Tue Wed Thu Fri Sat Sun,09:50,12:25,168
+EI146,Dublin,Lisbon,Mon Tue Wed Thu Fri,14:50,17:25,185
+EI147,Dublin,Lisbon,Mon Wed Fri Sun,19:50,22:25,143
+EI111,Dublin,London,Mon Tue Wed Thu Fri Sat Sun,08:35,09:40,79
+EI112,Dublin,London,Mon Tue Wed Thu Fri,13:35,14:40,87
+EI113,Dublin,London,Mon Wed Fri Sun,18:35,19:40,79
+EI114,Dublin,London,Fri Sat Sun,21:35,22:40,67
+EI129,Dublin,Madrid,Mon Tue Wed Thu Fri Sat Sun,09:50,12:10,154
+EI130,Dublin,Madrid,Mon Tue Wed Thu Fri,14:50,17:10,169
+EI131,Dublin,Madrid,Mon Wed Fri Sun,19:50,22:10,131
+EI122,Dublin,Munich,Mon Tue Wed Thu Fri Sat Sun,09:30,11:45,149
+EI123,Dublin,Munich,Mon Tue Wed Thu Fri,14:30,16:45,163
+EI124,Dublin,Munich,Mon Wed Fri Sun,19:30,21:45,126
+EI105,Dublin,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:20,11:25,142
+EI106,Dublin,Oslo,Mon Tue Wed Thu Fri,14:20,16:25,156
+EI107,Dublin,Oslo,Mon Wed Fri Sun,19:20,21:25,121
+EI125,Dublin,Paris,Mon Tue Wed Thu Fri Sat Sun,09:00,10:30,104
+EI126,Dublin,Paris,Mon Tue Wed Thu Fri,14:00,15:30,114
+EI127,Dublin,Paris,Mon Wed Fri Sun,19:00,20:30,88
+EI128,Dublin,Paris,Fri Sat Sun,22:00,23:30,88
+EI135,Dublin,Rome,Mon Tue Wed Thu Fri Sat Sun,10:05,12:55,186
+EI136,Dublin,Rome,Mon Tue Wed Thu Fri,15:05,17:55,186
+EI102,Dublin,Stockholm,Mon Tue Wed Thu Fri Sat Sun,10:00,12:30,167
+EI103,Dublin,Stockholm,Mon Tue Wed Thu Fri,15:00,17:30,167
+EI104,Dublin,Stockholm,Mon Wed Fri Sun,20:00,22:30,142
+EI137,Dublin,Vienna,Mon Tue Wed Thu Fri Sat Sun,10:10,12:50,173
+EI138,Dublin,Vienna,Mon Tue Wed Thu Fri,15:10,17:50,173
+EI139,Dublin,Vienna,Mon Wed Fri Sun,20:10,22:50,147
+EI148,Dublin,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,09:15,164
+EI149,Dublin,Warsaw,Mon Tue Wed Thu Fri,11:30,14:15,200
+EI140,Dublin,Zurich,Mon Tue Wed Thu Fri Sat Sun,09:35,11:40,138
+EI141,Dublin,Zurich,Mon Tue Wed Thu Fri,14:35,16:40,152
+EI142,Dublin,Zurich,Mon Wed Fri Sun,19:35,21:40,117
+LH133,Frankfurt,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,08:25,09:20,72
+LH134,Frankfurt,Amsterdam,Mon Tue Wed Thu Fri,13:25,14:20,80
+LH135,Frankfurt,Amsterdam,Mon Wed Fri Sun,18:25,19:20,72
+LH136,Frankfurt,Amsterdam,Fri Sat Sun,21:25,22:20,62
+LH156,Frankfurt,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:30,08:20,114
+LH157,Frankfurt,Barcelona,Mon Tue Wed Thu Fri,11:30,13:20,140
+LH158,Frankfurt,Barcelona,Mon Wed Fri Sun,16:30,18:20,127
+LH118,Frankfurt,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,08:35,09:55,96
+LH119,Frankfurt,Copenhagen,Mon Tue Wed Thu Fri,13:35,14:55,105
+LH120,Frankfurt,Copenhagen,Mon Wed Fri Sun,18:35,19:55,96
+LH121,Frankfurt,Copenhagen,Fri Sat Sun,21:35,22:55,82
+LH174,Frankfurt,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,08:20,114
+LH175,Frankfurt,Dublin,Mon Tue Wed Thu Fri,11:30,13:20,139
+LH176,Frankfurt,Dublin,Mon Wed Fri Sun,16:30,18:20,126
+LH100,Frankfurt,Helsinki,Mon Tue Wed Thu Fri Sat Sun,09:55,12:20,160
+LH101,Frankfurt,Helsinki,Mon Tue Wed Thu Fri,14:55,17:20,176
+LH102,Frankfurt,Helsinki,Mon Wed Fri Sun,19:55,22:20,136
+LH170,Frankfurt,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:30,09:20,165
+LH171,Frankfurt,Istanbul,Mon Tue Wed Thu Fri,11:30,14:20,201
+LH172,Frankfurt,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,09:35,167
+LH173,Frankfurt,Lisbon,Mon Tue Wed Thu Fri,11:45,14:35,204
+LH126,Frankfurt,London,Mon Tue Wed Thu Fri Sat Sun,08:50,10:10,94
+LH127,Frankfurt,London,Mon Tue Wed Thu Fri,13:50,15:10,103
+LH128,Frankfurt,London,Mon Wed Fri Sun,18:50,20:10,94
+LH129,Frankfurt,London,Fri Sat Sun,21:50,23:10,80
+LH153,Frankfurt,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:45,09:00,136
+LH154,Frankfurt,Madrid,Mon Tue Wed Thu Fri,11:45,14:00,167
+LH155,Frankfurt,Madrid,Mon Wed Fri Sun,16:45,19:00,152
+LH141,Frankfurt,Munich,Mon Tue Wed Thu Fri Sat Sun,06:45,07:35,61
+LH143,Frankfurt,Munich,Mon Tue Wed Thu Fri,11:45,12:35,74
+LH145,Frankfurt,Munich,Mon Wed Fri Sun,16:45,17:35,67
+LH147,Frankfurt,Munich,Fri Sat Sun,19:45,20:35,57
+LH112,Frankfurt,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:10,11:05,131
+LH113,Frankfurt,Oslo,Mon Tue Wed Thu Fri,14:10,16:05,144
+LH114,Frankfurt,Oslo,Mon Wed Fri Sun,19:10,21:05,111
+LH149,Frankfurt,Paris,Mon Tue Wed Thu Fri Sat Sun,06:30,07:35,71
+LH150,Frankfurt,Paris,Mon Tue Wed Thu Fri,11:30,12:35,87
+LH151,Frankfurt,Paris,Mon Wed Fri Sun,16:30,17:35,79
+LH152,Frankfurt,Paris,Fri Sat Sun,19:30,20:35,67
+LH159,Frankfurt,Rome,Mon Tue Wed Thu Fri Sat Sun,06:45,08:25,105
+LH160,Frankfurt,Rome,Mon Tue Wed Thu Fri,11:45,13:25,129
+LH161,Frankfurt,Rome,Mon Wed Fri Sun,16:45,18:25,117
+LH106,Frankfurt,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:30,11:30,137
+LH107,Frankfurt,Stockholm,Mon Tue Wed Thu Fri,14:30,16:30,150
+LH108,Frankfurt,Stockholm,Mon Wed Fri Sun,19:30,21:30,116
+LH162,Frankfurt,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:30,07:45,82
+LH163,Frankfurt,Vienna,Mon Tue Wed Thu Fri,11:30,12:45,101
+LH164,Frankfurt,Vienna,Mon Wed Fri Sun,16:30,17:45,92
+LH165,Frankfurt,Vienna,Fri Sat Sun,19:30,20:45,78
+LH177,Frankfurt,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,08:20,101
+LH178,Frankfurt,Warsaw,Mon Tue Wed Thu Fri,11:45,13:20,123
+LH179,Frankfurt,Warsaw,Mon Wed Fri Sun,16:45,18:20,112
+LH180,Frankfurt,Warsaw,Fri Sat Sun,19:45,21:20,95
+LH166,Frankfurt,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:45,07:35,60
+LH167,Frankfurt,Zurich,Mon Tue Wed Thu Fri,11:45,12:35,73
+LH168,Frankfurt,Zurich,Mon Wed Fri Sun,16:45,17:35,67
+LH169,Frankfurt,Zurich,Fri Sat Sun,19:45,20:35,57
+AY114,Helsinki,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,06:30,08:55,143
+AY115,Helsinki,Amsterdam,Mon Tue Wed Thu Fri,11:30,13:55,175
+AY116,Helsinki,Amsterdam,Mon Wed Fri Sun,16:30,18:55,159
+AY127,Helsinki,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:45,10:30,218
+AY128,Helsinki,Barcelona,Mon Tue Wed Thu Fri,11:45,15:30,266
+AY108,Helsinki,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,06:30,08:05,101
+AY109,Helsinki,Copenhagen,Mon Tue Wed Thu Fri,11:30,13:05,123
+AY110,Helsinki,Copenhagen,Mon Wed Fri Sun,16:30,18:05,112
+AY111,Helsinki,Copenhagen,Fri Sat Sun,19:30,21:05,95
+AY141,Helsinki,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,09:45,177
+AY142,Helsinki,Dublin,Mon Tue Wed Thu Fri,11:45,14:45,216
+AY117,Helsinki,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,06:45,09:10,144
+AY118,Helsinki,Frankfurt,Mon Tue Wed Thu Fri,11:45,14:10,176
+AY119,Helsinki,Frankfurt,Mon Wed Fri Sun,16:45,19:10,160
+AY137,Helsinki,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,09:55,184
+AY138,Helsinki,Istanbul,Mon Tue Wed Thu Fri,11:45,14:55,225
+AY139,Helsinki,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,11:10,268
+AY140,Helsinki,Lisbon,Mon Tue Wed Thu Fri,11:30,16:10,327
+AY112,Helsinki,London,Mon Tue Wed Thu Fri Sat Sun,06:45,09:35,165
+AY113,Helsinki,London,Mon Tue Wed Thu Fri,11:45,14:35,202
+AY125,Helsinki,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:30,10:40,239
+AY126,Helsinki,Madrid,Mon Tue Wed Thu Fri,11:30,15:40,293
+AY120,Helsinki,Munich,Mon Tue Wed Thu Fri Sat Sun,06:30,09:00,147
+AY121,Helsinki,Munich,Mon Tue Wed Thu Fri,11:30,14:00,179
+AY122,Helsinki,Munich,Mon Wed Fri Sun,16:30,19:00,163
+AY104,Helsinki,Oslo,Mon Tue Wed Thu Fri Sat Sun,06:45,08:10,92
+AY105,Helsinki,Oslo,Mon Tue Wed Thu Fri,11:45,13:10,112
+AY106,Helsinki,Oslo,Mon Wed Fri Sun,16:45,18:10,102
+AY107,Helsinki,Oslo,Fri Sat Sun,19:45,21:10,87
+AY123,Helsinki,Paris,Mon Tue Wed Thu Fri Sat Sun,06:45,09:35,168
+AY124,Helsinki,Paris,Mon Tue Wed Thu Fri,11:45,14:35,206
+AY129,Helsinki,Rome,Mon Tue Wed Thu Fri Sat Sun,06:30,09:50,191
+AY130,Helsinki,Rome,Mon Tue Wed Thu Fri,11:30,14:50,234
+AY100,Helsinki,Stockholm,Mon Tue Wed Thu Fri Sat Sun,06:30,07:30,67
+AY101,Helsinki,Stockholm,Mon Tue Wed Thu Fri,11:30,12:30,82
+AY102,Helsinki,Stockholm,Mon Wed Fri Sun,16:30,17:30,75
+AY103,Helsinki,Stockholm,Fri Sat Sun,19:30,20:30,64
+AY131,Helsinki,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:45,09:05,139
+AY132,Helsinki,Vienna,Mon Tue Wed Thu Fri,11:45,14:05,170
+AY133,Helsinki,Vienna,Mon Wed Fri Sun,16:45,19:05,155
+AY143,Helsinki,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,08:10,104
+AY144,Helsinki,Warsaw,Mon Tue Wed Thu Fri,11:30,13:10,127
+AY145,Helsinki,Warsaw,Mon Wed Fri Sun,16:30,18:10,115
+AY134,Helsinki,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,09:15,161
+AY135,Helsinki,Zurich,Mon Tue Wed Thu Fri,11:30,14:15,196
+AY136,Helsinki,Zurich,Mon Wed Fri Sun,16:30,19:15,178
+TK110,Istanbul,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,10:45,14:00,209
+TK111,Istanbul,Amsterdam,Mon Tue Wed Thu Fri,15:45,19:00,209
+TK121,Istanbul,Barcelona,Mon Tue Wed Thu Fri Sat Sun,10:30,13:45,211
+TK122,Istanbul,Barcelona,Mon Tue Wed Thu Fri,15:30,18:45,211
+TK106,Istanbul,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,10:15,13:15,193
+TK107,Istanbul,Copenhagen,Mon Tue Wed Thu Fri,15:15,18:15,193
+TK134,Istanbul,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,10:40,238
+TK135,Istanbul,Dublin,Mon Tue Wed Thu Fri,11:30,15:40,291
+TK112,Istanbul,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,10:05,12:55,183
+TK113,Istanbul,Frankfurt,Mon Tue Wed Thu Fri,15:05,17:55,183
+TK100,Istanbul,Helsinki,Mon Tue Wed Thu Fri Sat Sun,10:40,13:50,205
+TK101,Istanbul,Helsinki,Mon Tue Wed Thu Fri,15:40,18:50,205
+TK132,Istanbul,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,11:15,257
+TK133,Istanbul,Lisbon,Mon Tue Wed Thu Fri,11:45,16:15,315
+TK108,Istanbul,London,Mon Tue Wed Thu Fri Sat Sun,11:05,14:40,255
+TK109,Istanbul,London,Mon Tue Wed Thu Fri,16:05,19:40,232
+TK119,Istanbul,Madrid,Mon Tue Wed Thu Fri Sat Sun,11:25,15:20,272
+TK120,Istanbul,Madrid,Mon Tue Wed Thu Fri,16:25,20:20,248
+TK114,Istanbul,Munich,Mon Tue Wed Thu Fri Sat Sun,09:40,12:05,161
+TK115,Istanbul,Munich,Mon Tue Wed Thu Fri,14:40,17:05,177
+TK116,Istanbul,Munich,Mon Wed Fri Sun,19:40,22:05,137
+TK104,Istanbul,Oslo,Mon Tue Wed Thu Fri Sat Sun,10:45,14:15,227
+TK105,Istanbul,Oslo,Mon Tue Wed Thu Fri,15:45,19:15,227
+TK117,Istanbul,Paris,Mon Tue Wed Thu Fri Sat Sun,10:45,14:00,211
+TK118,Istanbul,Paris,Mon Tue Wed Thu Fri,15:45,19:00,211
+TK123,Istanbul,Rome,Mon Tue Wed Thu Fri Sat Sun,09:30,11:45,148
+TK124,Istanbul,Rome,Mon Tue Wed Thu Fri,14:30,16:45,163
+TK125,Istanbul,Rome,Mon Wed Fri Sun,19:30,21:45,126
+TK102,Istanbul,Stockholm,Mon Tue Wed Thu Fri Sat Sun,10:45,14:00,208
+TK103,Istanbul,Stockholm,Mon Tue Wed Thu Fri,15:45,19:00,208
+TK126,Istanbul,Vienna,Mon Tue Wed Thu Fri Sat Sun,09:30,11:30,137
+TK127,Istanbul,Vienna,Mon Tue Wed Thu Fri,14:30,16:30,151
+TK128,Istanbul,Vienna,Mon Wed Fri Sun,19:30,21:30,116
+TK136,Istanbul,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,08:55,131
+TK137,Istanbul,Warsaw,Mon Tue Wed Thu Fri,11:45,13:55,161
+TK138,Istanbul,Warsaw,Mon Wed Fri Sun,16:45,18:55,146
+TK129,Istanbul,Zurich,Mon Tue Wed Thu Fri Sat Sun,10:10,12:50,176
+TK130,Istanbul,Zurich,Mon Tue Wed Thu Fri,15:10,17:50,176
+TK131,Istanbul,Zurich,Mon Wed Fri Sun,20:10,22:50,149
+TP111,Lisbon,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,10:05,12:55,184
+TP112,Lisbon,Amsterdam,Mon Tue Wed Thu Fri,15:05,17:55,184
+TP124,Lisbon,Barcelona,Mon Tue Wed Thu Fri Sat Sun,09:15,11:00,120
+TP125,Lisbon,Barcelona,Mon Tue Wed Thu Fri,14:15,16:00,132
+TP126,Lisbon,Barcelona,Mon Wed Fri Sun,19:15,21:00,102
+TP106,Lisbon,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,11:05,14:40,253
+TP107,Lisbon,Copenhagen,Mon Tue Wed Thu Fri,16:05,19:40,230
+TP136,Lisbon,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,09:05,151
+TP137,Lisbon,Dublin,Mon Tue Wed Thu Fri,11:30,14:05,185
+TP138,Lisbon,Dublin,Mon Wed Fri Sun,16:30,19:05,168
+TP113,Lisbon,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,10:20,13:10,186
+TP114,Lisbon,Frankfurt,Mon Tue Wed Thu Fri,15:20,18:10,186
+TP100,Lisbon,Helsinki,Mon Tue Wed Thu Fri Sat Sun,11:55,16:35,327
+TP101,Lisbon,Helsinki,Mon Tue Wed Thu Fri,16:55,21:35,297
+TP134,Lisbon,Istanbul,Mon Tue Wed Thu Fri Sat Sun,12:00,16:30,315
+TP135,Lisbon,Istanbul,Mon Tue Wed Thu Fri,17:00,21:30,286
+TP108,Lisbon,London,Mon Tue Wed Thu Fri Sat Sun,09:40,12:05,162
+TP109,Lisbon,London,Mon Tue Wed Thu Fri,14:40,17:05,179
+TP110,Lisbon,London,Mon Wed Fri Sun,19:40,22:05,138
+TP120,Lisbon,Madrid,Mon Tue Wed Thu Fri Sat Sun,08:25,09:35,83
+TP121,Lisbon,Madrid,Mon Tue Wed Thu Fri,13:25,14:35,92
+TP122,Lisbon,Madrid,Mon Wed Fri Sun,18:25,19:35,83
+TP123,Lisbon,Madrid,Fri Sat Sun,21:25,22:35,71
+TP115,Lisbon,Munich,Mon Tue Wed Thu Fri Sat Sun,10:30,13:30,194
+TP116,Lisbon,Munich,Mon Tue Wed Thu Fri,15:30,18:30,194
+TP104,Lisbon,Oslo,Mon Tue Wed Thu Fri Sat Sun,11:30,15:30,278
+TP105,Lisbon,Oslo,Mon Tue Wed Thu Fri,16:30,20:30,253
+TP117,Lisbon,Paris,Mon Tue Wed Thu Fri Sat Sun,09:35,11:55,155
+TP118,Lisbon,Paris,Mon Tue Wed Thu Fri,14:35,16:55,171
+TP119,Lisbon,Paris,Mon Wed Fri Sun,19:35,21:55,132
+TP127,Lisbon,Rome,Mon Tue Wed Thu Fri Sat Sun,10:20,13:10,183
+TP128,Lisbon,Rome,Mon Tue Wed Thu Fri,15:20,18:10,183
+TP102,Lisbon,Stockholm,Mon Tue Wed Thu Fri Sat Sun,11:30,15:45,297
+TP103,Lisbon,Stockholm,Mon Tue Wed Thu Fri,16:30,20:45,270
+TP129,Lisbon,Vienna,Mon Tue Wed Thu Fri Sat Sun,10:40,14:05,218
+TP130,Lisbon,Vienna,Mon Tue Wed Thu Fri,15:40,19:05,218
+TP139,Lisbon,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,10:40,226
+TP140,Lisbon,Warsaw,Mon Tue Wed Thu Fri,11:45,15:40,276
+TP131,Lisbon,Zurich,Mon Tue Wed Thu Fri Sat Sun,09:55,12:35,174
+TP132,Lisbon,Zurich,Mon Tue Wed Thu Fri,14:55,17:35,192
+TP133,Lisbon,Zurich,Mon Wed Fri Sun,19:55,22:35,148
+BA111,London,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,06:30,07:30,65
+BA112,London,Amsterdam,Mon Tue Wed Thu Fri,11:30,12:30,80
+BA113,London,Amsterdam,Mon Wed Fri Sun,16:30,17:30,73
+BA114,London,Amsterdam,Fri Sat Sun,19:30,20:30,62
+BA129,London,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:45,08:40,118
+BA130,London,Barcelona,Mon Tue Wed Thu Fri,11:45,13:40,144
+BA131,London,Barcelona,Mon Wed Fri Sun,16:45,18:40,131
+BA108,London,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,09:00,10:45,118
+BA109,London,Copenhagen,Mon Tue Wed Thu Fri,14:00,15:45,130
+BA110,London,Copenhagen,Mon Wed Fri Sun,19:00,20:45,101
+BA147,London,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,07:50,71
+BA148,London,Dublin,Mon Tue Wed Thu Fri,11:45,12:50,87
+BA149,London,Dublin,Mon Wed Fri Sun,16:45,17:50,79
+BA150,London,Dublin,Fri Sat Sun,19:45,20:50,67
+BA115,London,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,06:45,08:05,85
+BA116,London,Frankfurt,Mon Tue Wed Thu Fri,11:45,13:05,103
+BA117,London,Frankfurt,Mon Wed Fri Sun,16:45,18:05,94
+BA118,London,Frankfurt,Fri Sat Sun,19:45,21:05,80
+BA100,London,Helsinki,Mon Tue Wed Thu Fri Sat Sun,10:20,13:10,184
+BA101,London,Helsinki,Mon Tue Wed Thu Fri,15:20,18:10,184
+BA142,London,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,10:20,208
+BA143,London,Istanbul,Mon Tue Wed Thu Fri,11:45,15:20,255
+BA144,London,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,08:55,146
+BA145,London,Lisbon,Mon Tue Wed Thu Fri,11:30,13:55,179
+BA146,London,Lisbon,Mon Wed Fri Sun,16:30,18:55,162
+BA126,London,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:30,08:35,125
+BA127,London,Madrid,Mon Tue Wed Thu Fri,11:30,13:35,152
+BA128,London,Madrid,Mon Wed Fri Sun,16:30,18:35,138
+BA119,London,Munich,Mon Tue Wed Thu Fri Sat Sun,06:30,08:10,104
+BA120,London,Munich,Mon Tue Wed Thu Fri,11:30,13:10,127
+BA121,London,Munich,Mon Wed Fri Sun,16:30,18:10,116
+BA105,London,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:15,11:15,135
+BA106,London,Oslo,Mon Tue Wed Thu Fri,14:15,16:15,149
+BA107,London,Oslo,Mon Wed Fri Sun,19:15,21:15,115
+BA122,London,Paris,Mon Tue Wed Thu Fri Sat Sun,06:45,07:40,64
+BA123,London,Paris,Mon Tue Wed Thu Fri,11:45,12:40,78
+BA124,London,Paris,Mon Wed Fri Sun,16:45,17:40,71
+BA125,London,Paris,Fri Sat Sun,19:45,20:40,60
+BA132,London,Rome,Mon Tue Wed Thu Fri Sat Sun,06:30,08:50,138
+BA133,London,Rome,Mon Tue Wed Thu Fri,11:30,13:50,169
+BA134,London,Rome,Mon Wed Fri Sun,16:30,18:50,153
+BA102,London,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:50,12:10,155
+BA103,London,Stockholm,Mon Tue Wed Thu Fri,14:50,17:10,170
+BA104,London,Stockholm,Mon Wed Fri Sun,19:50,22:10,131
+BA135,London,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:45,08:50,127
+BA136,London,Vienna,Mon Tue Wed Thu Fri,11:45,13:50,155
+BA137,London,Vienna,Mon Wed Fri Sun,16:45,18:50,141
+BA151,London,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,08:50,140
+BA152,London,Warsaw,Mon Tue Wed Thu Fri,11:30,13:50,171
+BA153,London,Warsaw,Mon Wed Fri Sun,16:30,18:50,155
+BA138,London,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,08:00,94
+BA139,London,Zurich,Mon Tue Wed Thu Fri,11:30,13:00,115
+BA140,London,Zurich,Mon Wed Fri Sun,16:30,18:00,104
+BA141,London,Zurich,Fri Sat Sun,19:30,21:00,88
+IB111,Madrid,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,09:35,11:55,155
+IB112,Madrid,Amsterdam,Mon Tue Wed Thu Fri,14:35,16:55,170
+IB113,Madrid,Amsterdam,Mon Wed Fri Sun,19:35,21:55,131
+IB123,Madrid,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:45,07:50,73
+IB124,Madrid,Barcelona,Mon Tue Wed Thu Fri,11:45,12:50,89
+IB125,Madrid,Barcelona,Mon Wed Fri Sun,16:45,17:50,81
+IB126,Madrid,Barcelona,Fri Sat Sun,19:45,20:50,69
+IB106,Madrid,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,10:35,13:40,200
+IB107,Madrid,Copenhagen,Mon Tue Wed Thu Fri,15:35,18:40,200
+IB141,Madrid,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,09:05,139
+IB142,Madrid,Dublin,Mon Tue Wed Thu Fri,11:45,14:05,169
+IB143,Madrid,Dublin,Mon Wed Fri Sun,16:45,19:05,154
+IB114,Madrid,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,09:45,12:00,152
+IB115,Madrid,Frankfurt,Mon Tue Wed Thu Fri,14:45,17:00,167
+IB116,Madrid,Frankfurt,Mon Wed Fri Sun,19:45,22:00,129
+IB100,Madrid,Helsinki,Mon Tue Wed Thu Fri Sat Sun,11:25,15:35,293
+IB101,Madrid,Helsinki,Mon Tue Wed Thu Fri,16:25,20:35,266
+IB135,Madrid,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,10:40,223
+IB136,Madrid,Istanbul,Mon Tue Wed Thu Fri,11:45,15:40,272
+IB137,Madrid,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,07:40,75
+IB138,Madrid,Lisbon,Mon Tue Wed Thu Fri,11:30,12:40,92
+IB139,Madrid,Lisbon,Mon Wed Fri Sun,16:30,17:40,83
+IB140,Madrid,Lisbon,Fri Sat Sun,19:30,20:40,71
+IB108,Madrid,London,Mon Tue Wed Thu Fri Sat Sun,09:20,11:25,138
+IB109,Madrid,London,Mon Tue Wed Thu Fri,14:20,16:25,152
+IB110,Madrid,London,Mon Wed Fri Sun,19:20,21:25,118
+IB117,Madrid,Munich,Mon Tue Wed Thu Fri Sat Sun,09:50,12:10,157
+IB118,Madrid,Munich,Mon Tue Wed Thu Fri,14:50,17:10,173
+IB119,Madrid,Munich,Mon Wed Fri Sun,19:50,22:10,134
+IB104,Madrid,Oslo,Mon Tue Wed Thu Fri Sat Sun,11:00,14:30,249
+IB105,Madrid,Oslo,Mon Tue Wed Thu Fri,16:00,19:30,226
+IB120,Madrid,Paris,Mon Tue Wed Thu Fri Sat Sun,09:05,10:55,125
+IB121,Madrid,Paris,Mon Tue Wed Thu Fri,14:05,15:55,137
+IB122,Madrid,Paris,Mon Wed Fri Sun,19:05,20:55,106
+IB127,Madrid,Rome,Mon Tue Wed Thu Fri Sat Sun,06:30,08:40,130
+IB128,Madrid,Rome,Mon Tue Wed Thu Fri,11:30,13:40,159
+IB129,Madrid,Rome,Mon Wed Fri Sun,16:30,18:40,145
+IB102,Madrid,Stockholm,Mon Tue Wed Thu Fri Sat Sun,11:00,14:45,264
+IB103,Madrid,Stockholm,Mon Tue Wed Thu Fri,16:00,19:45,240
+IB130,Madrid,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:45,09:30,162
+IB131,Madrid,Vienna,Mon Tue Wed Thu Fri,11:45,14:30,198
+IB144,Madrid,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,09:50,194
+IB145,Madrid,Warsaw,Mon Tue Wed Thu Fri,11:30,14:50,237
+IB132,Madrid,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,08:35,124
+IB133,Madrid,Zurich,Mon Tue Wed Thu Fri,11:30,13:35,152
+IB134,Madrid,Zurich,Mon Wed Fri Sun,16:30,18:35,138
+LH137,Munich,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,08:35,09:55,95
+LH138,Munich,Amsterdam,Mon Tue Wed Thu Fri,13:35,14:55,104
+LH139,Munich,Amsterdam,Mon Wed Fri Sun,18:35,19:55,95
+LH140,Munich,Amsterdam,Fri Sat Sun,21:35,22:55,81
+LH188,Munich,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:30,08:20,114
+LH189,Munich,Barcelona,Mon Tue Wed Thu Fri,11:30,13:20,140
+LH190,Munich,Barcelona,Mon Wed Fri Sun,16:30,18:20,127
+LH122,Munich,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,09:00,10:30,106
+LH123,Munich,Copenhagen,Mon Tue Wed Thu Fri,14:00,15:30,116
+LH124,Munich,Copenhagen,Mon Wed Fri Sun,19:00,20:30,90
+LH125,Munich,Copenhagen,Fri Sat Sun,22:00,23:30,90
+LH208,Munich,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,08:45,134
+LH209,Munich,Dublin,Mon Tue Wed Thu Fri,11:30,13:45,163
+LH210,Munich,Dublin,Mon Wed Fri Sun,16:30,18:45,149
+LH142,Munich,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,08:20,09:10,67
+LH144,Munich,Frankfurt,Mon Tue Wed Thu Fri,13:20,14:10,74
+LH146,Munich,Frankfurt,Mon Wed Fri Sun,18:20,19:10,67
+LH148,Munich,Frankfurt,Fri Sat Sun,21:20,22:10,57
+LH103,Munich,Helsinki,Mon Tue Wed Thu Fri Sat Sun,09:45,12:15,163
+LH104,Munich,Helsinki,Mon Tue Wed Thu Fri,14:45,17:15,179
+LH105,Munich,Helsinki,Mon Wed Fri Sun,19:45,22:15,139
+LH203,Munich,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:30,08:55,145
+LH204,Munich,Istanbul,Mon Tue Wed Thu Fri,11:30,13:55,177
+LH205,Munich,Istanbul,Mon Wed Fri Sun,16:30,18:55,161
+LH206,Munich,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,09:45,174
+LH207,Munich,Lisbon,Mon Tue Wed Thu Fri,11:45,14:45,213
+LH130,Munich,London,Mon Tue Wed Thu Fri Sat Sun,08:55,10:35,116
+LH131,Munich,London,Mon Tue Wed Thu Fri,13:55,15:35,127
+LH132,Munich,London,Mon Wed Fri Sun,18:55,20:35,116
+LH185,Munich,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:45,09:05,142
+LH186,Munich,Madrid,Mon Tue Wed Thu Fri,11:45,14:05,173
+LH187,Munich,Madrid,Mon Wed Fri Sun,16:45,19:05,157
+LH115,Munich,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:40,11:50,144
+LH116,Munich,Oslo,Mon Tue Wed Thu Fri,14:40,16:50,158
+LH117,Munich,Oslo,Mon Wed Fri Sun,19:40,21:50,122
+LH181,Munich,Paris,Mon Tue Wed Thu Fri Sat Sun,06:30,07:50,87
+LH182,Munich,Paris,Mon Tue Wed Thu Fri,11:30,12:50,106
+LH183,Munich,Paris,Mon Wed Fri Sun,16:30,17:50,96
+LH184,Munich,Paris,Fri Sat Sun,19:30,20:50,82
+LH191,Munich,Rome,Mon Tue Wed Thu Fri Sat Sun,06:45,08:10,90
+LH192,Munich,Rome,Mon Tue Wed Thu Fri,11:45,13:10,110
+LH193,Munich,Rome,Mon Wed Fri Sun,16:45,18:10,100
+LH194,Munich,Rome,Fri Sat Sun,19:45,21:10,85
+LH109,Munich,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:25,11:35,144
+LH110,Munich,Stockholm,Mon Tue Wed Thu Fri,14:25,16:35,158
+LH111,Munich,Stockholm,Mon Wed Fri Sun,19:25,21:35,122
+LH195,Munich,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:30,07:25,64
+LH196,Munich,Vienna,Mon Tue Wed Thu Fri,11:30,12:25,79
+LH197,Munich,Vienna,Mon Wed Fri Sun,16:30,17:25,72
+LH198,Munich,Vienna,Fri Sat Sun,19:30,20:25,61
+LH211,Munich,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,08:15,93
+LH212,Munich,Warsaw,Mon Tue Wed Thu Fri,11:45,13:15,114
+LH213,Munich,Warsaw,Mon Wed Fri Sun,16:45,18:15,103
+LH214,Munich,Warsaw,Fri Sat Sun,19:45,21:15,88
+LH199,Munich,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:45,07:35,58
+LH200,Munich,Zurich,Mon Tue Wed Thu Fri,11:45,12:35,71
+LH201,Munich,Zurich,Mon Wed Fri Sun,16:45,17:35,65
+LH202,Munich,Zurich,Fri Sat Sun,19:45,20:35,55
+DY115,Oslo,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,06:45,08:25,105
+DY116,Oslo,Amsterdam,Mon Tue Wed Thu Fri,11:45,13:25,129
+DY117,Oslo,Amsterdam,Mon Wed Fri Sun,16:45,18:25,117
+DY129,Oslo,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:30,09:45,188
+DY130,Oslo,Barcelona,Mon Tue Wed Thu Fri,11:30,14:45,230
+DY108,Oslo,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,06:45,07:55,75
+DY109,Oslo,Copenhagen,Mon Tue Wed Thu Fri,11:45,12:55,92
+DY110,Oslo,Copenhagen,Mon Wed Fri Sun,16:45,17:55,84
+DY111,Oslo,Copenhagen,Fri Sat Sun,19:45,20:55,71
+DY143,Oslo,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,08:35,128
+DY144,Oslo,Dublin,Mon Tue Wed Thu Fri,11:30,13:35,156
+DY145,Oslo,Dublin,Mon Wed Fri Sun,16:30,18:35,142
+DY118,Oslo,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,06:30,08:25,117
+DY119,Oslo,Frankfurt,Mon Tue Wed Thu Fri,11:30,13:25,144
+DY120,Oslo,Frankfurt,Mon Wed Fri Sun,16:30,18:25,131
+DY100,Oslo,Helsinki,Mon Tue Wed Thu Fri Sat Sun,08:55,10:20,102
+DY101,Oslo,Helsinki,Mon Tue Wed Thu Fri,13:55,15:20,112
+DY102,Oslo,Helsinki,Mon Wed Fri Sun,18:55,20:20,102
+DY103,Oslo,Helsinki,Fri Sat Sun,21:55,23:20,87
+DY139,Oslo,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:30,10:00,204
+DY140,Oslo,Istanbul,Mon Tue Wed Thu Fri,11:30,15:00,250
+DY141,Oslo,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,10:45,227
+DY142,Oslo,Lisbon,Mon Tue Wed Thu Fri,11:45,15:45,278
+DY112,Oslo,London,Mon Tue Wed Thu Fri Sat Sun,06:30,08:30,122
+DY113,Oslo,London,Mon Tue Wed Thu Fri,11:30,13:30,149
+DY114,Oslo,London,Mon Wed Fri Sun,16:30,18:30,135
+DY127,Oslo,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:45,10:15,203
+DY128,Oslo,Madrid,Mon Tue Wed Thu Fri,11:45,15:15,249
+DY121,Oslo,Munich,Mon Tue Wed Thu Fri Sat Sun,06:45,08:55,129
+DY122,Oslo,Munich,Mon Tue Wed Thu Fri,11:45,13:55,158
+DY123,Oslo,Munich,Mon Wed Fri Sun,16:45,18:55,144
+DY124,Oslo,Paris,Mon Tue Wed Thu Fri Sat Sun,06:30,08:40,132
+DY125,Oslo,Paris,Mon Tue Wed Thu Fri,11:30,13:40,161
+DY126,Oslo,Paris,Mon Wed Fri Sun,16:30,18:40,147
+DY131,Oslo,Rome,Mon Tue Wed Thu Fri Sat Sun,06:45,09:50,179
+DY132,Oslo,Rome,Mon Tue Wed Thu Fri,11:45,14:50,218
+DY104,Oslo,Stockholm,Mon Tue Wed Thu Fri Sat Sun,08:30,09:30,74
+DY105,Oslo,Stockholm,Mon Tue Wed Thu Fri,13:30,14:30,81
+DY106,Oslo,Stockholm,Mon Wed Fri Sun,18:30,19:30,74
+DY107,Oslo,Stockholm,Fri Sat Sun,21:30,22:30,63
+DY133,Oslo,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:30,08:45,134
+DY134,Oslo,Vienna,Mon Tue Wed Thu Fri,11:30,13:45,164
+DY135,Oslo,Vienna,Mon Wed Fri Sun,16:30,18:45,149
+DY146,Oslo,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,08:35,113
+DY147,Oslo,Warsaw,Mon Tue Wed Thu Fri,11:45,13:35,139
+DY148,Oslo,Warsaw,Mon Wed Fri Sun,16:45,18:35,126
+DY136,Oslo,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:45,09:00,137
+DY137,Oslo,Zurich,Mon Tue Wed Thu Fri,11:45,14:00,167
+DY138,Oslo,Zurich,Mon Wed Fri Sun,16:45,19:00,152
+AF115,Paris,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,08:30,09:30,75
+AF116,Paris,Amsterdam,Mon Tue Wed Thu Fri,13:30,14:30,82
+AF117,Paris,Amsterdam,Mon Wed Fri Sun,18:30,19:30,75
+AF118,Paris,Amsterdam,Fri Sat Sun,21:30,22:30,64
+AF130,Paris,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:45,08:20,98
+AF131,Paris,Barcelona,Mon Tue Wed Thu Fri,11:45,13:20,120
+AF132,Paris,Barcelona,Mon Wed Fri Sun,16:45,18:20,109
+AF133,Paris,Barcelona,Fri Sat Sun,19:45,21:20,93
+AF108,Paris,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,09:00,10:45,120
+AF109,Paris,Copenhagen,Mon Tue Wed Thu Fri,14:00,15:45,132
+AF110,Paris,Copenhagen,Mon Wed Fri Sun,19:00,20:45,102
+AF149,Paris,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,08:15,93
+AF150,Paris,Dublin,Mon Tue Wed Thu Fri,11:45,13:15,114
+AF151,Paris,Dublin,Mon Wed Fri Sun,16:45,18:15,104
+AF152,Paris,Dublin,Fri Sat Sun,19:45,21:15,88
+AF119,Paris,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,08:20,09:25,79
+AF120,Paris,Frankfurt,Mon Tue Wed Thu Fri,13:20,14:25,87
+AF121,Paris,Frankfurt,Mon Wed Fri Sun,18:20,19:25,79
+AF122,Paris,Frankfurt,Fri Sat Sun,21:20,22:25,67
+AF100,Paris,Helsinki,Mon Tue Wed Thu Fri Sat Sun,10:20,13:10,187
+AF101,Paris,Helsinki,Mon Tue Wed Thu Fri,15:20,18:10,187
+AF144,Paris,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,10:00,190
+AF145,Paris,Istanbul,Mon Tue Wed Thu Fri,11:45,15:00,232
+AF146,Paris,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,08:50,140
+AF147,Paris,Lisbon,Mon Tue Wed Thu Fri,11:30,13:50,171
+AF148,Paris,Lisbon,Mon Wed Fri Sun,16:30,18:50,155
+AF111,Paris,London,Mon Tue Wed Thu Fri Sat Sun,08:25,09:20,71
+AF112,Paris,London,Mon Tue Wed Thu Fri,13:25,14:20,78
+AF113,Paris,London,Mon Wed Fri Sun,18:25,19:20,71
+AF114,Paris,London,Fri Sat Sun,21:25,22:20,60
+AF127,Paris,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:30,08:20,112
+AF128,Paris,Madrid,Mon Tue Wed Thu Fri,11:30,13:20,137
+AF129,Paris,Madrid,Mon Wed Fri Sun,16:30,18:20,125
+AF123,Paris,Munich,Mon Tue Wed Thu Fri Sat Sun,08:35,09:55,96
+AF124,Paris,Munich,Mon Tue Wed Thu Fri,13:35,14:55,106
+AF125,Paris,Munich,Mon Wed Fri Sun,18:35,19:55,96
+AF126,Paris,Munich,Fri Sat Sun,21:35,22:55,82
+AF105,Paris,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:25,11:35,147
+AF106,Paris,Oslo,Mon Tue Wed Thu Fri,14:25,16:35,161
+AF107,Paris,Oslo,Mon Wed Fri Sun,19:25,21:35,125
+AF134,Paris,Rome,Mon Tue Wed Thu Fri Sat Sun,06:30,08:25,115
+AF135,Paris,Rome,Mon Tue Wed Thu Fri,11:30,13:25,140
+AF136,Paris,Rome,Mon Wed Fri Sun,16:30,18:25,128
+AF102,Paris,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:55,12:20,160
+AF103,Paris,Stockholm,Mon Tue Wed Thu Fri,14:55,17:20,177
+AF104,Paris,Stockholm,Mon Wed Fri Sun,19:55,22:20,136
+AF137,Paris,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:45,08:35,110
+AF138,Paris,Vienna,Mon Tue Wed Thu Fri,11:45,13:35,135
+AF139,Paris,Vienna,Mon Wed Fri Sun,16:45,18:35,123
+AF153,Paris,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,08:40,131
+AF154,Paris,Warsaw,Mon Tue Wed Thu Fri,11:30,13:40,160
+AF155,Paris,Warsaw,Mon Wed Fri Sun,16:30,18:40,146
+AF140,Paris,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,07:35,73
+AF141,Paris,Zurich,Mon Tue Wed Thu Fri,11:30,12:35,89
+AF142,Paris,Zurich,Mon Wed Fri Sun,16:30,17:35,81
+AF143,Paris,Zurich,Fri Sat Sun,19:30,20:35,69
+AZ112,Rome,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,09:20,11:25,142
+AZ113,Rome,Amsterdam,Mon Tue Wed Thu Fri,14:20,16:25,156
+AZ114,Rome,Amsterdam,Mon Wed Fri Sun,19:20,21:25,121
+AZ128,Rome,Barcelona,Mon Tue Wed Thu Fri Sat Sun,09:05,10:40,109
+AZ129,Rome,Barcelona,Mon Tue Wed Thu Fri,14:05,15:40,119
+AZ130,Rome,Barcelona,Mon Wed Fri Sun,19:05,20:40,92
+AZ131,Rome,Barcelona,Fri Sat Sun,22:05,23:40,92
+AZ106,Rome,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,09:55,12:20,160
+AZ107,Rome,Copenhagen,Mon Tue Wed Thu Fri,14:55,17:20,176
+AZ108,Rome,Copenhagen,Mon Wed Fri Sun,19:55,22:20,136
+AZ145,Rome,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:30,09:20,168
+AZ146,Rome,Dublin,Mon Tue Wed Thu Fri,11:30,14:20,205
+AZ115,Rome,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,09:10,10:50,117
+AZ116,Rome,Frankfurt,Mon Tue Wed Thu Fri,14:10,15:50,129
+AZ117,Rome,Frankfurt,Mon Wed Fri Sun,19:10,20:50,99
+AZ100,Rome,Helsinki,Mon Tue Wed Thu Fri Sat Sun,10:35,13:55,213
+AZ101,Rome,Helsinki,Mon Tue Wed Thu Fri,15:35,18:55,213
+AZ140,Rome,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:30,08:45,133
+AZ141,Rome,Istanbul,Mon Tue Wed Thu Fri,11:30,13:45,163
+AZ142,Rome,Istanbul,Mon Wed Fri Sun,16:30,18:45,148
+AZ143,Rome,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:45,09:35,165
+AZ144,Rome,Lisbon,Mon Tue Wed Thu Fri,11:45,14:35,201
+AZ109,Rome,London,Mon Tue Wed Thu Fri Sat Sun,09:35,11:55,153
+AZ110,Rome,London,Mon Tue Wed Thu Fri,14:35,16:55,169
+AZ111,Rome,London,Mon Wed Fri Sun,19:35,21:55,130
+AZ125,Rome,Madrid,Mon Tue Wed Thu Fri Sat Sun,09:25,11:35,145
+AZ126,Rome,Madrid,Mon Tue Wed Thu Fri,14:25,16:35,159
+AZ127,Rome,Madrid,Mon Wed Fri Sun,19:25,21:35,123
+AZ118,Rome,Munich,Mon Tue Wed Thu Fri Sat Sun,08:55,10:20,100
+AZ119,Rome,Munich,Mon Tue Wed Thu Fri,13:55,15:20,110
+AZ120,Rome,Munich,Mon Wed Fri Sun,18:55,20:20,100
+AZ121,Rome,Munich,Fri Sat Sun,21:55,23:20,85
+AZ104,Rome,Oslo,Mon Tue Wed Thu Fri Sat Sun,10:35,13:40,199
+AZ105,Rome,Oslo,Mon Tue Wed Thu Fri,15:35,18:40,199
+AZ122,Rome,Paris,Mon Tue Wed Thu Fri Sat Sun,09:10,11:05,128
+AZ123,Rome,Paris,Mon Tue Wed Thu Fri,14:10,16:05,140
+AZ124,Rome,Paris,Mon Wed Fri Sun,19:10,21:05,108
+AZ102,Rome,Stockholm,Mon Tue Wed Thu Fri Sat Sun,10:15,13:15,197
+AZ103,Rome,Stockholm,Mon Tue Wed Thu Fri,15:15,18:15,197
+AZ132,Rome,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:30,08:00,93
+AZ133,Rome,Vienna,Mon Tue Wed Thu Fri,11:30,13:00,114
+AZ134,Rome,Vienna,Mon Wed Fri Sun,16:30,18:00,103
+AZ135,Rome,Vienna,Fri Sat Sun,19:30,21:00,88
+AZ147,Rome,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:45,08:55,130
+AZ148,Rome,Warsaw,Mon Tue Wed Thu Fri,11:45,13:55,159
+AZ149,Rome,Warsaw,Mon Wed Fri Sun,16:45,18:55,145
+AZ136,Rome,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:45,08:05,87
+AZ137,Rome,Zurich,Mon Tue Wed Thu Fri,11:45,13:05,107
+AZ138,Rome,Zurich,Mon Wed Fri Sun,16:45,18:05,97
+AZ139,Rome,Zurich,Fri Sat Sun,19:45,21:05,82
+SK123,Stockholm,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,06:30,08:25,118
+SK124,Stockholm,Amsterdam,Mon Tue Wed Thu Fri,11:30,13:25,145
+SK125,Stockholm,Amsterdam,Mon Wed Fri Sun,16:30,18:25,131
+SK137,Stockholm,Barcelona,Mon Tue Wed Thu Fri Sat Sun,06:45,10:10,197
+SK138,Stockholm,Barcelona,Mon Tue Wed Thu Fri,11:45,15:10,240
+SK112,Stockholm,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,06:30,07:40,77
+SK114,Stockholm,Copenhagen,Mon Tue Wed Thu Fri,11:30,12:40,95
+SK116,Stockholm,Copenhagen,Mon Wed Fri Sun,16:30,17:40,86
+SK118,Stockholm,Copenhagen,Fri Sat Sun,19:30,20:40,73
+SK151,Stockholm,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,09:15,150
+SK152,Stockholm,Dublin,Mon Tue Wed Thu Fri,11:45,14:15,184
+SK153,Stockholm,Dublin,Mon Wed Fri Sun,16:45,19:15,167
+SK126,Stockholm,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,06:45,08:45,123
+SK127,Stockholm,Frankfurt,Mon Tue Wed Thu Fri,11:45,13:45,150
+SK128,Stockholm,Frankfurt,Mon Wed Fri Sun,16:45,18:45,137
+SK100,Stockholm,Helsinki,Mon Tue Wed Thu Fri Sat Sun,08:15,09:15,75
+SK101,Stockholm,Helsinki,Mon Tue Wed Thu Fri,13:15,14:15,82
+SK102,Stockholm,Helsinki,Mon Wed Fri Sun,18:15,19:15,75
+SK103,Stockholm,Helsinki,Fri Sat Sun,21:15,22:15,64
+SK147,Stockholm,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,10:00,187
+SK148,Stockholm,Istanbul,Mon Tue Wed Thu Fri,11:45,15:00,229
+SK149,Stockholm,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,10:45,243
+SK150,Stockholm,Lisbon,Mon Tue Wed Thu Fri,11:30,15:45,297
+SK120,Stockholm,London,Mon Tue Wed Thu Fri Sat Sun,06:45,09:05,139
+SK121,Stockholm,London,Mon Tue Wed Thu Fri,11:45,14:05,170
+SK122,Stockholm,London,Mon Wed Fri Sun,16:45,19:05,155
+SK135,Stockholm,Madrid,Mon Tue Wed Thu Fri Sat Sun,06:30,10:15,216
+SK136,Stockholm,Madrid,Mon Tue Wed Thu Fri,11:30,15:15,264
+SK129,Stockholm,Munich,Mon Tue Wed Thu Fri Sat Sun,06:30,08:40,129
+SK130,Stockholm,Munich,Mon Tue Wed Thu Fri,11:30,13:40,158
+SK131,Stockholm,Munich,Mon Wed Fri Sun,16:30,18:40,144
+SK108,Stockholm,Oslo,Mon Tue Wed Thu Fri Sat Sun,06:45,07:45,66
+SK109,Stockholm,Oslo,Mon Tue Wed Thu Fri,11:45,12:45,81
+SK110,Stockholm,Oslo,Mon Wed Fri Sun,16:45,17:45,74
+SK111,Stockholm,Oslo,Fri Sat Sun,19:45,20:45,63
+SK132,Stockholm,Paris,Mon Tue Wed Thu Fri Sat Sun,06:45,09:10,144
+SK133,Stockholm,Paris,Mon Tue Wed Thu Fri,11:45,14:10,177
+SK134,Stockholm,Paris,Mon Wed Fri Sun,16:45,19:10,160
+SK139,Stockholm,Rome,Mon Tue Wed Thu Fri Sat Sun,06:30,09:30,177
+SK140,Stockholm,Rome,Mon Tue Wed Thu Fri,11:30,14:30,216
+SK141,Stockholm,Vienna,Mon Tue Wed Thu Fri Sat Sun,06:45,08:50,127
+SK142,Stockholm,Vienna,Mon Tue Wed Thu Fri,11:45,13:50,156
+SK143,Stockholm,Vienna,Mon Wed Fri Sun,16:45,18:50,141
+SK154,Stockholm,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,08:05,98
+SK155,Stockholm,Warsaw,Mon Tue Wed Thu Fri,11:30,13:05,120
+SK156,Stockholm,Warsaw,Mon Wed Fri Sun,16:30,18:05,109
+SK157,Stockholm,Warsaw,Fri Sat Sun,19:30,21:05,93
+SK144,Stockholm,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,08:50,141
+SK145,Stockholm,Zurich,Mon Tue Wed Thu Fri,11:30,13:50,172
+SK146,Stockholm,Zurich,Mon Wed Fri Sun,16:30,18:50,157
+OS116,Vienna,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,09:10,10:50,117
+OS117,Vienna,Amsterdam,Mon Tue Wed Thu Fri,14:10,15:50,129
+OS118,Vienna,Amsterdam,Mon Wed Fri Sun,19:10,20:50,99
+OS132,Vienna,Barcelona,Mon Tue Wed Thu Fri Sat Sun,09:30,11:45,148
+OS133,Vienna,Barcelona,Mon Tue Wed Thu Fri,14:30,16:45,163
+OS134,Vienna,Barcelona,Mon Wed Fri Sun,19:30,21:45,126
+OS109,Vienna,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,08:50,10:25,111
+OS110,Vienna,Copenhagen,Mon Tue Wed Thu Fri,13:50,15:25,122
+OS111,Vienna,Copenhagen,Mon Wed Fri Sun,18:50,20:25,111
+OS112,Vienna,Copenhagen,Fri Sat Sun,21:50,23:25,94
+OS148,Vienna,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,09:25,155
+OS149,Vienna,Dublin,Mon Tue Wed Thu Fri,11:45,14:25,190
+OS150,Vienna,Dublin,Mon Wed Fri Sun,16:45,19:25,173
+OS119,Vienna,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,08:30,09:45,92
+OS120,Vienna,Frankfurt,Mon Tue Wed Thu Fri,13:30,14:45,101
+OS121,Vienna,Frankfurt,Mon Wed Fri Sun,18:30,19:45,92
+OS122,Vienna,Frankfurt,Fri Sat Sun,21:30,22:45,78
+OS100,Vienna,Helsinki,Mon Tue Wed Thu Fri Sat Sun,09:50,12:10,155
+OS101,Vienna,Helsinki,Mon Tue Wed Thu Fri,14:50,17:10,170
+OS102,Vienna,Helsinki,Mon Wed Fri Sun,19:50,22:10,131
+OS143,Vienna,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,08:45,123
+OS144,Vienna,Istanbul,Mon Tue Wed Thu Fri,11:45,13:45,151
+OS145,Vienna,Istanbul,Mon Wed Fri Sun,16:45,18:45,137
+OS146,Vienna,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,09:55,196
+OS147,Vienna,Lisbon,Mon Tue Wed Thu Fri,11:30,14:55,240
+OS113,Vienna,London,Mon Tue Wed Thu Fri Sat Sun,09:35,11:40,141
+OS114,Vienna,London,Mon Tue Wed Thu Fri,14:35,16:40,155
+OS115,Vienna,London,Mon Wed Fri Sun,19:35,21:40,120
+OS130,Vienna,Madrid,Mon Tue Wed Thu Fri Sat Sun,10:15,13:00,180
+OS131,Vienna,Madrid,Mon Tue Wed Thu Fri,15:15,18:00,180
+OS123,Vienna,Munich,Mon Tue Wed Thu Fri Sat Sun,08:10,09:05,72
+OS124,Vienna,Munich,Mon Tue Wed Thu Fri,13:10,14:05,79
+OS125,Vienna,Munich,Mon Wed Fri Sun,18:10,19:05,72
+OS126,Vienna,Munich,Fri Sat Sun,21:10,22:05,61
+OS106,Vienna,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:30,11:45,149
+OS107,Vienna,Oslo,Mon Tue Wed Thu Fri,14:30,16:45,164
+OS108,Vienna,Oslo,Mon Wed Fri Sun,19:30,21:45,127
+OS127,Vienna,Paris,Mon Tue Wed Thu Fri Sat Sun,09:20,11:10,123
+OS128,Vienna,Paris,Mon Tue Wed Thu Fri,14:20,16:10,135
+OS129,Vienna,Paris,Mon Wed Fri Sun,19:20,21:10,104
+OS135,Vienna,Rome,Mon Tue Wed Thu Fri Sat Sun,08:45,10:15,103
+OS136,Vienna,Rome,Mon Tue Wed Thu Fri,13:45,15:15,114
+OS137,Vienna,Rome,Mon Wed Fri Sun,18:45,20:15,103
+OS138,Vienna,Rome,Fri Sat Sun,21:45,23:15,88
+OS103,Vienna,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:35,11:40,141
+OS104,Vienna,Stockholm,Mon Tue Wed Thu Fri,14:35,16:40,156
+OS105,Vienna,Stockholm,Mon Wed Fri Sun,19:35,21:40,120
+OS151,Vienna,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,07:40,78
+OS152,Vienna,Warsaw,Mon Tue Wed Thu Fri,11:30,12:40,95
+OS153,Vienna,Warsaw,Mon Wed Fri Sun,16:30,17:40,86
+OS154,Vienna,Warsaw,Fri Sat Sun,19:30,20:40,73
+OS139,Vienna,Zurich,Mon Tue Wed Thu Fri Sat Sun,06:30,07:45,81
+OS140,Vienna,Zurich,Mon Tue Wed Thu Fri,11:30,12:45,99
+OS141,Vienna,Zurich,Mon Wed Fri Sun,16:30,17:45,90
+OS142,Vienna,Zurich,Fri Sat Sun,19:30,20:45,77
+LO117,Warsaw,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,09:10,11:05,128
+LO118,Warsaw,Amsterdam,Mon Tue Wed Thu Fri,14:10,16:05,140
+LO119,Warsaw,Amsterdam,Mon Wed Fri Sun,19:10,21:05,108
+LO133,Warsaw,Barcelona,Mon Tue Wed Thu Fri Sat Sun,10:20,13:10,185
+LO134,Warsaw,Barcelona,Mon Tue Wed Thu Fri,15:20,18:10,185
+LO110,Warsaw,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,08:50,10:10,95
+LO111,Warsaw,Copenhagen,Mon Tue Wed Thu Fri,13:50,15:10,104
+LO112,Warsaw,Copenhagen,Mon Wed Fri Sun,18:50,20:10,95
+LO113,Warsaw,Copenhagen,Fri Sat Sun,21:50,23:10,81
+LO150,Warsaw,Dublin,Mon Tue Wed Thu Fri Sat Sun,10:00,12:45,182
+LO151,Warsaw,Dublin,Mon Tue Wed Thu Fri,15:00,17:45,182
+LO120,Warsaw,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,09:05,10:40,112
+LO121,Warsaw,Frankfurt,Mon Tue Wed Thu Fri,14:05,15:40,123
+LO122,Warsaw,Frankfurt,Mon Wed Fri Sun,19:05,20:40,95
+LO123,Warsaw,Frankfurt,Fri Sat Sun,22:05,23:40,95
+LO100,Warsaw,Helsinki,Mon Tue Wed Thu Fri Sat Sun,08:55,10:35,115
+LO101,Warsaw,Helsinki,Mon Tue Wed Thu Fri,13:55,15:35,127
+LO102,Warsaw,Helsinki,Mon Wed Fri Sun,18:55,20:35,115
+LO145,Warsaw,Istanbul,Mon Tue Wed Thu Fri Sat Sun,09:40,11:50,146
+LO146,Warsaw,Istanbul,Mon Tue Wed Thu Fri,14:40,16:50,161
+LO147,Warsaw,Istanbul,Mon Wed Fri Sun,19:40,21:50,124
+LO148,Warsaw,Lisbon,Mon Tue Wed Thu Fri Sat Sun,11:25,15:20,276
+LO149,Warsaw,Lisbon,Mon Tue Wed Thu Fri,16:25,20:20,251
+LO114,Warsaw,London,Mon Tue Wed Thu Fri Sat Sun,09:35,11:55,155
+LO115,Warsaw,London,Mon Tue Wed Thu Fri,14:35,16:55,171
+LO116,Warsaw,London,Mon Wed Fri Sun,19:35,21:55,132
+LO131,Warsaw,Madrid,Mon Tue Wed Thu Fri Sat Sun,10:35,13:55,215
+LO132,Warsaw,Madrid,Mon Tue Wed Thu Fri,15:35,18:55,215
+LO124,Warsaw,Munich,Mon Tue Wed Thu Fri Sat Sun,09:00,10:30,103
+LO125,Warsaw,Munich,Mon Tue Wed Thu Fri,14:00,15:30,114
+LO126,Warsaw,Munich,Mon Wed Fri Sun,19:00,20:30,88
+LO127,Warsaw,Munich,Fri Sat Sun,22:00,23:30,88
+LO107,Warsaw,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:20,11:10,126
+LO108,Warsaw,Oslo,Mon Tue Wed Thu Fri,14:20,16:10,139
+LO109,Warsaw,Oslo,Mon Wed Fri Sun,19:20,21:10,107
+LO128,Warsaw,Paris,Mon Tue Wed Thu Fri Sat Sun,09:25,11:35,146
+LO129,Warsaw,Paris,Mon Tue Wed Thu Fri,14:25,16:35,160
+LO130,Warsaw,Paris,Mon Wed Fri Sun,19:25,21:35,124
+LO135,Warsaw,Rome,Mon Tue Wed Thu Fri Sat Sun,09:40,11:50,145
+LO136,Warsaw,Rome,Mon Tue Wed Thu Fri,14:40,16:50,159
+LO137,Warsaw,Rome,Mon Wed Fri Sun,19:40,21:50,123
+LO103,Warsaw,Stockholm,Mon Tue Wed Thu Fri Sat Sun,08:50,10:25,109
+LO104,Warsaw,Stockholm,Mon Tue Wed Thu Fri,13:50,15:25,120
+LO105,Warsaw,Stockholm,Mon Wed Fri Sun,18:50,20:25,109
+LO106,Warsaw,Stockholm,Fri Sat Sun,21:50,23:25,93
+LO138,Warsaw,Vienna,Mon Tue Wed Thu Fri Sat Sun,08:25,09:35,86
+LO139,Warsaw,Vienna,Mon Tue Wed Thu Fri,13:25,14:35,95
+LO140,Warsaw,Vienna,Mon Wed Fri Sun,18:25,19:35,86
+LO141,Warsaw,Vienna,Fri Sat Sun,21:25,22:35,73
+LO142,Warsaw,Zurich,Mon Tue Wed Thu Fri Sat Sun,09:00,10:45,122
+LO143,Warsaw,Zurich,Mon Tue Wed Thu Fri,14:00,15:45,135
+LO144,Warsaw,Zurich,Mon Wed Fri Sun,19:00,20:45,104
+LX116,Zurich,Amsterdam,Mon Tue Wed Thu Fri Sat Sun,08:30,09:45,90
+LX117,Zurich,Amsterdam,Mon Tue Wed Thu Fri,13:30,14:45,99
+LX118,Zurich,Amsterdam,Mon Wed Fri Sun,18:30,19:45,90
+LX119,Zurich,Amsterdam,Fri Sat Sun,21:30,22:45,77
+LX135,Zurich,Barcelona,Mon Tue Wed Thu Fri Sat Sun,09:05,10:40,109
+LX136,Zurich,Barcelona,Mon Tue Wed Thu Fri,14:05,15:40,120
+LX137,Zurich,Barcelona,Mon Wed Fri Sun,19:05,20:40,93
+LX138,Zurich,Barcelona,Fri Sat Sun,22:05,23:40,93
+LX109,Zurich,Copenhagen,Mon Tue Wed Thu Fri Sat Sun,09:10,10:50,116
+LX110,Zurich,Copenhagen,Mon Tue Wed Thu Fri,14:10,15:50,128
+LX111,Zurich,Copenhagen,Mon Wed Fri Sun,19:10,20:50,99
+LX153,Zurich,Dublin,Mon Tue Wed Thu Fri Sat Sun,06:45,08:50,124
+LX154,Zurich,Dublin,Mon Tue Wed Thu Fri,11:45,13:50,152
+LX155,Zurich,Dublin,Mon Wed Fri Sun,16:45,18:50,138
+LX120,Zurich,Frankfurt,Mon Tue Wed Thu Fri Sat Sun,08:20,09:10,67
+LX121,Zurich,Frankfurt,Mon Tue Wed Thu Fri,13:20,14:10,73
+LX122,Zurich,Frankfurt,Mon Wed Fri Sun,18:20,19:10,67
+LX123,Zurich,Frankfurt,Fri Sat Sun,21:20,22:10,57
+LX100,Zurich,Helsinki,Mon Tue Wed Thu Fri Sat Sun,10:00,12:45,178
+LX101,Zurich,Helsinki,Mon Tue Wed Thu Fri,15:00,17:45,178
+LX102,Zurich,Helsinki,Mon Wed Fri Sun,20:00,22:45,152
+LX147,Zurich,Istanbul,Mon Tue Wed Thu Fri Sat Sun,06:45,09:25,158
+LX148,Zurich,Istanbul,Mon Tue Wed Thu Fri,11:45,14:25,193
+LX149,Zurich,Istanbul,Mon Wed Fri Sun,16:45,19:25,176
+LX150,Zurich,Lisbon,Mon Tue Wed Thu Fri Sat Sun,06:30,09:10,157
+LX151,Zurich,Lisbon,Mon Tue Wed Thu Fri,11:30,14:10,192
+LX152,Zurich,Lisbon,Mon Wed Fri Sun,16:30,19:10,174
+LX112,Zurich,London,Mon Tue Wed Thu Fri Sat Sun,08:45,10:15,104
+LX113,Zurich,London,Mon Tue Wed Thu Fri,13:45,15:15,115
+LX114,Zurich,London,Mon Wed Fri Sun,18:45,20:15,104
+LX115,Zurich,London,Fri Sat Sun,21:45,23:15,88
+LX132,Zurich,Madrid,Mon Tue Wed Thu Fri Sat Sun,09:20,11:25,138
+LX133,Zurich,Madrid,Mon Tue Wed Thu Fri,14:20,16:25,152
+LX134,Zurich,Madrid,Mon Wed Fri Sun,19:20,21:25,117
+LX124,Zurich,Munich,Mon Tue Wed Thu Fri Sat Sun,08:20,09:10,65
+LX125,Zurich,Munich,Mon Tue Wed Thu Fri,13:20,14:10,71
+LX126,Zurich,Munich,Mon Wed Fri Sun,18:20,19:10,65
+LX127,Zurich,Munich,Fri Sat Sun,21:20,22:10,55
+LX106,Zurich,Oslo,Mon Tue Wed Thu Fri Sat Sun,09:45,12:00,152
+LX107,Zurich,Oslo,Mon Tue Wed Thu Fri,14:45,17:00,167
+LX108,Zurich,Oslo,Mon Wed Fri Sun,19:45,22:00,129
+LX128,Zurich,Paris,Mon Tue Wed Thu Fri Sat Sun,08:20,09:25,81
+LX129,Zurich,Paris,Mon Tue Wed Thu Fri,13:20,14:25,89
+LX130,Zurich,Paris,Mon Wed Fri Sun,18:20,19:25,81
+LX131,Zurich,Paris,Fri Sat Sun,21:20,22:25,69
+LX139,Zurich,Rome,Mon Tue Wed Thu Fri Sat Sun,08:50,10:10,97
+LX140,Zurich,Rome,Mon Tue Wed Thu Fri,13:50,15:10,107
+LX141,Zurich,Rome,Mon Wed Fri Sun,18:50,20:10,97
+LX142,Zurich,Rome,Fri Sat Sun,21:50,23:10,82
+LX103,Zurich,Stockholm,Mon Tue Wed Thu Fri Sat Sun,09:35,11:55,157
+LX104,Zurich,Stockholm,Mon Tue Wed Thu Fri,14:35,16:55,172
+LX105,Zurich,Stockholm,Mon Wed Fri Sun,19:35,21:55,133
+LX143,Zurich,Vienna,Mon Tue Wed Thu Fri Sat Sun,08:30,09:45,90
+LX144,Zurich,Vienna,Mon Tue Wed Thu Fri,13:30,14:45,99
+LX145,Zurich,Vienna,Mon Wed Fri Sun,18:30,19:45,90
+LX146,Zurich,Vienna,Fri Sat Sun,21:30,22:45,77
+LX156,Zurich,Warsaw,Mon Tue Wed Thu Fri Sat Sun,06:30,08:15,110
+LX157,Zurich,Warsaw,Mon Tue Wed Thu Fri,11:30,13:15,135
+LX158,Zurich,Warsaw,Mon Wed Fri Sun,16:30,18:15,122
