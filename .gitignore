@@ -4,3 +4,4 @@
 .jupyter_cache
 jupyter_execute
 uv.lock
+__pycache__
