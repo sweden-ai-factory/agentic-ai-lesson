@@ -60,7 +60,7 @@ async def main():
             async for text in result.stream_text(delta=True):
                 print(text, end="", flush=True)
             print()
-        history = result.all_messages() if args.history else []
+        history = result.all_messages() if args.enable_history else []
 
 
 if __name__ == "__main__":
