@@ -39,6 +39,20 @@ model = OpenAIChatModel(
     provider=OpenAIProvider(openai_client=client),
 )
 
+
+@dataclass
+class Deps:
+    web_page_text: str
+    date: datetime.date
+
+
+class TripRequest(BaseModel):
+    """Details of the trip request by the user."""
+    req_origin: str
+    req_destination: str
+    req_date: datetime.date
+
+
 class FlightDetails(BaseModel):
     """Details of the most suitable flight."""
 
@@ -51,14 +65,6 @@ class FlightDetails(BaseModel):
 
 class NoFlightFound(BaseModel):
     """When no valid flight is found."""
-
-
-@dataclass
-class Deps:
-    web_page_text: str
-    req_origin: str
-    req_destination: str
-    req_date: datetime.date
 
 
 
@@ -194,20 +200,41 @@ flights_web_page = """
 # restrict how many requests this app can make to the LLM
 usage_limits = UsageLimits(request_limit=15)
 
+conversational_agent = Agent(
+    model,
+    instructions=(
+        "You are a helpful assistant that helps the user find a flight. "
+        "Extract the origin, desination, and date of the trip the user is looking for."
+    ),
+    output_type=TripRequest
+
+)
 
 async def main():
-    deps = Deps(
-        web_page_text=flights_web_page,
-        req_origin='SFO',
-        req_destination='ANC',
-        req_date=datetime.date(2025, 1, 10),
+    # deps = Deps(
+    #     web_page_text=flights_web_page,
+    #     req_origin='SFO',
+    #     req_destination='ANC',
+    #     req_date=datetime.date(2025, 1, 10),
+    # )
+    user_prompt = Prompt.ask(
+        "Hi! I am a flight search assistant. "
+        "You can tell me the locations and dates of your trip and I will find the best flight for you\n>"
     )
     message_history: list[ModelMessage] | None = None
+    deps = Deps(web_page_text=flights_web_page, date=datetime.date(2025, 1, 10))
     usage: RunUsage = RunUsage()
+
     # run the agent until a satisfactory flight is found
+    result = await conversational_agent.run(
+        user_prompt=user_prompt,
+        deps=deps,
+        message_history=message_history,
+    )
+    trip = result.output
     while True:
         result = await search_agent.run(
-            f'Find me a flight from {deps.req_origin} to {deps.req_destination} on {deps.req_date}',
+            f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
             deps=deps,
             usage=usage,
             message_history=message_history,
