@@ -23,6 +23,7 @@ dev = [
 ]
 # All dependencies used within Jupyter Notebooks
 notebook = [
+    "openai>=3.20.0",
     "pydantic-ai>=2.51.0",
 ]
 
