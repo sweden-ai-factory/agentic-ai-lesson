@@ -4,13 +4,13 @@ In this scenario, a group of agents work together to find flights for a user.
 """
 
 import datetime
+import os
 from dataclasses import dataclass
 from typing import Literal
 
 import logfire
+from openai import AsyncOpenAI
 from pydantic import BaseModel, Field
-from rich.prompt import Prompt
-
 from pydantic_ai import (
     Agent,
     ModelMessage,
@@ -19,11 +19,25 @@ from pydantic_ai import (
     RunUsage,
     UsageLimits,
 )
+from pydantic_ai.models.openai import OpenAIChatModel
+from pydantic_ai.providers.openai import OpenAIProvider
+from rich.prompt import Prompt
 
 # 'if-token-present' means nothing will be sent (and the example will work) if you don't have logfire configured
 logfire.configure(send_to_logfire='if-token-present')
 logfire.instrument_pydantic_ai()
 
+# configure the inference endpoint
+client = AsyncOpenAI(
+    api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
+    base_url="https://aitta-api.csc.fi/openai/v1",
+)
+
+# choose the model from the inference endpoint
+model = OpenAIChatModel(
+    "google/gemma-4-31b-it",
+    provider=OpenAIProvider(openai_client=client),
+)
 
 class FlightDetails(BaseModel):
     """Details of the most suitable flight."""
@@ -47,9 +61,10 @@ class Deps:
     req_date: datetime.date
 
 
+
 # This agent is responsible for controlling the flow of the conversation.
 search_agent = Agent[Deps, FlightDetails | NoFlightFound](
-    'openai:gpt-5.2',
+    model,
     output_type=FlightDetails | NoFlightFound,
     deps_type=Deps,
     retries=4,
@@ -61,7 +76,7 @@ search_agent = Agent[Deps, FlightDetails | NoFlightFound](
 
 # This agent is responsible for extracting flight details from web page text.
 extraction_agent = Agent(
-    'openai:gpt-5.2',
+    model,
     output_type=list[FlightDetails],
     instructions='Extract all the flight details from the given text.',
 )
@@ -113,7 +128,7 @@ class Failed(BaseModel):
 
 # This agent is responsible for extracting the user's seat selection
 seat_preference_agent = Agent[object, SeatPreference | Failed](
-    'openai:gpt-5.2',
+    model,
     output_type=SeatPreference | Failed,
     instructions=(
         "Extract the user's seat preference. "
