@@ -24,8 +24,8 @@ prompt = "Where does 'hello world' come from?"
 async def main():
     async with agent.run_stream(prompt) as result:
         print()
-        async for message in result.stream_text(delta=True):
-            print(message, end="")
+        async for text in result.stream_text(delta=True):
+            print(text, end="", flush=True)
         print()
 
 
