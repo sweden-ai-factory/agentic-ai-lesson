@@ -1,13 +1,10 @@
 import argparse
 import asyncio
-import datetime
 import os
 from pathlib import Path
 
 import logfire
-import pandas as pd
 from openai import AsyncOpenAI
-from zoneinfo import ZoneInfo
 
 from pydantic import TypeAdapter
 from pydantic_ai import Agent
