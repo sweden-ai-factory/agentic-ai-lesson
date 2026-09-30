@@ -14,6 +14,7 @@ USE_OPENTELEMETRY = False
 # Run it via:
 # 	docker run --rm -it -p 4318:4318 --name otel-tui docker://ymtdzzz/otel-tui:latest
 
+os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 if USE_OPENTELEMETRY:
     logfire.configure(send_to_logfire=False)
     logfire.instrument_pydantic_ai()
