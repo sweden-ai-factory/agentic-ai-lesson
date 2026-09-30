@@ -9,8 +9,8 @@ from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
-USE_OPENTELEMETRY = True
-os.environ['OTEL_EXPORTER_OTLP_ENDPOINT'] = 'http://localhost:4318'
+USE_OPENTELEMETRY = False
+#os.environ['OTEL_EXPORTER_OTLP_ENDPOINT'] = 'http://localhost:4318'
 # Run it via:
 # 	docker run --rm -it -p 4318:4318 --name otel-tui docker://ymtdzzz/otel-tui:latest
 
@@ -35,8 +35,9 @@ model_settings = ModelSettings(
     timeout=10,
 )
 model = OpenAIChatModel(
-    # "google/gemma-4-31b-it",
+    #"google/gemma-4-31b-it",
     "Qwen/Qwen3-Coder-Next",
+    #"openai/gpt-oss-120b",
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
 )
