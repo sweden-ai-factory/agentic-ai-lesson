@@ -33,3 +33,8 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = false
+
+[tool.uv.workspace]
+members = [
+    "content",
+]
