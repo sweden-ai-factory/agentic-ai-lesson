@@ -69,20 +69,26 @@ async def main():
             print('No flight found')
             break
         else:
-            flight = result.output
-            print(f'Flight found: {flight}')
+            flights = result.output
+            print(f'Found {len(flights)} flight(s):')
+            for i, flight in enumerate(flights, start=1):
+                print(
+                    f'  {i}. {flight.flight_number}: {flight.origin} -> '
+                    f'{flight.destination} on {flight.date} for €{flight.price}'
+                )
             answer = Prompt.ask(
-                'Do you want to buy this flight, or keep searching? (buy/*search)',
-                choices=['buy', 'search', ''],
+                'Enter the number of the flight to buy, or "search" to keep looking',
+                choices=[str(i) for i in range(1, len(flights) + 1)] + ['search', ''],
                 show_choices=False,
             )
-            if answer == 'buy':
+            if answer.isdigit():
+                flight = flights[int(answer) - 1]
                 seat = await find_seat(usage)
                 await buy_tickets(flight, seat)
                 break
             else:
                 message_history = result.all_messages(
-                    output_tool_return_content='Please suggest another flight'
+                    output_tool_return_content='Please suggest other flights'
                 )
 
 

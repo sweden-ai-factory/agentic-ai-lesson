@@ -59,17 +59,18 @@ class Failed(BaseModel):
     """Unable to extract a seat selection."""
 
 # This agent is responsible for controlling the flow of the conversation.
-search_agent = Agent[Deps, FlightDetails | NoFlightFound](
+search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
     model,
-    output_type=FlightDetails | NoFlightFound,
+    output_type=list[FlightDetails] | NoFlightFound,
     deps_type=Deps,
     retries=4,
     instructions=(
-        'Your job is to find the cheapest flight for the user on the requested date. '
+        'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
         'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '
-        'Then use search_flights to look up matching flights and return the cheapest one, '
-        'with its date set to the resolved travel date.'
+        'Then use search_flights to look up matching flights and return all of them '
+        'sorted by price (cheapest first), each with its date set to the resolved '
+        'travel date. Return NoFlightFound only if there are no matching flights.'
     ),
 )
 
@@ -124,21 +125,24 @@ def search_flights(origin: str, destination: str, date: str) -> str:
 
 @search_agent.output_validator
 async def validate_output(
-    ctx: RunContext[Deps], output: FlightDetails | NoFlightFound
-) -> FlightDetails | NoFlightFound:
-    """Procedural validation that the flight meets the constraints."""
+    ctx: RunContext[Deps], output: list[FlightDetails] | NoFlightFound
+) -> list[FlightDetails] | NoFlightFound:
+    """Procedural validation that every returned flight meets the constraints."""
     if isinstance(output, NoFlightFound):
         return output
 
     errors: list[str] = []
-    if output.origin.lower() != ctx.deps.req_origin.lower():
-        errors.append(
-            f'Flight should have origin {ctx.deps.req_origin}, not {output.origin}'
-        )
-    if output.destination.lower() != ctx.deps.req_destination.lower():
-        errors.append(
-            f'Flight should have destination {ctx.deps.req_destination}, not {output.destination}'
-        )
+    for flight in output:
+        if flight.origin.lower() != ctx.deps.req_origin.lower():
+            errors.append(
+                f'Flight {flight.flight_number} should have origin '
+                f'{ctx.deps.req_origin}, not {flight.origin}'
+            )
+        if flight.destination.lower() != ctx.deps.req_destination.lower():
+            errors.append(
+                f'Flight {flight.flight_number} should have destination '
+                f'{ctx.deps.req_destination}, not {flight.destination}'
+            )
 
     if errors:
         raise ModelRetry('\n'.join(errors))
