@@ -19,7 +19,7 @@ client = AsyncOpenAI(
     base_url="https://aitta-api.csc.fi/openai/v1",
 )
 
-policy_text = Path("skills/travel_policy/skill.md").read_text()
+policy_text = (Path(__file__).parent / "skills" / "travel-policy" / "skill.md").read_text()
 
 model = OpenAIChatModel(
     "google/gemma-4-31b-it",
