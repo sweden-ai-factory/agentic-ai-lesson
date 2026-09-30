@@ -44,6 +44,8 @@ class FlightDetails(BaseModel):
     origin: str = Field(description='Departure city')
     destination: str = Field(description='Arrival city')
     date: datetime.date
+    departure_time: datetime.time
+    arrival_time: datetime.time
 
 
 class NoFlightFound(BaseModel):
@@ -70,7 +72,7 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
         'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '
         'Then use search_flights to look up matching flights and return all of them '
         'sorted by price (cheapest first), each with its date set to the resolved '
-        'travel date. Return NoFlightFound only if there are no matching flights.'
+        'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
     ),
 )
 

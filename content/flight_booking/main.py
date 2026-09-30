@@ -74,7 +74,8 @@ async def main():
             for i, flight in enumerate(flights, start=1):
                 print(
                     f'  {i}. {flight.flight_number}: {flight.origin} -> '
-                    f'{flight.destination} on {flight.date} for €{flight.price}'
+                    f'{flight.destination} on {flight.date}: '
+                    f'{flight.departure_time} - {flight.arrival_time} for €{flight.price}'
                 )
             answer = Prompt.ask(
                 'Enter the number of the flight to buy, or "search" to keep looking',
