@@ -42,18 +42,21 @@ async def main():
         "Hi! I am a flight search assistant. "
         "You can tell me the locations and dates of your trip and I will find the best flight for you\n>"
     )
-    message_history: list[ModelMessage] | None = None
+    conversation_history: list[ModelMessage] | None = None
     deps = Deps()
     usage: RunUsage = RunUsage()
 
     while True:
-        # run the agent until a satisfactory flight is found
+        # work out the trip the user wants (origin, destination, date), keeping the
+        # conversation history so follow-ups like "make it next Monday" or "try Rome
+        # instead" refine the previous request rather than starting from scratch
         user_result = await conversational_agent.run(
-            user_prompt=user_prompt,
+            user_prompt,
             deps=deps,
-            message_history=message_history,
+            message_history=conversation_history,
             usage_limits=usage_limits,
         )
+        conversation_history = user_result.all_messages()
         trip = user_result.output
         deps.req_origin = trip.req_origin
         deps.req_destination = trip.req_destination
@@ -62,12 +65,14 @@ async def main():
             f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
             deps=deps,
             usage=usage,
-            message_history=message_history,
             usage_limits=usage_limits,
         )
+
         if isinstance(result.output, NoFlightFound):
-            print('No flight found')
-            break
+            print(
+                f'No flights from {trip.req_origin} to {trip.req_destination} '
+                f'on {trip.req_date}.'
+            )
         else:
             flights = result.output
             print(f'Found {len(flights)} flight(s):')
@@ -78,8 +83,8 @@ async def main():
                     f'{flight.departure_time} - {flight.arrival_time} for €{flight.price}'
                 )
             answer = Prompt.ask(
-                'Enter the number of the flight to buy, or "search" to keep looking',
-                choices=[str(i) for i in range(1, len(flights) + 1)] + ['search', ''],
+                'Enter the number of the flight to buy, or press Enter to change your trip',
+                choices=[str(i) for i in range(1, len(flights) + 1)] + [''],
                 show_choices=False,
             )
             if answer.isdigit():
@@ -87,10 +92,14 @@ async def main():
                 seat = await find_seat(usage)
                 await buy_tickets(flight, seat)
                 break
-            else:
-                message_history = result.all_messages(
-                    output_tool_return_content='Please suggest other flights'
-                )
+
+        # nothing bought yet: let the user change the date, destination, etc.
+        user_prompt = Prompt.ask(
+            'Tell me what to change (e.g. a different date or destination), '
+            'or type "quit" to stop'
+        )
+        if user_prompt.strip().lower() in {'quit', 'exit'}:
+            break
 
 
 if __name__ == '__main__':
