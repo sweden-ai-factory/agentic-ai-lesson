@@ -26,6 +26,8 @@ model = OpenAIChatModel(
 )
 agent = Agent(model)
 
+WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
 
 @agent.tool_plain
 def get_current_datetime(timezone: str | None = None) -> str:
@@ -46,23 +48,28 @@ def get_current_datetime(timezone: str | None = None) -> str:
 def search_flights(
     origin: str | None = None,
     destination: str | None = None,
-    weekday: str | None = None,
+    date: str | None = None,
 ) -> str:
     """Search the weekly flight schedule. Flights recur on fixed weekdays.
 
     Args:
         origin: departure city, e.g. 'Helsinki'. Omit to match any.
         destination: arrival city, e.g. 'Stockholm'. Omit to match any.
-        weekday: day of the week, e.g. 'Friday'. Omit to see the full weekly schedule.
+        date: travel date 'YYYY-MM-DD'; returns flights on that weekday. Resolve
+            relative dates like 'tomorrow' with get_current_datetime first.
     """
-    logfire.info("tool called with {origin=} {destination=} {weekday=}", origin=origin, destination=destination, weekday=weekday)
+    logfire.info("tool called with {origin=} {destination=} {date=}", origin=origin, destination=destination, date=date)
     flights = pd.read_csv(Path(__file__).parent / "data" / "flights.csv")
     if origin:
         flights = flights[flights["origin"].str.lower() == origin.lower()]
     if destination:
         flights = flights[flights["destination"].str.lower() == destination.lower()]
-    if weekday:
-        flights = flights[flights["weekdays"].str.contains(weekday.capitalize()[:3])]
+    if date:
+        try:
+            weekday = WEEKDAYS[datetime.date.fromisoformat(date).weekday()]
+        except ValueError:
+            return f"Invalid date {date!r}, expected 'YYYY-MM-DD'."
+        flights = flights[flights["weekdays"].str.contains(weekday)]
 
     if flights.empty:
         result = "No matching flights found."
@@ -91,10 +98,10 @@ async def main():
 
 
 if __name__ == "__main__":
-    # The agent has two independent tools and picks the right one per question:
-    #   "What time is it in Tokyo?"                          -> get_current_datetime
-    #   "Which flights go from Helsinki to Barcelona?"       -> search_flights (full weekly schedule)
-    #   "Any flights from Paris to Rome on Friday?"          -> search_flights (filtered by weekday)
-    #   "Show me weekend flights from Munich to Lisbon."     -> search_flights
-    # Each question needs only ONE tool. Combining them ("flights tomorrow?") is lesson 04.
+    # Building on lesson 03: search_flights now takes a concrete date, so a relative
+    # date forces the agent to CHAIN the tools -- first get_current_datetime, then
+    # feed the resolved date into search_flights.
+    #   "Are there any flights from Paris to Rome tomorrow?"   -> get_current_datetime, then search_flights
+    #   "I want to fly from Munich to Lisbon this Friday."     -> get_current_datetime, then search_flights
+    #   "And the day after? What about the cheapest one?"      -> reuses history to keep the context
     asyncio.run(main())
