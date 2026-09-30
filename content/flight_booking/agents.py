@@ -112,7 +112,8 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
     ),
 )
 
-# This agent is responsible for extracting the trip request from the user.
+# This agent is responsible for extracting trip request from user
+# TODO: add date into request and in search age
 conversational_agent = Agent[TripRequest](
     model,
     deps_type=Deps,
@@ -125,3 +126,15 @@ conversational_agent = Agent[TripRequest](
         "if the user did not specify a date."
     ),
 )
+
+@conversational_agent.tool
+async def extract_trig_request(ctx: RunContext[Deps]) -> TripRequest:
+    """Get details of all flights."""
+    # we pass the usage to the search agent so requests within this agent are counted
+    result = await extraction_agent.run(ctx.deps.web_page_text, usage=ctx.usage)
+    logfire.info(
+        'requested trip from {origin} to {destination}',
+        origin=result.output.req_origin,
+        destination=result.output.req_destination,
+    )
+    return result.output
