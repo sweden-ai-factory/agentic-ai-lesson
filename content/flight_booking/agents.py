@@ -2,20 +2,13 @@
 
 import datetime
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Literal
-from zoneinfo import ZoneInfo
 
-import logfire
-import pandas as pd
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelRetry, RunContext
+from pydantic_ai.capabilities import MCP
 
 from .config import model
-
-# The shared weekly flight schedule used across the lessons (see 03_flight_search.py).
-FLIGHTS_CSV = Path(__file__).parent.parent / 'data' / 'flights.csv'
-WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 # Data models for the agents.
 
@@ -60,12 +53,14 @@ class SeatPreference(BaseModel):
 class Failed(BaseModel):
     """Unable to extract a seat selection."""
 
-# This agent is responsible for controlling the flow of the conversation.
+# Its tools (get_current_datetime and search_flights) come from the lesson 04
+# MCP server (04_mcp_server.py), which must be running at the URL below.
 search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
     model,
     output_type=list[FlightDetails] | NoFlightFound,
     deps_type=Deps,
     retries=4,
+    capabilities=[MCP(url='http://127.0.0.1:8000/mcp')],
     instructions=(
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
@@ -75,54 +70,6 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
         'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
     ),
 )
-
-
-@search_agent.tool_plain
-def get_current_datetime(timezone: str | None = None) -> str:
-    """Get the current date and time.
-
-    Args:
-        timezone: IANA timezone name, e.g. 'Europe/Stockholm'. Omit for the user's local time.
-    """
-    logfire.info('tool called with {timezone=}', timezone=timezone)
-    tz = ZoneInfo(timezone) if timezone else None
-    now = datetime.datetime.now(tz).astimezone(tz)
-    result = now.strftime('%Y-%m-%d %H:%M:%S %Z (UTC%z)')
-    logfire.info('tool result: {result}', result=result)
-    return result
-
-
-@search_agent.tool_plain
-def search_flights(origin: str, destination: str, date: str) -> str:
-    """Search the weekly flight schedule. Flights recur on fixed weekdays.
-
-    Args:
-        origin: departure city, e.g. 'Amsterdam'.
-        destination: arrival city, e.g. 'Barcelona'.
-        date: travel date 'YYYY-MM-DD'; returns flights on that weekday. Resolve
-            relative dates like 'tomorrow' with get_current_datetime first.
-    """
-    logfire.info(
-        'tool called with {origin=} {destination=} {date=}',
-        origin=origin,
-        destination=destination,
-        date=date,
-    )
-    flights = pd.read_csv(FLIGHTS_CSV)
-    if origin:
-        flights = flights[flights['origin'].str.lower() == origin.lower()]
-    if destination:
-        flights = flights[flights['destination'].str.lower() == destination.lower()]
-    try:
-        weekday = WEEKDAYS[datetime.date.fromisoformat(date).weekday()]
-    except ValueError:
-        return f"Invalid date {date!r}, expected 'YYYY-MM-DD'."
-    flights = flights[flights['weekdays'].str.contains(weekday)]
-
-    logfire.info('found {flight_count} flights', flight_count=len(flights))
-    if flights.empty:
-        return 'No matching flights found.'
-    return flights.head(20).to_string(index=False)
 
 
 @search_agent.output_validator
