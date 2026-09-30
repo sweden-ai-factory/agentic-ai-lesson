@@ -38,10 +38,11 @@ async def buy_tickets(flight_details: FlightDetails, seat: SeatPreference):
 
 
 async def main():
-    user_prompt = Prompt.ask(
-        "Hi! I am a flight search assistant. "
-        "You can tell me the locations and dates of your trip and I will find the best flight for you\n>"
-    )
+    # user_prompt = Prompt.ask(
+    #     "Hi! I am a flight search assistant. "
+    #     "You can tell me the locations and dates of your trip and I will find the best flight for you\n>"
+    # )
+    user_prompt = "Flight from Helsinki to Stockholm tomorrow"
     conversation_history: list[ModelMessage] | None = None
     deps = Deps()
     usage: RunUsage = RunUsage()

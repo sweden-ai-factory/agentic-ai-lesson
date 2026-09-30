@@ -9,11 +9,14 @@ from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
+INSTRUMENTATION = ""
+
+
 # INSTRUMENTATION = "OTEL"
 # Run it via:
 # 	docker run --rm -it -p 4318:4318 --name otel-tui docker://ymtdzzz/otel-tui:latest
 
-INSTRUMENTATION = "JAEGER"
+# INSTRUMENTATION = "JAEGER"
 # docker run --rm -p 16686:16686 -p 4318:4318  docker://jaegertracing/all-in-one:latest
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
@@ -40,6 +43,7 @@ else:
     # 'if-token-present' means nothing will be sent (and the example will work) if you don't have logfire configured
     logfire.configure(send_to_logfire='if-token-present')
     logfire.instrument_pydantic_ai()
+    logfire_handler = logfire.LogfireLoggingHandler()
 
     import logging
     # logging.basicConfig(handlers=[logfire.LogfireLoggingHandler()])
@@ -69,8 +73,8 @@ model_settings = ModelSettings(
     timeout=10,
 )
 model = OpenAIChatModel(
-    #"google/gemma-4-31b-it",
-    "Qwen/Qwen3-Coder-Next",
+    "google/gemma-4-31b-it",
+    # "Qwen/Qwen3-Coder-Next",
     #"openai/gpt-oss-120b",
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
