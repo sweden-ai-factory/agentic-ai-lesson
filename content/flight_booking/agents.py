@@ -4,6 +4,7 @@ import datetime
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
+from zoneinfo import ZoneInfo
 
 import logfire
 import pandas as pd
@@ -20,7 +21,6 @@ WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
 @dataclass
 class Deps:
-    date: datetime.date
     req_origin: str = ''
     req_destination: str = ''
 
@@ -28,6 +28,12 @@ class TripRequest(BaseModel):
     """Details of the trip request by the user."""
     req_origin: str
     req_destination: str
+    req_date: str = Field(
+        description=(
+            'Travel date exactly as the user phrased it, e.g. "tomorrow", '
+            '"next Friday", or "2025-01-15". Use "today" if unspecified.'
+        )
+    )
 
 
 class FlightDetails(BaseModel):
@@ -59,28 +65,55 @@ search_agent = Agent[Deps, FlightDetails | NoFlightFound](
     deps_type=Deps,
     retries=4,
     instructions=(
-        'Your job is to find the cheapest flight for the user on the given date. '
-        'Use the search_flights tool to look up matching flights, then return the '
-        'cheapest one. The flight date is the requested travel date.'
+        'Your job is to find the cheapest flight for the user on the requested date. '
+        'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
+        'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '
+        'Then use search_flights to look up matching flights and return the cheapest one, '
+        'with its date set to the resolved travel date.'
     ),
 )
 
 
-@search_agent.tool
-async def search_flights(ctx: RunContext[Deps]) -> str:
-    """Search the weekly flight schedule for flights matching the requested trip.
+@search_agent.tool_plain
+def get_current_datetime(timezone: str | None = None) -> str:
+    """Get the current date and time.
 
-    Flights recur on fixed weekdays; a flight matches if it operates on the
-    weekday of the requested date.
+    Args:
+        timezone: IANA timezone name, e.g. 'Europe/Stockholm'. Omit for the user's local time.
     """
+    logfire.info('tool called with {timezone=}', timezone=timezone)
+    tz = ZoneInfo(timezone) if timezone else None
+    now = datetime.datetime.now(tz).astimezone(tz)
+    result = now.strftime('%Y-%m-%d %H:%M:%S %Z (UTC%z)')
+    logfire.info('tool result: {result}', result=result)
+    return result
+
+
+@search_agent.tool_plain
+def search_flights(origin: str, destination: str, date: str) -> str:
+    """Search the weekly flight schedule. Flights recur on fixed weekdays.
+
+    Args:
+        origin: departure city, e.g. 'Amsterdam'.
+        destination: arrival city, e.g. 'Barcelona'.
+        date: travel date 'YYYY-MM-DD'; returns flights on that weekday. Resolve
+            relative dates like 'tomorrow' with get_current_datetime first.
+    """
+    logfire.info(
+        'tool called with {origin=} {destination=} {date=}',
+        origin=origin,
+        destination=destination,
+        date=date,
+    )
     flights = pd.read_csv(FLIGHTS_CSV)
-    if ctx.deps.req_origin:
-        flights = flights[flights['origin'].str.lower() == ctx.deps.req_origin.lower()]
-    if ctx.deps.req_destination:
-        flights = flights[
-            flights['destination'].str.lower() == ctx.deps.req_destination.lower()
-        ]
-    weekday = WEEKDAYS[ctx.deps.date.weekday()]
+    if origin:
+        flights = flights[flights['origin'].str.lower() == origin.lower()]
+    if destination:
+        flights = flights[flights['destination'].str.lower() == destination.lower()]
+    try:
+        weekday = WEEKDAYS[datetime.date.fromisoformat(date).weekday()]
+    except ValueError:
+        return f"Invalid date {date!r}, expected 'YYYY-MM-DD'."
     flights = flights[flights['weekdays'].str.contains(weekday)]
 
     logfire.info('found {flight_count} flights', flight_count=len(flights))
@@ -98,16 +131,14 @@ async def validate_output(
         return output
 
     errors: list[str] = []
-    if output.origin != ctx.deps.req_origin:
+    if output.origin.lower() != ctx.deps.req_origin.lower():
         errors.append(
             f'Flight should have origin {ctx.deps.req_origin}, not {output.origin}'
         )
-    if output.destination != ctx.deps.req_destination:
+    if output.destination.lower() != ctx.deps.req_destination.lower():
         errors.append(
             f'Flight should have destination {ctx.deps.req_destination}, not {output.destination}'
         )
-    if output.date != ctx.deps.date:
-        errors.append(f'Flight should be on {ctx.deps.date}, not {output.date}')
 
     if errors:
         raise ModelRetry('\n'.join(errors))
@@ -127,14 +158,16 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
     ),
 )
 
-# This agent is responsible for extracting trip request from user
-# TODO: add date into request and in search agent
+# This agent is responsible for extracting the trip request from the user.
 conversational_agent = Agent[TripRequest](
     model,
     deps_type=Deps,
     output_type=TripRequest,
     instructions=(
         "You are a helpful assistant that helps the user find a flight. "
-        "Extract the origin and desination of the trip the user is looking for."
+        "Extract the origin, destination, and travel date of the trip the user "
+        "is looking for. Keep the date exactly as the user phrased it (e.g. "
+        "'tomorrow' or 'next Friday') and do not resolve it yourself; use 'today' "
+        "if the user did not specify a date."
     ),
 )

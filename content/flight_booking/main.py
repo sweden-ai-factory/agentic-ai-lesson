@@ -1,7 +1,5 @@
 """Main application flow for the flight booking system."""
 
-import datetime
-
 from pydantic_ai import ModelMessage, RunUsage
 from rich.prompt import Prompt
 
@@ -45,9 +43,7 @@ async def main():
         "You can tell me the locations and dates of your trip and I will find the best flight for you\n>"
     )
     message_history: list[ModelMessage] | None = None
-    deps = Deps(
-        date=datetime.date(2025, 1, 10),
-    )
+    deps = Deps()
     usage: RunUsage = RunUsage()
 
     while True:
@@ -63,7 +59,7 @@ async def main():
         deps.req_destination = trip.req_destination
 
         result = await search_agent.run(
-            f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {deps.date}',
+            f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
             deps=deps,
             usage=usage,
             message_history=message_history,
