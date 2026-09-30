@@ -38,8 +38,8 @@ agent = Agent(model,
 You are a helpful travel assistant. 
 You must apply the following skill:
 {policy_text}
-"""
-              capabilities=[MCP(url="http://localhost:8000/mcp")]
+""",
+              capabilities=[MCP(url="http://127.0.0.1:8000/mcp")]
               )
 
 
