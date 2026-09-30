@@ -16,58 +16,6 @@ from .agents import (
 )
 from .config import usage_limits
 
-# in reality this would be downloaded from a booking site,
-# potentially using another agent to navigate the site
-flights_web_page = """
-1. Flight SFO-AK123
-- Price: $350
-- Origin: San Francisco International Airport (SFO)
-- Destination: Ted Stevens Anchorage International Airport (ANC)
-- Date: January 10, 2025
-
-2. Flight SFO-AK456
-- Price: $370
-- Origin: San Francisco International Airport (SFO)
-- Destination: Fairbanks International Airport (FAI)
-- Date: January 10, 2025
-
-3. Flight SFO-AK789
-- Price: $400
-- Origin: San Francisco International Airport (SFO)
-- Destination: Juneau International Airport (JNU)
-- Date: January 20, 2025
-
-4. Flight NYC-LA101
-- Price: $250
-- Origin: San Francisco International Airport (SFO)
-- Destination: Ted Stevens Anchorage International Airport (ANC)
-- Date: January 10, 2025
-
-5. Flight CHI-MIA202
-- Price: $200
-- Origin: Chicago O'Hare International Airport (ORD)
-- Destination: Miami International Airport (MIA)
-- Date: January 12, 2025
-
-6. Flight BOS-SEA303
-- Price: $120
-- Origin: Boston Logan International Airport (BOS)
-- Destination: Ted Stevens Anchorage International Airport (ANC)
-- Date: January 12, 2025
-
-7. Flight DFW-DEN404
-- Price: $150
-- Origin: Dallas/Fort Worth International Airport (DFW)
-- Destination: Denver International Airport (DEN)
-- Date: January 10, 2025
-
-8. Flight ATL-HOU505
-- Price: $180
-- Origin: Hartsfield-Jackson Atlanta International Airport (ATL)
-- Destination: George Bush Intercontinental Airport (IAH)
-- Date: January 10, 2025
-"""
-
 
 async def find_seat(usage: RunUsage) -> SeatPreference:
     message_history: list[ModelMessage] | None = None
@@ -98,7 +46,6 @@ async def main():
     )
     message_history: list[ModelMessage] | None = None
     deps = Deps(
-        web_page_text=flights_web_page,
         date=datetime.date(2025, 1, 10),
     )
     usage: RunUsage = RunUsage()
@@ -112,6 +59,8 @@ async def main():
             usage_limits=usage_limits,
         )
         trip = user_result.output
+        deps.req_origin = trip.req_origin
+        deps.req_destination = trip.req_destination
 
         result = await search_agent.run(
             f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {deps.date}',
