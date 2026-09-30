@@ -4,12 +4,15 @@ import datetime
 import os
 
 import logfire
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from zoneinfo import ZoneInfo
 
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+
+load_dotenv()
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--enable_tools", action="store_true")

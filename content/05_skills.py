@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 
 import logfire
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
 from pydantic import TypeAdapter
@@ -13,6 +14,8 @@ from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.capabilities import MCP
 from pydantic_ai.messages import ModelMessage
 
+
+load_dotenv()
 
 logfire.configure(service_name="mcp_client", send_to_logfire=False)
 logfire.instrument_pydantic_ai()

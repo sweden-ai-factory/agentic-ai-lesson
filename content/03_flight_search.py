@@ -5,12 +5,15 @@ from pathlib import Path
 
 import logfire
 import pandas as pd
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from zoneinfo import ZoneInfo
 
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+
+load_dotenv()
 
 logfire.configure(send_to_logfire=False)
 logfire.instrument_pydantic_ai()
