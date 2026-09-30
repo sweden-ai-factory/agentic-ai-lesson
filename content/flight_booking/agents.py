@@ -159,6 +159,7 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
     instructions=(
         "Extract the user's seat preference. "
         'Seats A and F are window seats. '
+        'Seats B and E are middle seats and C and D are aisle seats'
         'Row 1 is the front row and has extra leg room. '
         'Rows 14, and 20 also have extra leg room. '
     ),
