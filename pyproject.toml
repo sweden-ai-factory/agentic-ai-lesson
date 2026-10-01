@@ -1,6 +1,5 @@
 [project]
-# FIXME: change this
-name = "sphinx-lesson-template"
+name = "agentic-ai-lesson"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -17,15 +16,11 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  { include-group = "notebook" },
+  "agentic-ai-hands-on",
   "jupyterlab>=4.4.6",
   "jupyterlab-myst>=2.4.2",
 ]
-# All dependencies used within Jupyter Notebooks
-notebook = [
-    "openai>=3.20.0",
-    "pydantic-ai>=2.51.0",
-]
+notebook = []
 
 [build-system]
 requires = ["pdm-backend"]
@@ -38,3 +33,6 @@ distribution = false
 members = [
     "content",
 ]
+
+[tool.uv.sources]
+agentic-ai-hands-on = { workspace = true, editable = true }

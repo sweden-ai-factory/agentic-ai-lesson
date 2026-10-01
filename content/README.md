@@ -92,7 +92,7 @@ uv run python content/04_mcp_client.py
 
 ### 05 – Skills
 
-Adds a travel-policy skill on top of the MCP tools. It also connects to the MCP
+Adds a travel-policy skill on top of the MCP tools. Skills are loaded on demand by the agent when relevant. It also connects to the MCP
 server from lesson 04, so keep that server running (Terminal 1 above).
 
 ```bash
