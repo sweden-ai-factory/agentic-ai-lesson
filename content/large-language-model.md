@@ -1,35 +1,24 @@
 # What is a Large Language Model?
 
 A Large Language Model (LLM) is a type of artificial intelligence trained on
-vast amounts of text data to predict and generate human-like text. At their
-core, these models learn statistical patterns in language: given a sequence of
-words (or better *tokens*: fragments of words, commas, and anything in text), 
-they predict what comes next.
+vast amounts of text data to predict and generate human-like text. 
 
 ```{figure} img/llm.png
-:alt: Input tokens ->  Model -> Input tokens + output token
+:alt: general concept of an LLM
 :width: 100%
-
-A simple illustration of an LLM.
 ```
 
-:::{admonition} Stochastic Parrots
-:class: note
+<!--
+:::{admonition} A more accurate mental model
+:class: tip, dropdown
+-->
 
-{attribution="Emily M. Bender and Timnit Gebru"}
->  LM [Language Model] is a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning: a stochastic parrot.
-
-From: <https://doi.org/10.1145/3442188.3445922>
-:::
-
-
-## Anatomy of a Large Language Model
-
-A language model does not read text as words and sentences: text must first be
-converted into numerical representations, then transformer layers update
-those representations using the surrounding context.
-
-A simplified forward pass looks like this:
+At their core, these models learn statistical patterns in language: given a
+sequence of words (or better *tokens*: fragments of words, commas, and anything
+in text), they predict what comes next. In order to do so, text must first be
+converted into numerical representations, then transformer layers update those
+representations using the surrounding context, and finally they are converted
+back to text.
 
 ```text
 text
@@ -39,169 +28,131 @@ text
   -> transformer blocks
   -> output logits
   -> next-token probabilities
+  -> tokens
+  -> text
 ```
 
-For a generative language model, the process is repeated one generated token
-at a time.
+```{figure} img/llm_blocks.png
+:alt: Input tokens ->  Model -> Input tokens + output token
+:width: 100%
 
-
-### From text to tokens
-
-The first step is tokenisation. A tokeniser divides the input into units
-called **tokens** and maps every token to an integer ID.
-
-Tokens do not necessarily correspond to words. Depending on the tokeniser, a
-token may represent a complete word, part of a word, punctuation, whitespace,
-or another frequently occurring character sequence.
-
-### From token IDs to embeddings
-
-A token ID is an integer label. The numerical distance between two token IDs
-has no semantic meaning. Token ID 100 is not inherently more similar to token
-ID 101 than it is to token ID 9000.
-
-Before the transformer can process the tokens, the model maps every token ID
-to a vector. This operation is performed by an embedding layer.
-
-If the vocabulary contains \(V\) tokens and the model uses an embedding
-dimension \(d\), the embedding layer can be represented as a matrix:
-
-```{math}
-E \in \mathbb{R}^{V \times d}
+A simplistic mental model for an LLM performing probabilistic next token prediction.
+Source: [Simo Tuomisto](https://simo-tuomisto.github.io/understanding-ai-landscape-lecture/#3)
 ```
 
-Looking up a token ID selects the corresponding row of this matrix.
+LLMs work because language (whether natural language or code) follows consistent
+patterns. The model doesn't "understand" text the way humans do, but it has
+learned enough patterns to generate coherent and often meaningful output. This
+is especially effective for code, which is highly structured, so the model can
+generate syntactically correct and often semantically meaningful code.
 
-```text
-token ID
-   |
-   v
-embedding matrix lookup
-   |
-   v
-vector of length d
-```
+:::{callout} Key insight
+LLMs are sophisticated pattern-matching systems that can perform multi-step reasoning, but their reasoning is fallible and outputs must be verified. They
+excel at common patterns but can confidently produce incorrect output for novel
+or complex problems. **Always verify their output**.
+:::
 
-The embedding matrix is learned during training. Tokens that are useful in
-similar contexts often acquire related representations. The number `d` determines
-the number of dimensions in the embedding space, and since it is often large, it
-can be hard to visualize. We can however project the vectors into a 2D or 3D and
-draw some conclusions.
+:::{admonition} Stochastic parrots
+:class: tip
+
+{attribution="Emily M. Bender and Timnit Gebru"}
+>  LM \[Language Model\] is a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning: a stochastic parrot.
+
+Source: <https://doi.org/10.1145/3442188.3445922>
+:::
+
+:::{admonition} Practitioner's perspective: Simon Willison
+:class: tip
 
 
-#### Initial and contextual representations
+{attribution="Simon Willison"}
+> My current favorite mental model is to think of them as an over-confident
+pair programming assistant who's lightning fast at looking things up, can
+churn out relevant examples at a moment's notice and can execute on tedious
+tasks without complaint.
+>
+> **Over-confident** is important. They'll absolutely make mistakes, sometimes
+subtle, sometimes huge. These mistakes can be deeply inhuman, if a human
+collaborator hallucinated a non-existent library or method you would
+instantly lose trust in them.
+>
+> **Don't fall into the trap of anthropomorphizing LLMs and assuming that
+failures which would discredit a human should discredit the machine in the
+same way.**"
 
-The embedding-layer output is only the initial representation of a token. It
-does not yet express what the token means in a particular sentence.
-
-Consider the word `mole`:
-
-::::{figure} ./img/context-mole.png
-::::
-
-:::{admonition} Another example for the word mole
-:class: note, dropdown
-
-```text
-A mole damaged the garden.
-The chemist measured one mole of the compound.
-She has a mole on her cheek.
-```
+Source: ["How I use LLMs to help me write code"](https://simonwillison.net/2025/Mar/11/using-llms-for-code/)
 :::
 
 
-The tokeniser may assign the same token ID to `mole` in every sentence. The
-embedding lookup therefore produces the same initial vector.
+## How are LLMs trained?
 
-The surrounding context is different, however. Transformer layers use that
-context to produce a different representation of `mole` in each example.
+Training an LLM involves two main phases:
 
-The same principle applies when an expression changes meaning as context is
-added:
+### 1. Pre-training
 
-```text
-lion
-sea lion
-sea lion cuddly toy
-```
+The model is exposed to massive amounts of text (and often code)
+to learn general patterns of language:
 
-::::{figure} ./img/context-sea-lion-toy.png
-
-::::
+| Model | Training Data Size | Languages |
+|-------|-------------------|-----------|
+| Poro 34B | ~1 trillion tokens | Finnish, English, code |
+| Gemma | Undisclosed (Gemma 2: ~13 trillion tokens) | Multilingual + code |
+| GPT-OSS | Undisclosed | Multilingual + code |
+| GPT-5.x | Undisclosed | Multilingual + code |
 
 
-The initial vector associated with the token `lion` is unchanged. Its
-contextual representation changes because the words around it change.
+During pre-training, the model learns:
+- Grammar and structure of natural language (and the syntax of programming languages)
+- Common patterns, idioms, and factual associations
+- Relationships between concepts across a document
+- How different parts of a text (or codebase) relate to each other
 
-:::{admonition} Embeddings vs contextual representations
-:class: note
+The size of typical datasets also implies that training a model from scratch
+is a heavy commitment. It is expensive, both in terms of time (person-hours) and
+compute, which in turn means that very few actors do this and most users rely on
+such pre-trained "frontier" models for their specific use cases.
 
-An **embedding** often refers to the initial vector produced by the embedding
-layer, whereas a contextual representation is the vector associated with a
-token after one or more transformer layers have processed the sequence.
+In our course we use the AITTA inference service that serves such frontier models via an API. We just need to implement the API client and then can use such models in our Python code.
 
-Sometimes the word embedding is used to refer to both, which can be confusing.
 
+### 2. Fine-tuning and instruction tuning
+
+After pre-training, models are often further refined:
+
+- **Fine-tuning**: Training on specific domains (e.g., scientific Python)
+- **Instruction tuning**: Teaching the model to follow human instructions
+- **RLHF** (Reinforcement Learning from Human Feedback): Aligning outputs with human preferences
+
+In our exercise we use an instruction-tuned model that lets us send a prompt as a message with a role (`messages=[{"role": "user", "content": prompt}]`) and get a helpful response.
+
+## Training cut-off dates matter
+
+A crucial characteristic of any model is its **training cut-off date**, the
+date at which training data collection stopped. This has direct practical
+implications, which are especially visible in coding:
+
+| Impact | Example |
+|--------|---------|
+| Unknown libraries | A library released after the cut-off won't be suggested |
+| Breaking changes | Major API changes since cut-off produce outdated suggestions |
+| Deprecated patterns | Old syntax or methods may still be recommended |
+| Security updates | Known vulnerabilities patched after cut-off won't be reflected |
+
+:::{callout} Key insight
+The training cut-off date is sometimes not known. With chatbots, you can try asking the chatbot.
+What makes it even more challenging is that some **AI systems also have *"tools"*** attached to them,
+so they can fetch **some** up-to-date content, while mixing with what they have seen during
+their training. This can be a total success... or total disaster. 
+
+Pick a stable library, even if it is a little bit older: [Choose Boring Technology](https://boringtechnology.club/).
 :::
 
-:::{important}
 
-We need a mechanism with which to encode the position, context, and the semantic
-meaning of each (sub-)word/token/embedding in the text. This is what the **transformer** architecture solves.
-
-:::
-
-### From representations to token probabilities
-
-After the final transformer block, the model converts the representation at
-the relevant sequence position into one score for every token in the
-vocabulary. These scores are called **logits**.
-
-Softmax turns the logits into a probability distribution:
-
-```text
-"the"        0.31
-"a"          0.14
-"this"       0.08
-"model"      0.03
-...          ...
-```
-
-A decoding strategy then selects the next token. Always choosing the most
-probable token is called greedy decoding. Other strategies sample from the
-distribution, possibly after adjusting it through temperature, top-k, or
-top-p sampling.
-
-The selected token is appended to the input, and the process is repeated.
-
-```text
-prompt
-  -> predict one token
-  -> append token
-  -> predict another token
-  -> append token
-  -> continue until stopping
-```
-
-A fluent response is therefore constructed through repeated next-token
-prediction, not by producing a complete paragraph in a single operation.
-
-### Training pipeline
-
-When a LLM is first trained, three steps are usually involved:
-
-- Pretraining: the model is trained on large unstructured corpora of text, in
-an unsupervised manner, just trying to predict the next token. This is what
-gives origin to the base models, which understand language constructs and
-syntax.
-- Supervised fine-tuning (SFT): the model is trained on question-answer pairs,
-possibly with reasoning traces. This is when model are actually trained to
-perform a task (coding assistant, chat interface, etc.) and produces the
-so-called "instruct" models.
-- Reinforcement/alignment training: the model is trained using reinforcement
-learning techniques, like DPO and GRPO, to influence its alignment to human
-values and teach it how to reply in a way that better reflects human
-preferences. After this it is usually ready to ship.
+**Practical implications:**
+- Check model documentation for training cut-off dates
+- Be skeptical of suggestions for rapidly-evolving libraries 
+- Provide recent documentation or examples in prompts when using newer tools
+- Consider library stability as a factor in dependencies choices
 
 ## Exercise 1: Use an LLM
 
@@ -220,7 +171,7 @@ The API key authenticates you to the service. Keep it secret and never share it 
 :end-before: async function
 ```
 
-Now we can use our client to send the prompt `"Where does 'hello world' come from?"` to the model `google/gemma-4-31b-it`.
+Now we can use our client to send the prompt `"Where does 'hello world' come from?"` to the model `LumiOpen/Poro-34B-chat`.
 
 Setting `stream=True` tells the API to send the response in small pieces, called tokens, as soon as the model produces them, rather than waiting until the whole answer is finished.
 
@@ -245,7 +196,7 @@ The tradition of writing a "Hello, World!" program is widely attributed to **Bri
 While many people associate it with the C programming language, its origin happened in two stages...
 ```
 
-Try changing the prompt by passing a new proompt to the script with:
+Try changing the prompt by passing a new prompt to the script with:
 
 ```shell
 uv run 01_hello_world.py "Where does the name Python come from?"
@@ -255,20 +206,20 @@ This is a bit clumsy, so in the next part we will make it interactive, letting y
 
 ## Summary
 
-A language model begins by dividing text into tokens. Token IDs are mapped to
-initial vectors, and positional information records where those tokens occur
-in the sequence.
+A large language model predicts text one token at a time. Text is split into
+tokens, converted into numerical representations, passed through transformer
+blocks that use the surrounding context, and turned back into probabilities for
+the next token. Because this process is probabilistic, the output is stochastic
+and pattern-based: it can be wrong even when it looks confident, so you should
+always verify what the model produces.
 
-Transformer blocks repeatedly update the representations. Attention exchanges
-information between token positions. Queries and keys determine which
-positions are relevant, while values contain the information that is
-combined. Causal masking prevents a decoder-only model from using future
-tokens.
+Models are built in two phases. Pre-training exposes the model to large amounts
+of text (and code) so it learns general patterns, and fine-tuning and
+instruction tuning then teach it to follow human instructions. Training always
+stops at a cut-off date, so a model may not know about newer libraries or recent
+changes.
 
-Feed-forward layers transform each contextual representation independently.
-Residual connections and normalization make it possible to train a deep stack
-of these operations.
-
-Finally, the model converts the last representation into logits and then into
-a probability distribution over the vocabulary. Text generation repeats this
-next-token prediction process until a stopping condition is reached.
+In Exercise 1 we used such a model in practice. We created an `AsyncOpenAI`
+client pointed at the AITTA inference service, sent a prompt to
+`LumiOpen/Poro-34B-chat`, and streamed the reply token by token. Because the
+output is stochastic, the exact reply changes each time you run it.
