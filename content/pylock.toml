@@ -5,6 +5,10 @@ created-by = "uv"
 requires-python = "==3.14.*"
 
 [[packages]]
+name = "agentic-ai-hands-on"
+directory = { path = "content", editable = true }
+
+[[packages]]
 name = "aiofile"
 version = "3.12.3"
 index = "https://pypi.org/simple"
