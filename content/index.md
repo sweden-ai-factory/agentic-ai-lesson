@@ -28,6 +28,7 @@ setup.md
 :maxdepth: 1
 
 large-language-model.md
+agent-basics.md
 agent.md
 ```
 
