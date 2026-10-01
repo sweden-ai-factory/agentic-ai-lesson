@@ -1,4 +1,5 @@
 import asyncio
+import sys
 import os
 
 from openai import AsyncOpenAI
@@ -10,10 +11,11 @@ client = AsyncOpenAI(
 )
 
 # async function
-async def main():
+DEFAULT_PROMPT = "Where does 'hello world' come from?"
+async def main(prompt: str):
     stream = await client.chat.completions.create(
-        messages=[{"role": "user", "content": "Where does 'hello world' come from?"}],
-        model="google/gemma-4-31b-it",
+        messages=[{"role": "user", "content": prompt}],
+        model="LumiOpen/Poro-34B-chat",
         stream=True,
     )
 
@@ -25,4 +27,5 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    prompt = " ".join(sys.argv[1:]) or DEFAULT_PROMPT
+    asyncio.run(main(prompt))

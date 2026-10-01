@@ -245,7 +245,13 @@ The tradition of writing a "Hello, World!" program is widely attributed to **Bri
 While many people associate it with the C programming language, its origin happened in two stages...
 ```
 
-Try changing the prompt in your editor and running the script again. Editing the code for every new prompt is a bit clumsy, so in the next part we will make it interactive, letting you type new prompts directly from the command line.
+Try changing the prompt by passing a new proompt to the script with:
+
+```shell
+uv run 01_hello_world.py "Where does the name Python come from?"
+```
+
+This is a bit clumsy, so in the next part we will make it interactive, letting you type new prompts directly from the command line without needing to restart the script.
 
 ## Summary
 
