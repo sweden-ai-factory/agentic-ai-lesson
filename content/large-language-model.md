@@ -203,6 +203,50 @@ learning techniques, like DPO and GRPO, to influence its alignment to human
 values and teach it how to reply in a way that better reflects human
 preferences. After this it is usually ready to ship.
 
+## Exercise 1: Use an LLM
+
+To use an LLM in our code, we need to create a client.
+Even though the LLM provider in our case is [AITTA](https://aitta.csc.fi), an inference service that runs LLMs on the LUMI supercomputer, we use the [OpenAI Python library](https://pypi.org/project/openai/).
+AITTA implements a subset of the [OpenAI API](https://github.com/openai/openai-openapi), which has become a de facto standard for LLM APIs. This means we can easily switch to any other provider that implements the same API.
+
+We use `AsyncOpenAI`, the asynchronous version of the client, which works with [`asyncio`](https://docs.python.org/3/library/asyncio.html). `asyncio` is Python's built-in library for running many tasks concurrently in a single program, so that while one task waits (for example, for an LLM to respond), others can keep working instead of sitting idle. This lets us send multiple requests to the LLM at the same time instead of one after another. We don't need this yet, but it will be useful in later exercises.
+
+The `base_url` is set here to use AITTA, but it can be changed. For example, you can set it to `http://localhost:8000/v1` when running vLLM locally, or to `https://api.openai.com/v1` for OpenAI.
+
+The API key authenticates you to the service. Keep it secret and never share it with anyone. See the [setup section](./setup.md) for how to obtain one for AITTA.
+
+
+```{literalinclude} 01_hello_world.py
+:end-before: async function
+```
+
+Now we can use our client to send the prompt `"Where does 'hello world' come from?"` to the model `google/gemma-4-31b-it`.
+
+Setting `stream=True` tells the API to send the response in small pieces, called tokens, as soon as the model produces them, rather than waiting until the whole answer is finished.
+
+We receive these pieces one at a time in the `async for` loop. Each `event` contains a `delta` with only the text that is new since the previous event. Printing with `end=""` joins the pieces into continuous text, and `flush=True` makes each one appear on screen immediately instead of being buffered.
+
+```{literalinclude} 01_hello_world.py
+:start-after: async function
+:end-before: if __name__ == "__main__":
+```
+
+You can run it yourself with the following command. Make sure you have set up your API key correctly as described in the [setup section](setup.md).
+
+```shell
+uv run 01_hello_world.py
+```
+
+You should receive a reply to your prompt, but note that the exact reply can change because LLMs are stochastic. Here is an example that we got.
+
+```text
+The tradition of writing a "Hello, World!" program is widely attributed to **Brian Kernighan**, a computer scientist at Bell Labs.
+
+While many people associate it with the C programming language, its origin happened in two stages...
+```
+
+Try changing the prompt in your editor and running the script again. Editing the code for every new prompt is a bit clumsy, so in the next part we will make it interactive, letting you type new prompts directly from the command line.
+
 ## Summary
 
 A language model begins by dividing text into tokens. Token IDs are mapped to
@@ -222,13 +266,3 @@ of these operations.
 Finally, the model converts the last representation into logits and then into
 a probability distribution over the vocabulary. Text generation repeats this
 next-token prediction process until a stopping condition is reached.
-
-## Exercise 1: Use an LLM model
-
-- Connect to the LLM provider (AITTA)
-- Send one prompt and get the response
-
-```{literalinclude} 01_hello_world.py
-:start-after: Hallo
-:end-before: you!
-```

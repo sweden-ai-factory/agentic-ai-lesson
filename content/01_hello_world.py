@@ -9,7 +9,7 @@ client = AsyncOpenAI(
     base_url="https://aitta-api.csc.fi/openai/v1",
 )
 
-
+# async function
 async def main():
     stream = await client.chat.completions.create(
         messages=[{"role": "user", "content": "Where does 'hello world' come from?"}],
@@ -17,11 +17,9 @@ async def main():
         stream=True,
     )
 
-    response = ""
     async for event in stream:
         token = event.choices[0].delta.content
         if token:
-            response += token
             print(token, end="", flush=True)
     print()
 
