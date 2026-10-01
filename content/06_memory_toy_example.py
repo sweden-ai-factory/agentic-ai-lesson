@@ -55,17 +55,11 @@ def setup_preferences(memory):
 
     print("\n=== Save Travel Preferences ===")
 
-    seat = input(
-        "Preferred seat (window/aisle): "
-    )
+    seat = input("Preferred seat (window/aisle): ")
 
-    airline = input(
-        "Preferred airline: "
-    )
+    airline = input("Preferred airline: ")
 
-    diet = input(
-        "Diet preference: "
-    )
+    diet = input("Diet preference: ")
 
     memory.remember("seat_preference", seat)
     memory.remember("preferred_airline", airline)
@@ -79,20 +73,11 @@ def plan_trip(memory):
 
     print("\n=== Travel Recommendation ===")
 
-    seat = memory.recall(
-        "seat_preference",
-        "window"
-    )
+    seat = memory.recall("seat_preference", "window")
 
-    airline = memory.recall(
-        "preferred_airline",
-        "Any airline"
-    )
+    airline = memory.recall("preferred_airline", "Any airline")
 
-    diet = memory.recall(
-        "dietary_preference",
-        "No preference"
-    )
+    diet = memory.recall("dietary_preference", "No preference")
 
     print("Planning your trip...\n")
 
@@ -132,7 +117,6 @@ def main():
     print("------------------------")
 
     while True:
-
         print("\nChoose an option:")
         print("1. Save preferences")
         print("2. Plan trip")
@@ -160,4 +144,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-``
