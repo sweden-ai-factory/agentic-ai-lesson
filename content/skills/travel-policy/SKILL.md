@@ -1,3 +1,8 @@
+---
+name: travel-policy
+description: Corporate travel policy to apply when searching for or recommending flights (cost-per-km cap, aircraft restrictions, and the user's time-of-day preference).
+---
+
 # Corporate Travel Policy
 
 Rules:
