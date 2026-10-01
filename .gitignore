@@ -7,3 +7,4 @@ uv.lock
 .env
 __pycache__
 travel_history.json
+.memory-operations.json
