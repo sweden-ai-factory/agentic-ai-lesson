@@ -15,18 +15,15 @@
 :::{highlight} python
 :::
 
-## 01: Hello world
-
-- Start as small as it gets: a model, an `Agent`, and one prompt.
-- Stream the reply back a few characters at a time so it feels alive.
-- No chat loop, no tools, no memory yet, just the skeleton everything else hangs off.
-
 ## 02: Time (tools and memory)
 
 - Wrap the call in a real `You:` / `Agent:` conversation loop.
 - Ask a plain model the time and it invents an answer, because it has no clock.
 - `--enable_tools` gives it `get_current_datetime` to call, so it looks the time up instead of guessing.
 - `--enable_history` feeds the past messages back, so follow-up questions work.
+
+```{literalinclude} 02_time.py
+```
 
 ## 03: Flight search (multiple tools)
 
@@ -37,6 +34,9 @@
 - Now "any flights tomorrow?" can't be answered by a single tool.
 - The agent calls `get_current_datetime` first to resolve "tomorrow", then hands that date to `search_flights`.
 - That hand-off, where one tool's answer becomes the next tool's input, is chaining.
+
+```{literalinclude} 03_flight_search.py
+```
 
 :::{discussion}
 Discussion points
