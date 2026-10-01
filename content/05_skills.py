@@ -8,10 +8,11 @@ from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from pydantic import TypeAdapter
 from pydantic_ai import Agent
-from pydantic_ai.capabilities import MCP
+from pydantic_ai.capabilities import MCP, LocalWorkspace
 from pydantic_ai.messages import ModelMessage
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+from pydantic_ai_harness import Skills
 
 load_dotenv()
 
@@ -25,9 +26,6 @@ client = AsyncOpenAI(
     base_url="https://aitta-api.csc.fi/openai/v1",
 )
 
-policy_text = (
-    Path(__file__).parent / "skills" / "travel-policy" / "skill.md"
-).read_text()
 
 model = OpenAIChatModel(
     "google/gemma-4-31b-it",
@@ -35,12 +33,16 @@ model = OpenAIChatModel(
 )
 agent = Agent(
     model,
-    instructions=f"""
-You are a helpful travel assistant.
-You must apply the following skill:
-{policy_text}
-""",
-    capabilities=[MCP(url="http://127.0.0.1:8000/mcp")],
+    name="travel_agent",
+    instructions="You are a helpful travel assistant. Before answering, load any capability or skill relevant to the request.",
+    capabilities=[
+        MCP(url="http://127.0.0.1:8000/mcp"),
+        # `Skills` reads SKILL.md files through the run's workspace, so attach one rooted
+        # at this script's directory: "skills" then resolves to content/skills no matter
+        # where the lesson is launched from.
+        LocalWorkspace(Path(__file__).parent),
+        Skills("./skills", include=["travel-policy"]),
+    ],
 )
 
 
@@ -111,6 +113,11 @@ if __name__ == "__main__":
     #   "Are there any flights from Paris to Rome tomorrow?"   -> get_current_datetime, then search_flights
     #   "I want to fly from Munich to Lisbon this Friday."     -> get_current_datetime, then search_flights
     #   "And the day after? What about the cheapest one?"      -> reuses history to keep the context
+    #
+    # To invoke the skill, if it does not happen automatically, you can prompt
+    #
+    #   "/travel-policy"                                       -> You should see running tool: load_capability
+    #   "Does it comply with the travel policy?"               -> Applies the instructions from the skill
     #
     # Memory (lesson 05 extension):
     #   python 05_skills.py                       -> fresh session every time, the agent asks for your preferences again

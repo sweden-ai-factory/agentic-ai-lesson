@@ -689,6 +689,13 @@ sdist = { url = "https://files.pythonhosted.org/packages/19/94/80fea1514b7c6d7d3
 wheels = [{ url = "https://files.pythonhosted.org/packages/67/c5/82addfd375e5ee6520644e0553e4aadde92d668c4fc99cc716d337fe7bb3/joserfc-1.7.5-py3-none-any.whl", upload-time = 2026-08-29T13:05:40Z, size = 71269, hashes = { sha256 = "add2c2c84e8373b084d526a8b53daba5d7a513a118cd2dcd9fc9f979d0922159" } }]
 
 [[packages]]
+name = "json-repair"
+version = "0.63.5"
+index = "https://pypi.org/simple"
+sdist = { url = "https://files.pythonhosted.org/packages/72/29/653c36e0de80f7048f01298a9098f1c66bb9da162e92ad6a6e2c3202cc52/json_repair-0.63.5.tar.gz", upload-time = 2026-09-22T18:36:08Z, size = 52945, hashes = { sha256 = "75a6a1a4ea954935dd3fb69b6e49ac0e3e3d69b4290127a0c8d37af93b709f3a" } }
+wheels = [{ url = "https://files.pythonhosted.org/packages/6b/a4/222e2581667c326183a87df229e772140fbf3e5dc03ec73e2a0e74804114/json_repair-0.63.5-py3-none-any.whl", upload-time = 2026-09-22T18:36:07Z, size = 51334, hashes = { sha256 = "0e39b3066f7829b4bd7fc614e463cfd4ff7a4c46f82f5b65431fc11e29a74c81" } }]
+
+[[packages]]
 name = "json5"
 version = "0.15.0"
 index = "https://pypi.org/simple"
@@ -1258,6 +1265,13 @@ version = "2.52.0"
 index = "https://pypi.org/simple"
 sdist = { url = "https://files.pythonhosted.org/packages/20/9d/807ca68d6b535bed971769d2ed41ddb2ff91e546c26c7b022a3cc4ccc85e/pydantic_ai-2.52.0.tar.gz", upload-time = 2026-09-30T01:17:58Z, size = 27666, hashes = { sha256 = "fb4aebd846713aa88dcacbb3edcc72997db9c8408c503d3fc93ed0428c020f75" } }
 wheels = [{ url = "https://files.pythonhosted.org/packages/fa/6c/ad4d3c4cc5f6e08a70b24cb748c9c459e2e9422a87089c85321c61afba53/pydantic_ai-2.52.0-py3-none-any.whl", upload-time = 2026-09-30T01:17:45Z, size = 10147, hashes = { sha256 = "a301ba74638c48889b6b8cdadc7519d0ef4fcadf55a37c0317f0feb87df2f8bf" } }]
+
+[[packages]]
+name = "pydantic-ai-harness"
+version = "0.52.0"
+index = "https://pypi.org/simple"
+sdist = { url = "https://files.pythonhosted.org/packages/08/9f/5473f999f0c8c1f69a941417911da54cfd9b47df262da3ca70abde330076/pydantic_ai_harness-0.52.0.tar.gz", upload-time = 2026-09-30T01:18:00Z, size = 942581, hashes = { sha256 = "321a8bdae70a34257ba22922e58b1e7d55aeef81b6165b0d79563c7746432e3f" } }
+wheels = [{ url = "https://files.pythonhosted.org/packages/16/f5/d16a33a2d3b784f811227ef610bda46b84f2d58aa2f0368ee4d76f963198/pydantic_ai_harness-0.52.0-py3-none-any.whl", upload-time = 2026-09-30T01:17:48Z, size = 1174891, hashes = { sha256 = "3f1400c355c0e083cb9d64a2d1f54d6f6b1b348f5d29f20cb7c09e5c91b06be9" } }]
 
 [[packages]]
 name = "pydantic-ai-slim"

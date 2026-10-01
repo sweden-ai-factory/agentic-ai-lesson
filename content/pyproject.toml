@@ -10,6 +10,7 @@ dependencies = [
     "openai>=3.20.0",
     "pandas>=3.0.6",
     "pydantic-ai>=2.52.0",
+    "pydantic-ai-harness[skills]>=0.52.0",
     "python-dotenv>=1.0.0",
 ]
 
