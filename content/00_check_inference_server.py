@@ -52,12 +52,18 @@ def main() -> None:
         workers = fetch_workers(client)
 
     running = sorted({worker["model"] for worker in workers if worker.get("status") == "running"})
+    requested = sorted({worker["model"] for worker in workers if worker.get("status") == "requested"})
 
-    print(f"Running models ({len(running)}):")
-    for model in running:
-        print(f"  {model}")
-    if not running:
-        print("  <none>")
+    def show_models(status, models):
+        print(f"{status} models ({len(models)}):")
+        for model in models:
+            print(f"  {model}")
+        if not running:
+            print("  <none>")
+
+    show_models("Running", running)
+    print()
+    show_models("Requested", requested)
 
 
 if __name__ == "__main__":
