@@ -1,11 +1,14 @@
 import asyncio
 import os
 
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+
+load_dotenv()
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
