@@ -2,12 +2,15 @@ import asyncio
 import os
 
 import logfire
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
 from pydantic_ai import Agent
 from pydantic_ai.capabilities import MCP
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+
+load_dotenv()
 
 logfire.configure(service_name="mcp-client", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
