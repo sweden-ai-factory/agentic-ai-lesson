@@ -5,3 +5,4 @@
 jupyter_execute
 uv.lock
 __pycache__
+travel_history.json
