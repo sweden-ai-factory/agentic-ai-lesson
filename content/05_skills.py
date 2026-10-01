@@ -23,12 +23,12 @@ HISTORY_FILE = Path(__file__).parent / "travel_history.json"
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 
 model = OpenAIChatModel(
-    "google/gemma-4-31b-it",
+    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
 )
 agent = Agent(

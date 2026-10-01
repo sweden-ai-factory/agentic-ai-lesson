@@ -65,7 +65,7 @@ else:
 # configure the inference endpoint
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 # choose the model from the inference endpoint
@@ -74,9 +74,7 @@ model_settings = ModelSettings(
     timeout=10,
 )
 model = OpenAIChatModel(
-    "google/gemma-4-31b-it",
-    # "Qwen/Qwen3-Coder-Next",
-    # "openai/gpt-oss-120b",
+    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
 )

@@ -27,13 +27,12 @@ MEMORY_DIR = "agent-memory"
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 
 model = OpenAIChatModel(
-    "MiniMaxAI/MiniMax-M2.7",
-    # "google/gemma-4-31b-it",
+    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
 )
 agent = Agent(
