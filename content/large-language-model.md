@@ -22,23 +22,6 @@ A simple illustration of an LLM.
 From: <https://doi.org/10.1145/3442188.3445922>
 :::
 
-<!---
-## Features of an LLM
-
-Without going into deep details, we can identify the key features of an LLM.
-
-### Tokenization and embedding
-
-LLMs (and in general all neural networks) only understand numbers. So, the first
-step is to convert the input text into numbers. This is done by a process called
-*tokenization*. This determines how text is split into smaller units and mapped
-to integers. This again gets translated to vectors called *embedding*. We will 
-shortly see why this is done.
-
-### Attention 
-
-
---->
 
 ## Anatomy of a Large Language Model
 
@@ -246,4 +229,6 @@ next-token prediction process until a stopping condition is reached.
 - Send one prompt and get the response
 
 ```{literalinclude} 01_hello_world.py
+:start-after: Hallo
+:end-before: you!
 ```
