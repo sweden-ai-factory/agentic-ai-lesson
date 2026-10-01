@@ -20,6 +20,7 @@ dev = [
   "jupyterlab>=4.4.6",
   "jupyterlab-myst>=2.4.2",
 ]
+notebook = []
 
 [build-system]
 requires = ["pdm-backend"]
