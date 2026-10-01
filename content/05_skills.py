@@ -6,14 +6,12 @@ from pathlib import Path
 import logfire
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
-
 from pydantic import TypeAdapter
 from pydantic_ai import Agent
-from pydantic_ai.models.openai import OpenAIChatModel
-from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.capabilities import MCP
 from pydantic_ai.messages import ModelMessage
-
+from pydantic_ai.models.openai import OpenAIChatModel
+from pydantic_ai.providers.openai import OpenAIProvider
 
 load_dotenv()
 
@@ -27,30 +25,35 @@ client = AsyncOpenAI(
     base_url="https://aitta-api.csc.fi/openai/v1",
 )
 
-policy_text = (Path(__file__).parent / "skills" / "travel-policy" / "skill.md").read_text()
+policy_text = (
+    Path(__file__).parent / "skills" / "travel-policy" / "skill.md"
+).read_text()
 
 model = OpenAIChatModel(
     "google/gemma-4-31b-it",
     provider=OpenAIProvider(openai_client=client),
 )
-agent = Agent(model,
-              instructions=f"""
-You are a helpful travel assistant. 
+agent = Agent(
+    model,
+    instructions=f"""
+You are a helpful travel assistant.
 You must apply the following skill:
 {policy_text}
 """,
-              capabilities=[MCP(url="http://127.0.0.1:8000/mcp")]
-              )
+    capabilities=[MCP(url="http://127.0.0.1:8000/mcp")],
+)
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Travel assistant with optional cross-session memory.")
+    parser = argparse.ArgumentParser(
+        description="Travel assistant with optional cross-session memory."
+    )
     parser.add_argument(
         "--remember-history",
         action="store_true",
         help="Persist the conversation history to disk, so facts learned in a "
-             "previous session (e.g. morning vs. afternoon flight preference) "
-             "are remembered when you start a new session.",
+        "previous session (e.g. morning vs. afternoon flight preference) "
+        "are remembered when you start a new session.",
     )
     return parser.parse_args()
 
@@ -60,9 +63,13 @@ def load_history() -> list[ModelMessage]:
     if not HISTORY_FILE.exists():
         return []
     try:
-        history = TypeAdapter(list[ModelMessage]).validate_json(HISTORY_FILE.read_text())
+        history = TypeAdapter(list[ModelMessage]).validate_json(
+            HISTORY_FILE.read_text()
+        )
     except Exception as exc:  # corrupted file -> start fresh instead of crashing
-        print(f"Warning: could not load {HISTORY_FILE} ({exc}); starting with an empty history.")
+        print(
+            f"Warning: could not load {HISTORY_FILE} ({exc}); starting with an empty history."
+        )
         return []
     print(f"(Remembered {len(history)} messages from previous session: {HISTORY_FILE})")
     return history
