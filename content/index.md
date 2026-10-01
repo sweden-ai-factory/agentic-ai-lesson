@@ -41,6 +41,13 @@ security.md
 ```
 
 ```{toctree}
+:caption: Outlook
+:maxdepth: 1
+
+outlook.md
+```
+
+```{toctree}
 :caption: Reference
 :maxdepth: 1
 
