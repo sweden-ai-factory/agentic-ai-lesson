@@ -27,7 +27,7 @@ setup.md
 :caption: LLMs and Agents
 :maxdepth: 1
 
-llm.md
+large-language-model.md
 agent.md
 ```
 
