@@ -18,7 +18,7 @@ load_dotenv()
 logfire.configure(service_name="mcp_client", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
 
-# Long-term memory lives as Markdown files under this directory. `FileStore`
+# A distilled, long-term memory lives as Markdown files under this directory.
 # resolves it inside the run's workspace (the `LocalWorkspace` below, rooted at
 # this script's directory), so the main notebook lands in
 # content/agent-memory/main/MEMORY.md ("main" is the agent's storage segment) and
@@ -65,10 +65,8 @@ agent = Agent(
 
 
 async def main():
-    # Short-term memory only: the message history of THIS session, fed back so
-    # follow-up questions work. Cross-session memory is no longer our job here --
+    # Cross-session memory is no longer our job here --
     # the Memory capability persists facts to MEMORY_DIR as the agent writes them.
-    history: list[ModelMessage] = []
     while True:
         try:
             prompt = input("You: ")
@@ -82,7 +80,6 @@ async def main():
             async for text in result.stream_text(delta=True):
                 print(text, end="", flush=True)
             print()
-        history = result.all_messages()
 
 
 if __name__ == "__main__":
