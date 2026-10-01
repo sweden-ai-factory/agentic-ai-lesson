@@ -29,7 +29,6 @@ setup.md
 
 large-language-model.md
 agent-basics.md
-agent.md
 ```
 
 ```{toctree}

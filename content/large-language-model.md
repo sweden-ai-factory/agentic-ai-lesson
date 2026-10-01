@@ -1,4 +1,17 @@
-# What is a Large Language Model?
+# 1. Large Language Models
+
+:::{questions}
+- What is a large language model and how does it generate text?
+- Why is an LLM's output variable, and why can it be confidently wrong?
+- Why do training cut-off dates matter in practice?
+- How do you call an LLM from Python?
+:::
+
+:::{objectives}
+- Explain next-token prediction and the role of tokens.
+- Distinguish pre-training from fine-tuning and instruction tuning, and understand why training cut-off dates matter.
+- Call an LLM through the AITTA inference service with the OpenAI client and stream a response.
+:::
 
 A Large Language Model (LLM) is a type of artificial intelligence trained on
 vast amounts of text data to predict and generate human-like text. 
@@ -154,7 +167,7 @@ Pick a stable library, even if it is a little bit older: [Choose Boring Technolo
 - Provide recent documentation or examples in prompts when using newer tools
 - Consider library stability as a factor in dependencies choices
 
-## Exercise 1: Use an LLM
+## Exercise 1.1: Use an LLM
 
 To use an LLM in our code, we need to create a client.
 Even though the LLM provider in our case is [AITTA](https://aitta.csc.fi), an inference service that runs LLMs on the LUMI supercomputer, we use the [OpenAI Python library](https://pypi.org/project/openai/).
@@ -219,7 +232,7 @@ instruction tuning then teach it to follow human instructions. Training always
 stops at a cut-off date, so a model may not know about newer libraries or recent
 changes.
 
-In Exercise 1 we used such a model in practice. We created an `AsyncOpenAI`
+In Exercise 1.1 we used such a model in practice. We created an `AsyncOpenAI`
 client pointed at the AITTA inference service, sent a prompt to
 `LumiOpen/Poro-34B-chat`, and streamed the reply token by token. Because the
 output is stochastic, the exact reply changes each time you run it.

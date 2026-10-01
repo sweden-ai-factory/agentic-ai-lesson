@@ -44,6 +44,7 @@ def get_current_datetime(timezone: str | None = None) -> str:
     return result
 
 
+# flight search tool
 @agent.tool_plain
 def search_flights(
     origin: str | None = None,
