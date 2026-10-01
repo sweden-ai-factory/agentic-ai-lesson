@@ -42,6 +42,7 @@ elif INSTRUMENTATION == "JAEGER":
 else:
     # 'if-token-present' means nothing will be sent (and the example will work) if you don't have logfire configured
     logfire.configure(send_to_logfire='if-token-present')
+
     logfire.instrument_pydantic_ai()
     logfire_handler = logfire.LogfireLoggingHandler()
 
@@ -75,7 +76,7 @@ model_settings = ModelSettings(
 model = OpenAIChatModel(
     "google/gemma-4-31b-it",
     # "Qwen/Qwen3-Coder-Next",
-    #"openai/gpt-oss-120b",
+    # "openai/gpt-oss-120b",
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
 )
