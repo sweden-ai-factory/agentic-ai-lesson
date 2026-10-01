@@ -41,7 +41,7 @@ agent = Agent(
         # at this script's directory: "skills" then resolves to content/skills no matter
         # where the lesson is launched from.
         LocalWorkspace(Path(__file__).parent),
-        Skills("./skills", include=["travel-policy"]),
+        Skills("./agent-skills", include=["travel-policy"]),
     ],
 )
 
