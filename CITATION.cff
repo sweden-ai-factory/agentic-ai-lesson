@@ -1,2 +1,40 @@
-# This CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to generate yours today!
+cff-version: 1.2.0
+message: "If you use this work, please cite it as follows."
+title: "Agentic AI Lesson"
+authors:
+  - given-names: Abdul
+    family-names: Ghafoor
+  - given-names: Ashwin
+    family-names: Mohanan
+  - given-names: Daniel
+    family-names: Medeiros
+  - given-names: Francesco
+    family-names: Fiusco
+  - given-names: Marlon
+    family-names: Tobaben
+  - given-names: Mitja
+    family-names: Sainio
+  - given-names: Vijeta
+    family-names: Sharma
+version: 1.0.0
+date-released: 2026-01-01
+url: https://github.com/sweden-ai-factory/agentic-ai-lesson
+license: CC-BY-4.0
+repository-code: https://github.com/sweden-ai-factory/agentic-ai-lesson
+keywords:
+  - agentic-ai
+  - ai-education
+  - lesson
+  - sweden-ai-factory
+  - lumi-ai-factory
+identifiers:
+  - type: url
+    value: https://github.com/sweden-ai-factory/agentic-ai-lesson
+acknowledgments: |
+  This work is supported by the LUMI AI Factory Service Center, which is funded jointly by the
+  EuroHPC Joint Undertaking and the participating states FI, CZ, DK, EE, NO, PL.
+  Sweden AI Factory is hosted by NAISS (the National Academic Infrastructure for
+  Supercomputing in Sweden) in partnership with RISE Research Institutes of Sweden.
+  Funding is shared between Sweden (through the Swedish Research Council and Vinnova,
+  Sweden's Innovation Agency) and the EuroHPC Joint Undertaking, which is the EU's
+  supercomputer organisation.

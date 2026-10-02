@@ -33,7 +33,8 @@ and Vinnova, Sweden’s Innovation Agency) and the EuroHPC Joint Undertaking,
 which is the EU’s supercomputer organisation.
 """
 
-copyright = f"2026, LUMI AI Factory, Sweden AI Factory, {author}. {funding}"
+copyright_sans_funding = f"2026, LUMI AI Factory, Sweden AI Factory, {author}"
+copyright = copyright_sans_funding + funding
 
 github_user = "sweden-ai-factory"
 github_repo_name = ""  # auto-detected from dirname if blank
@@ -78,7 +79,7 @@ myst_enable_extensions = [
 ]
 myst_dmath_double_inline = True
 myst_fence_as_directive = {"mermaid"}
-myst_substitutions = {"author": author}
+myst_substitutions = {"author": author, "copyright": copyright_sans_funding}
 
 # Settings for sphinx-copybutton
 copybutton_exclude = ".linenos, .gp"
