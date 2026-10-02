@@ -18,7 +18,7 @@ DEFAULT_PROMPT = "Where does 'hello world' come from?"
 async def main(prompt: str):
     stream = await client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
-        model="LumiOpen/Poro-34B-chat",
+        model=os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
         stream=True,
     )
 
