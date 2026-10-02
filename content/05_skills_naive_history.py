@@ -45,7 +45,48 @@ agent = Agent(
     ],
 )
 
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Travel assistant with optional cross-session memory."
+    )
+    parser.add_argument(
+        "--remember-history",
+        action="store_true",
+        help="Persist the conversation history to disk, so facts learned in a "
+        "previous session (e.g. morning vs. afternoon flight preference) "
+        "are remembered when you start a new session.",
+    )
+    return parser.parse_args()
+
+
+def load_history() -> list[ModelMessage]:
+    """Load a previously saved conversation history, if any."""
+    if not HISTORY_FILE.exists():
+        return []
+    try:
+        history = TypeAdapter(list[ModelMessage]).validate_json(
+            HISTORY_FILE.read_text()
+        )
+    except Exception as exc:  # corrupted file -> start fresh instead of crashing
+        print(
+            f"Warning: could not load {HISTORY_FILE} ({exc}); starting with an empty history."
+        )
+        return []
+    print(f"(Remembered {len(history)} messages from previous session: {HISTORY_FILE})")
+    return history
+
+
+def save_history(history: list[ModelMessage]) -> None:
+    """Persist the conversation history so the next session can resume it."""
+    HISTORY_FILE.write_text(TypeAdapter(list[ModelMessage]).dump_json(history).decode())
+    print(f"(History saved to {HISTORY_FILE}; it will be remembered next time)")
+
+
 async def main():
+    args = parse_args()
+    history = load_history() if args.remember_history else []
+    try:
         while True:
             try:
                 prompt = input("You: ")
@@ -60,6 +101,9 @@ async def main():
                     print(text, end="", flush=True)
                 print()
             history = result.all_messages()
+    finally:
+        if args.remember_history and history:
+            save_history(history)
 
 
 if __name__ == "__main__":

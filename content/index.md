@@ -36,6 +36,8 @@ agent-basics.md
 :maxdepth: 1
 
 mcp.md
+adding-skills.md
+adding-memory.md
 ```
 
 ```{toctree}
