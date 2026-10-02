@@ -32,6 +32,30 @@ agent-basics.md
 ```
 
 ```{toctree}
+:caption: The lesson
+:caption: Setup
+:maxdepth: 1
+
+episode.md
+setup.md
+```
+
+```{toctree}
+:caption: Moving to production
+:maxdepth: 1
+
+evaluation.md
+security.md
+```
+
+```{toctree}
+:caption: Outlook
+:maxdepth: 1
+
+outlook.md
+```
+
+```{toctree}
 :caption: Reference
 :maxdepth: 1
 

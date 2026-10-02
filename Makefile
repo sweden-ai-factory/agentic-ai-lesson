@@ -20,7 +20,8 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 lock:
-	uv export -o pylock.toml
+	uv export -qo pylock.toml
+	cd content && uv export -qo pylock.toml
 
 # Live reload site documents for local development
 livehtml:

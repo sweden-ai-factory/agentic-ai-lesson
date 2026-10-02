@@ -2,12 +2,15 @@ import asyncio
 import sys
 import os
 
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
 
+load_dotenv()
+
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 # async function

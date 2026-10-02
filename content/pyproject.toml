@@ -1,11 +1,22 @@
 [project]
-name = "content"
+name = "agentic-ai-hands-on"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "clai>=2.52.0",
     "mcp[cli]>=2.2.0",
+    "openai>=3.20.0",
     "pandas>=3.0.6",
     "pydantic-ai>=2.52.0",
+    "pydantic-ai-harness[skills]>=0.52.0",
+    "python-dotenv>=1.0.0",
 ]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = false

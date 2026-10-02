@@ -22,15 +22,25 @@ uv sync
 2. Log in with your account.
 3. Generate a token and copy it.
 
-## 3. Export the token
+## 3. Provide the token
 
 The scripts read the token from the `OPENAI_API_KEY` environment variable.
+
+Either export it in the terminal session you use for the scripts:
 
 ```bash
 export OPENAI_API_KEY=<your-aitta-token>
 ```
 
-Run this in the same terminal session you use for the scripts.
+Or copy `.env.example` to `.env` in the repository root and fill in your token
+(the scripts load it automatically via `python-dotenv`):
+
+```bash
+cp .env.example .env
+# then edit .env and set OPENAI_API_KEY=<your-aitta-token>
+```
+
+`.env` is gitignored, so your token stays out of version control.
 
 ## 4. Run the lessons
 
@@ -82,7 +92,7 @@ uv run python content/04_mcp_client.py
 
 ### 05 – Skills
 
-Adds a travel-policy skill on top of the MCP tools. It also connects to the MCP
+Adds a travel-policy skill on top of the MCP tools. Skills are loaded on demand by the agent when relevant. It also connects to the MCP
 server from lesson 04, so keep that server running (Terminal 1 above).
 
 ```bash
