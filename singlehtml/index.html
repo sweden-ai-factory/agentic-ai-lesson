@@ -1,0 +1,1120 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html">
+        <link rel="prefetch" href="_static/LAIF_SEAIF_stacked_black.png" as="image">
+        <link rel="prefetch" href="_static/LAIF_SEAIF_stacked_white.png" as="image">
+
+    <link rel="shortcut icon" href="_static/favicon.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>Agentic AI Lesson</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_lesson.css?v=e9df6548" />
+    <link rel="stylesheet" type="text/css" href="_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="_static/furo_ext_lesson.css?v=6c0cde2e" />
+    <link rel="stylesheet" type="text/css" href="_static/EN_Co-funded.css?v=bf081b0b" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/overrides.css?v=1c72d2de" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">Agentic AI Lesson</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/LAIF_SEAIF_stacked_black.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/LAIF_SEAIF_stacked_white.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Agentic AI Lesson</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-setup">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LLMs and Agents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-large-language-model">1. Large Language Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-agent-basics">2. Basics of AI agents</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-setup">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Moving to production</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-evaluation">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-security">Security</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Outlook</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-outlook">Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-quick-reference">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-guide">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="agentic-ai-beyond-coding-assistants-and-chatbots">
+<h1>Agentic AI: Beyond Coding Assistants and Chatbots<a class="headerlink" href="#agentic-ai-beyond-coding-assistants-and-chatbots" title="Link to this heading">¶</a></h1>
+<p>Intro</p>
+<div class="admonition-prerequisites prerequisites admonition" id="prerequisites-0">
+<p class="admonition-title">Prerequisites</p>
+<ul class="simple">
+<li><p>FIXME</p></li>
+<li><p>…</p></li>
+<li><p>…</p></li>
+</ul>
+</div>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>20 min</p></td>
+<td><p><span class="xref std std-doc">filename</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-setup"></span><section class="tex2jax_ignore mathjax_ignore" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">¶</a></h2>
+<section id="get-lumi-access">
+<h3>0. Get LUMI access<a class="headerlink" href="#get-lumi-access" title="Link to this heading">¶</a></h3>
+</section>
+<section id="install-dependencies">
+<h3>1. Install dependencies<a class="headerlink" href="#install-dependencies" title="Link to this heading">¶</a></h3>
+<p>The project is managed with <a class="reference external" href="https://docs.astral.sh/uv/">uv</a>. Install uv if you
+don’t have it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</pre></div>
+</div>
+<p>Create venv</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>sync
+</pre></div>
+</div>
+</section>
+<section id="get-an-aitta-access-token">
+<h3>2. Get an Aitta access token<a class="headerlink" href="#get-an-aitta-access-token" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://aitta-auth.csc.fi/myToken">https://aitta-auth.csc.fi/myToken</a> (also reachable from
+<a class="reference external" href="https://aitta.csc.fi/">https://aitta.csc.fi/</a> → <strong>Generate token</strong>).</p></li>
+<li><p>Log in with your account.</p></li>
+<li><p>Generate a token and copy it.</p></li>
+</ol>
+</section>
+<section id="export-the-token">
+<h3>3. Export the token<a class="headerlink" href="#export-the-token" title="Link to this heading">¶</a></h3>
+<p>The scripts read the token from the <code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code> environment variable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span>&lt;your-aitta-token&gt;
+</pre></div>
+</div>
+<p>Run this in the same terminal session you use for the scripts.</p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-large-language-model"></span><section class="tex2jax_ignore mathjax_ignore" id="large-language-models">
+<h2>1. Large Language Models<a class="headerlink" href="#large-language-models" title="Link to this heading">¶</a></h2>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What is a large language model and how does it generate text?</p></li>
+<li><p>Why is an LLM’s output variable, and why can it be confidently wrong?</p></li>
+<li><p>Why do training cut-off dates matter in practice?</p></li>
+<li><p>How do you call an LLM from Python?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Explain next-token prediction and the role of tokens.</p></li>
+<li><p>Distinguish pre-training from fine-tuning and instruction tuning, and understand why training cut-off dates matter.</p></li>
+<li><p>Call an LLM through the AITTA inference service with the OpenAI client and stream a response.</p></li>
+</ul>
+</div>
+<p>A Large Language Model (LLM) is a type of artificial intelligence trained on
+vast amounts of text data to predict and generate human-like text.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/llm.png"><img alt="general concept of an LLM" src="_images/llm.png" style="width: 100%;" />
+</a>
+</figure>
+<!--
+:::{admonition} A more accurate mental model
+:class: tip, dropdown
+-->
+<p>At their core, these models learn statistical patterns in language: given a
+sequence of words (or better <em>tokens</em>: fragments of words, commas, and anything
+in text), they predict what comes next. In order to do so, text must first be
+converted into numerical representations, then transformer layers update those
+representations using the surrounding context, and finally they are converted
+back to text.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>text
+  -&gt; tokens
+  -&gt; token IDs
+  -&gt; embeddings
+  -&gt; transformer blocks
+  -&gt; output logits
+  -&gt; next-token probabilities
+  -&gt; tokens
+  -&gt; text
+</pre></div>
+</div>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/llm_blocks.png"><img alt="Input tokens -&gt;  Model -&gt; Input tokens + output token" src="_images/llm_blocks.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">A simplistic mental model for an LLM performing probabilistic next token prediction.
+Source: <a class="reference external" href="https://simo-tuomisto.github.io/understanding-ai-landscape-lecture/#3">Simo Tuomisto</a></span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>LLMs work because language (whether natural language or code) follows consistent
+patterns. The model doesn’t “understand” text the way humans do, but it has
+learned enough patterns to generate coherent and often meaningful output. This
+is especially effective for code, which is highly structured, so the model can
+generate syntactically correct and often semantically meaningful code.</p>
+<div class="admonition-key-insight callout admonition" id="callout-0">
+<p class="admonition-title">Key insight</p>
+<p>LLMs are sophisticated pattern-matching systems that can perform multi-step reasoning, but their reasoning is fallible and outputs must be verified. They
+excel at common patterns but can confidently produce incorrect output for novel
+or complex problems. <strong>Always verify their output</strong>.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Stochastic parrots</p>
+<p>{attribution=”Emily M. Bender and Timnit Gebru”}</p>
+<blockquote>
+<div><p>LM [Language Model] is a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning: a stochastic parrot.</p>
+</div></blockquote>
+<p>Source: <a class="reference external" href="https://doi.org/10.1145/3442188.3445922">https://doi.org/10.1145/3442188.3445922</a></p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Practitioner’s perspective: Simon Willison</p>
+<p>{attribution=”Simon Willison”}</p>
+<blockquote>
+<div><p>My current favorite mental model is to think of them as an over-confident
+pair programming assistant who’s lightning fast at looking things up, can
+churn out relevant examples at a moment’s notice and can execute on tedious
+tasks without complaint.</p>
+<p><strong>Over-confident</strong> is important. They’ll absolutely make mistakes, sometimes
+subtle, sometimes huge. These mistakes can be deeply inhuman, if a human
+collaborator hallucinated a non-existent library or method you would
+instantly lose trust in them.</p>
+<p><strong>Don’t fall into the trap of anthropomorphizing LLMs and assuming that
+failures which would discredit a human should discredit the machine in the
+same way.</strong>”</p>
+</div></blockquote>
+<p>Source: <a class="reference external" href="https://simonwillison.net/2025/Mar/11/using-llms-for-code/">“How I use LLMs to help me write code”</a></p>
+</div>
+<section id="how-are-llms-trained">
+<h3>How are LLMs trained?<a class="headerlink" href="#how-are-llms-trained" title="Link to this heading">¶</a></h3>
+<p>Training an LLM involves two main phases:</p>
+<section id="pre-training">
+<h4>1. Pre-training<a class="headerlink" href="#pre-training" title="Link to this heading">¶</a></h4>
+<p>The model is exposed to massive amounts of text (and often code)
+to learn general patterns of language:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Training Data Size</p></th>
+<th class="head"><p>Languages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Poro 34B</p></td>
+<td><p>~1 trillion tokens</p></td>
+<td><p>Finnish, English, code</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gemma</p></td>
+<td><p>Undisclosed (Gemma 2: ~13 trillion tokens)</p></td>
+<td><p>Multilingual + code</p></td>
+</tr>
+<tr class="row-even"><td><p>GPT-OSS</p></td>
+<td><p>Undisclosed</p></td>
+<td><p>Multilingual + code</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPT-5.x</p></td>
+<td><p>Undisclosed</p></td>
+<td><p>Multilingual + code</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>During pre-training, the model learns:</p>
+<ul class="simple">
+<li><p>Grammar and structure of natural language (and the syntax of programming languages)</p></li>
+<li><p>Common patterns, idioms, and factual associations</p></li>
+<li><p>Relationships between concepts across a document</p></li>
+<li><p>How different parts of a text (or codebase) relate to each other</p></li>
+</ul>
+<p>The size of typical datasets also implies that training a model from scratch
+is a heavy commitment. It is expensive, both in terms of time (person-hours) and
+compute, which in turn means that very few actors do this and most users rely on
+such pre-trained “frontier” models for their specific use cases.</p>
+<p>In our course we use the AITTA inference service that serves such frontier models via an API. We just need to implement the API client and then can use such models in our Python code.</p>
+</section>
+<section id="fine-tuning-and-instruction-tuning">
+<h4>2. Fine-tuning and instruction tuning<a class="headerlink" href="#fine-tuning-and-instruction-tuning" title="Link to this heading">¶</a></h4>
+<p>After pre-training, models are often further refined:</p>
+<ul class="simple">
+<li><p><strong>Fine-tuning</strong>: Training on specific domains (e.g., scientific Python)</p></li>
+<li><p><strong>Instruction tuning</strong>: Teaching the model to follow human instructions</p></li>
+<li><p><strong>RLHF</strong> (Reinforcement Learning from Human Feedback): Aligning outputs with human preferences</p></li>
+</ul>
+<p>In our exercise we use an instruction-tuned model that lets us send a prompt as a message with a role (<code class="docutils literal notranslate"><span class="pre">messages=[{&quot;role&quot;:</span> <span class="pre">&quot;user&quot;,</span> <span class="pre">&quot;content&quot;:</span> <span class="pre">prompt}]</span></code>) and get a helpful response.</p>
+</section>
+</section>
+<section id="training-cut-off-dates-matter">
+<h3>Training cut-off dates matter<a class="headerlink" href="#training-cut-off-dates-matter" title="Link to this heading">¶</a></h3>
+<p>A crucial characteristic of any model is its <strong>training cut-off date</strong>, the
+date at which training data collection stopped. This has direct practical
+implications, which are especially visible in coding:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Impact</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Unknown libraries</p></td>
+<td><p>A library released after the cut-off won’t be suggested</p></td>
+</tr>
+<tr class="row-odd"><td><p>Breaking changes</p></td>
+<td><p>Major API changes since cut-off produce outdated suggestions</p></td>
+</tr>
+<tr class="row-even"><td><p>Deprecated patterns</p></td>
+<td><p>Old syntax or methods may still be recommended</p></td>
+</tr>
+<tr class="row-odd"><td><p>Security updates</p></td>
+<td><p>Known vulnerabilities patched after cut-off won’t be reflected</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition-key-insight callout admonition" id="callout-1">
+<p class="admonition-title">Key insight</p>
+<p>The training cut-off date is sometimes not known. With chatbots, you can try asking the chatbot.
+What makes it even more challenging is that some <strong>AI systems also have <em>“tools”</em></strong> attached to them,
+so they can fetch <strong>some</strong> up-to-date content, while mixing with what they have seen during
+their training. This can be a total success… or total disaster.</p>
+<p>Pick a stable library, even if it is a little bit older: <a class="reference external" href="https://boringtechnology.club/">Choose Boring Technology</a>.</p>
+</div>
+<p><strong>Practical implications:</strong></p>
+<ul class="simple">
+<li><p>Check model documentation for training cut-off dates</p></li>
+<li><p>Be skeptical of suggestions for rapidly-evolving libraries</p></li>
+<li><p>Provide recent documentation or examples in prompts when using newer tools</p></li>
+<li><p>Consider library stability as a factor in dependencies choices</p></li>
+</ul>
+</section>
+<section id="exercise-1-1-use-an-llm">
+<h3>Exercise 1.1: Use an LLM<a class="headerlink" href="#exercise-1-1-use-an-llm" title="Link to this heading">¶</a></h3>
+<p>To use an LLM in our code, we need to create a client.
+Even though the LLM provider in our case is <a class="reference external" href="https://aitta.csc.fi">AITTA</a>, an inference service that runs LLMs on the LUMI supercomputer, we use the <a class="reference external" href="https://pypi.org/project/openai/">OpenAI Python library</a>.
+AITTA implements a subset of the <a class="reference external" href="https://github.com/openai/openai-openapi">OpenAI API</a>, which has become a de facto standard for LLM APIs. This means we can easily switch to any other provider that implements the same API.</p>
+<p>We use <code class="docutils literal notranslate"><span class="pre">AsyncOpenAI</span></code>, the asynchronous version of the client, which works with <a class="reference external" href="https://docs.python.org/3/library/asyncio.html"><code class="docutils literal notranslate"><span class="pre">asyncio</span></code></a>. <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> is Python’s built-in library for running many tasks concurrently in a single program, so that while one task waits (for example, for an LLM to respond), others can keep working instead of sitting idle. This lets us send multiple requests to the LLM at the same time instead of one after another. We don’t need this yet, but it will be useful in later exercises.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">base_url</span></code> is set here to use AITTA, but it can be changed. For example, you can set it to <code class="docutils literal notranslate"><span class="pre">http://localhost:8000/v1</span></code> when running vLLM locally, or to <code class="docutils literal notranslate"><span class="pre">https://api.openai.com/v1</span></code> for OpenAI.</p>
+<p>The API key authenticates you to the service. Keep it secret and never share it with anyone. See the <a class="reference internal" href="#document-setup"><span class="std std-doc">setup section</span></a> for how to obtain one for AITTA.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncOpenAI</span>
+
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">AsyncOpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"EMPTY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_BASE_URL"</span><span class="p">,</span> <span class="s2">"https://aitta-api.csc.fi/openai/v1"</span><span class="p">),</span>
+<span class="p">)</span>
+
+</pre></div>
+</div>
+<p>Now we can use our client to send the prompt <code class="docutils literal notranslate"><span class="pre">&quot;Where</span> <span class="pre">does</span> <span class="pre">'hello</span> <span class="pre">world'</span> <span class="pre">come</span> <span class="pre">from?&quot;</span></code> to the model <code class="docutils literal notranslate"><span class="pre">LumiOpen/Poro-34B-chat</span></code>.</p>
+<p>Setting <code class="docutils literal notranslate"><span class="pre">stream=True</span></code> tells the API to send the response in small pieces, called tokens, as soon as the model produces them, rather than waiting until the whole answer is finished.</p>
+<p>We receive these pieces one at a time in the <code class="docutils literal notranslate"><span class="pre">async</span> <span class="pre">for</span></code> loop. Each <code class="docutils literal notranslate"><span class="pre">event</span></code> contains a <code class="docutils literal notranslate"><span class="pre">delta</span></code> with only the text that is new since the previous event. Printing with <code class="docutils literal notranslate"><span class="pre">end=&quot;&quot;</span></code> joins the pieces into continuous text, and <code class="docutils literal notranslate"><span class="pre">flush=True</span></code> makes each one appear on screen immediately instead of being buffered.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULT_PROMPT</span> <span class="o">=</span> <span class="s2">"Where does 'hello world' come from?"</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">stream</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}],</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_NAME"</span><span class="p">,</span> <span class="s2">"google/gemma-4-31b-it"</span><span class="p">),</span>
+        <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">delta</span><span class="o">.</span><span class="n">content</span>
+        <span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+
+</pre></div>
+</div>
+<p>You can run it yourself with the following command. Make sure you have set up your API key correctly as described in the <a class="reference internal" href="#document-setup"><span class="std std-doc">setup section</span></a>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>01_hello_world.py
+</pre></div>
+</div>
+<p>You should receive a reply to your prompt, but note that the exact reply can change because LLMs are stochastic. Here is an example that we got.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The tradition of writing a "Hello, World!" program is widely attributed to **Brian Kernighan**, a computer scientist at Bell Labs.
+
+While many people associate it with the C programming language, its origin happened in two stages...
+</pre></div>
+</div>
+<p>Try changing the prompt by passing a new prompt to the script with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>01_hello_world.py<span class="w"> </span><span class="s2">"Where does the name Python come from?"</span>
+</pre></div>
+</div>
+<p>This is a bit clumsy, so in the next part we will make it interactive, letting you type new prompts directly from the command line without needing to restart the script.</p>
+</section>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h3>
+<p>A large language model predicts text one token at a time. Text is split into
+tokens, converted into numerical representations, passed through transformer
+blocks that use the surrounding context, and turned back into probabilities for
+the next token. Because this process is probabilistic, the output is stochastic
+and pattern-based: it can be wrong even when it looks confident, so you should
+always verify what the model produces.</p>
+<p>Models are built in two phases. Pre-training exposes the model to large amounts
+of text (and code) so it learns general patterns, and fine-tuning and
+instruction tuning then teach it to follow human instructions. Training always
+stops at a cut-off date, so a model may not know about newer libraries or recent
+changes.</p>
+<p>In Exercise 1.1 we used such a model in practice. We created an <code class="docutils literal notranslate"><span class="pre">AsyncOpenAI</span></code>
+client pointed at the AITTA inference service, sent a prompt to
+<code class="docutils literal notranslate"><span class="pre">LumiOpen/Poro-34B-chat</span></code>, and streamed the reply token by token. Because the
+output is stochastic, the exact reply changes each time you run it.</p>
+</section>
+</section>
+<span id="document-agent-basics"></span><section class="tex2jax_ignore mathjax_ignore" id="basics-of-ai-agents">
+<h2>2. Basics of AI agents<a class="headerlink" href="#basics-of-ai-agents" title="Link to this heading">¶</a></h2>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What do we mean by an AI agent, and how is it more than just calling an LLM?</p></li>
+<li><p>Why can’t a plain language model tell you the time or remember what you just said?</p></li>
+<li><p>When an agent has several tools, how does it decide which one to use?</p></li>
+<li><p>What happens when tools are “chained” together?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand what an AI agent is and the role of the harness and tools.</p></li>
+<li><p>Build up an agent step by step: adding a tool, conversation history, and a second tool.</p></li>
+<li><p>See why tools and message history are needed by running the example scripts.</p></li>
+</ul>
+</div>
+<section id="defining-agents">
+<h3>Defining agents<a class="headerlink" href="#defining-agents" title="Link to this heading">¶</a></h3>
+<p>The term <em>agent</em> is quite overloaded these days. It is often used to refer to any
+application using LLMs in some capacity, even one as simple as our “hello world” program
+from the previous section. In this course, we understand an AI agent to mean a computer
+program that leverages an LLM to interact with the program’s environment (a <em>harness</em> in
+AI jargon) in order to accomplish some task. This is enabled by outfitting the harness
+with <em>tools</em>, which may be implemented as, e.g., Python functions.</p>
+<p>At the time of writing these materials, there are many frameworks for building AI
+agents, each providing roughly the same features. This course uses
+<a class="reference external" href="https://pydantic.dev/docs/ai/overview/">Pydantic AI</a>. Other popular options include
+<a class="reference external" href="https://docs.langchain.com/oss/python/langchain/overview">LangChain</a>
+and <a class="reference external" href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a>. The code block
+below shows how one would use Pydantic AI to build an agent on top of the OpenAI client
+used in the previous section.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">AsyncOpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"EMPTY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_BASE_URL"</span><span class="p">,</span> <span class="s2">"https://aitta-api.csc.fi/openai/v1"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">OpenAIChatModel</span><span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_NAME"</span><span class="p">,</span> <span class="s2">"google/gemma-4-31b-it"</span><span class="p">),</span>
+    <span class="n">provider</span><span class="o">=</span><span class="n">OpenAIProvider</span><span class="p">(</span><span class="n">openai_client</span><span class="o">=</span><span class="n">client</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here Pydantic AI’s <code class="docutils literal notranslate"><span class="pre">Agent</span></code> wraps the same AITTA-hosted client we built in the
+previous episode, turning it into an agent that we can later extend with tools
+and conversation history.</p>
+<p>We run the agent in a loop as you can see below. It is constantly waiting for new prompts or processing prompts you just sent.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">prompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"You: "</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">prompt</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"quit"</span><span class="p">,</span> <span class="s2">"exit"</span><span class="p">,</span> <span class="s2">""</span><span class="p">}:</span>
+            <span class="k">break</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">agent</span><span class="o">.</span><span class="n">run_stream</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">message_history</span><span class="o">=</span><span class="n">history</span><span class="p">)</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Agent: "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">stream_text</span><span class="p">(</span><span class="n">delta</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p>So where is the compute happening? Which part of this program runs on your own
+machine, and which part runs elsewhere?</p>
+</div>
+<section id="exercise-2-1-ask-the-agent-for-the-time">
+<h4>Exercise 2.1: Ask the agent for the time<a class="headerlink" href="#exercise-2-1-ask-the-agent-for-the-time" title="Link to this heading">¶</a></h4>
+<p>We can try to use the agent with the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>02_time.py
+</pre></div>
+</div>
+<p>Try asking the agent about the time and observe the result:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>What is the time currently in Helsinki?
+</pre></div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-1">
+<p class="admonition-title">Discussion</p>
+<p>What do you see? Is this surprising to you?</p>
+</div>
+<p>The agent most likely made up a time or refused to answer. An LLM only generates
+text and has no way to look up the current time on its own. To give it that
+ability, we provide <em>tools</em>.</p>
+</section>
+</section>
+<section id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Link to this heading">¶</a></h3>
+<p>The previous section introduced the concept of a language model as a text generation
+algorithm. The role of an LLM in an AI agent is to guide the harness program’s
+execution, so that it can leverage the provided tools in a useful manner. This is
+accomplished by extracting pre-determined patterns from text generated by the LLM.
+An <em>inference server</em> running the model, such as <a class="reference external" href="https://docs.vllm.ai/en/latest/">vLLM</a>
+or <a class="reference external" href="https://docs.sglang.io/">SGLang</a>, parses tool calls from the LLM’s output and
+returns a structured response to the harness.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-UmF3IHRleHQ=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-UmF3IHRleHQ=" name="UmF3IHRleHQ=" role="tab" tabindex="0">Raw text</button><button aria-controls="panel-0-UGFyc2VkIHJlc3BvbnNl" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-UGFyc2VkIHJlc3BvbnNl" name="UGFyc2VkIHJlc3BvbnNl" role="tab" tabindex="-1">Parsed response</button></div><div aria-labelledby="tab-0-UmF3IHRleHQ=" class="sphinx-tabs-panel group-tab" id="panel-0-UmF3IHRleHQ=" name="UmF3IHRleHQ=" role="tabpanel" tabindex="0"><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;bos&gt;&lt;|turn&gt;system
+You are a helpful assistant.&lt;turn|&gt;
+&lt;|turn&gt;user
+What's the temperature in London?&lt;turn|&gt;
+&lt;|turn&gt;model
+&lt;|tool_call&gt;call:get_current_weather{location:&lt;|"|&gt;London&lt;|"|&gt;}&lt;tool_call|&gt;&lt;|tool_response&gt;
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-UGFyc2VkIHJlc3BvbnNl" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-UGFyc2VkIHJlc3BvbnNl" name="UGFyc2VkIHJlc3BvbnNl" role="tabpanel" tabindex="0"><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"system"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You are a helpful assistant."</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What's the temperature in London?"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"tool_calls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"function"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"get_current_weather"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div></div>
+<p>When a user inputs a message to a harness with access to tools, a list of available
+tools is passed along with the message to the inference server running the model. If the
+LLM generates a response that includes a tool call, response generation is paused, and
+the inference server returns a tool call. The harness runs the tool and sends the result
+back to the inference server. The server then appends the result to the generated text
+and the model resumes generation.</p>
+<p>Below you can see the tool <code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code> that returns the current time given a timezone. While the LLM has no access to the current time, your computer knows the time very well. This tool simply returns the time of your computer to the agent. Note that the tool’s docstring tells the agent when to use it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@agent</span><span class="o">.</span><span class="n">tool_plain</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_current_datetime</span><span class="p">(</span><span class="n">timezone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get the current date and time.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        timezone: IANA timezone name, e.g. 'Europe/Stockholm'. Omit for the user's local time.</span>
+<span class="sd">    """</span>
+    <span class="n">logfire</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"tool called with {timezone=}"</span><span class="p">,</span> <span class="n">timezone</span><span class="o">=</span><span class="n">timezone</span><span class="p">)</span>
+    <span class="n">tz</span> <span class="o">=</span> <span class="n">ZoneInfo</span><span class="p">(</span><span class="n">timezone</span><span class="p">)</span> <span class="k">if</span> <span class="n">timezone</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S %Z (UTC%z)"</span><span class="p">)</span>
+    <span class="n">logfire</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"tool result: </span><span class="si">{result}</span><span class="s2">"</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-2">
+<p class="admonition-title">Discussion</p>
+<p>What other tools could you imagine?</p>
+</div>
+<section id="exercise-2-2-enable-a-tool">
+<h4>Exercise 2.2: Enable a tool<a class="headerlink" href="#exercise-2-2-enable-a-tool" title="Link to this heading">¶</a></h4>
+<p>We can try the agent with the <code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code> tool enabled by passing <code class="docutils literal notranslate"><span class="pre">--enable_tools</span></code>. The agent will call this tool if it seems appropriate for replying to your prompt.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>02_time.py<span class="w"> </span>--enable_tools
+</pre></div>
+</div>
+<p>Try asking the agent again about the time and observe the result (note that you can see potential tool calls in the log):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>What is the time currently in Helsinki?
+</pre></div>
+</div>
+<p>This works now! However, what about asking multiple things that build on top of each other?</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The instructor lives in Helsinki.
+</pre></div>
+</div>
+<p>Followed by the second prompt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>What is the time currently in the city that the instructor lives in?
+</pre></div>
+</div>
+<p>You will notice that this is not possible for the LLM to answer. We will now explore why.</p>
+<div class="admonition-discussion discussion important admonition" id="discussion-3">
+<p class="admonition-title">Discussion</p>
+<p>Why do you think the agent could not answer the second question?</p>
+</div>
+</section>
+</section>
+<section id="history">
+<h3>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h3>
+<p>LLMs are <em>stateless</em>, which means that a given input does not affect how consecutive
+inputs are processed. A practical consequence of this is that when you input a message
+to a model, it does not remember previous messages. In order to hold a conversation with
+a model, every new input must include all previous inputs and responses. While chat
+history can be naïvely implemented by manually appending messages to a list, pre-made
+harnesses typically take care of this on behalf of the programmer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">prompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"You: "</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">prompt</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"quit"</span><span class="p">,</span> <span class="s2">"exit"</span><span class="p">,</span> <span class="s2">""</span><span class="p">}:</span>
+            <span class="k">break</span>
+
+        <span class="k">async</span> <span class="k">with</span> <span class="n">agent</span><span class="o">.</span><span class="n">run_stream</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">message_history</span><span class="o">=</span><span class="n">history</span><span class="p">)</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Agent: "</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">stream_text</span><span class="p">(</span><span class="n">delta</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="n">history</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">all_messages</span><span class="p">()</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">enable_history</span> <span class="k">else</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<section id="exercise-2-3-enable-conversation-history">
+<h4>Exercise 2.3: Enable conversation history<a class="headerlink" href="#exercise-2-3-enable-conversation-history" title="Link to this heading">¶</a></h4>
+<p>We can try the agent by additionally enabling the history with <code class="docutils literal notranslate"><span class="pre">--enable_history</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>02_time.py<span class="w"> </span>--enable_tools<span class="w"> </span>--enable_history
+</pre></div>
+</div>
+<p>This example will now work:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The instructor lives in Helsinki.
+</pre></div>
+</div>
+<p>Followed by the second prompt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>What is the time currently in the city that the instructor lives in?
+</pre></div>
+</div>
+<p>Now the LLM should reply with the current time in Helsinki.</p>
+</section>
+</section>
+<section id="multiple-tools-and-tool-chaining">
+<h3>Multiple tools and tool chaining<a class="headerlink" href="#multiple-tools-and-tool-chaining" title="Link to this heading">¶</a></h3>
+<p>An agent is not limited to a single tool. We can register several tools on the
+same agent, and the LLM decides which one to call for a given prompt. Tools can
+also be <em>chained</em>: the result of one tool becomes the input to another.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">03_flight_search.py</span></code> example adds a <code class="docutils literal notranslate"><span class="pre">search_flights</span></code> tool alongside
+<code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code>. The flight search only understands concrete dates, so
+its docstring instructs the agent to resolve relative dates like “tomorrow” by
+calling <code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code> first and then passing the resolved date to
+<code class="docutils literal notranslate"><span class="pre">search_flights</span></code>.</p>
+<p>See the <code class="docutils literal notranslate"><span class="pre">search_flights</span></code> tool below. It is quite complicated, but in the end it just allows access to a flight database. The results from that database can be filtered. If you are interested, you can find the full mock flight database under <code class="docutils literal notranslate"><span class="pre">data/flights.csv</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@agent</span><span class="o">.</span><span class="n">tool_plain</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search_flights</span><span class="p">(</span>
+    <span class="n">origin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search the weekly flight schedule. Flights recur on fixed weekdays.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        origin: departure city, e.g. 'Helsinki'. Omit to match any.</span>
+<span class="sd">        destination: arrival city, e.g. 'Stockholm'. Omit to match any.</span>
+<span class="sd">        date: travel date 'YYYY-MM-DD'; returns flights on that weekday. Resolve</span>
+<span class="sd">            relative dates like 'tomorrow' with get_current_datetime first.</span>
+<span class="sd">    """</span>
+    <span class="n">logfire</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"tool called with {origin=} {destination=} {date=}"</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">destination</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="n">date</span><span class="p">)</span>
+    <span class="n">flights</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"data"</span> <span class="o">/</span> <span class="s2">"flights.csv"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">origin</span><span class="p">:</span>
+        <span class="n">flights</span> <span class="o">=</span> <span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="p">[</span><span class="s2">"origin"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">origin</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="n">destination</span><span class="p">:</span>
+        <span class="n">flights</span> <span class="o">=</span> <span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="p">[</span><span class="s2">"destination"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">destination</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="n">date</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">weekday</span> <span class="o">=</span> <span class="n">WEEKDAYS</span><span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">date</span><span class="p">)</span><span class="o">.</span><span class="n">weekday</span><span class="p">()]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">"Invalid date </span><span class="si">{</span><span class="n">date</span><span class="si">!r}</span><span class="s2">, expected 'YYYY-MM-DD'."</span>
+        <span class="n">flights</span> <span class="o">=</span> <span class="n">flights</span><span class="p">[</span><span class="n">flights</span><span class="p">[</span><span class="s2">"weekdays"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">weekday</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="n">flights</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">"No matching flights found."</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">flights</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">logfire</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"tool result: </span><span class="si">{result}</span><span class="s2">"</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-4">
+<p class="admonition-title">Discussion</p>
+<p>Before running it, which tools do you expect the agent to call, and in what order?</p>
+</div>
+<section id="exercise-2-4-chain-two-tools">
+<h4>Exercise 2.4: Chain two tools<a class="headerlink" href="#exercise-2-4-chain-two-tools" title="Link to this heading">¶</a></h4>
+<p>Run the flight search agent, which has both tools enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>03_flight_search.py
+</pre></div>
+</div>
+<p>Ask a question that depends on today’s date, and watch the log to see the agent
+call <code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code> first and then <code class="docutils literal notranslate"><span class="pre">search_flights</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Are there any flights from Paris to Rome tomorrow?
+</pre></div>
+</div>
+<p>The agent should have returned a list of flights.</p>
+</section>
+</section>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h3>
+<p>An AI agent is a program that uses an LLM to decide how to interact with its
+environment (the <em>harness</em>) through <em>tools</em>. In this episode we used Pydantic AI
+to wrap the model from the previous episode into an agent.</p>
+<p>Because an LLM only generates text, tools are necessary to do more useful things: the harness adds the available tools to the prompt, detects when the model’s output is a tool call, runs the tool, and returns the result to the model. A tool’s docstring
+tells the agent when and how to use it.</p>
+<p>LLMs are stateless, so to hold a conversation the harness must send the full
+message history with every request. With tools and history in place, the agent
+can chain several tool calls together and build on earlier turns, for example
+resolving a relative date before searching for flights.</p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-evaluation"></span><section class="tex2jax_ignore mathjax_ignore" id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">¶</a></h2>
+<p>placeholder</p>
+</section>
+<span id="document-security"></span><section class="tex2jax_ignore mathjax_ignore" id="security">
+<h2>Security<a class="headerlink" href="#security" title="Link to this heading">¶</a></h2>
+<p>placeholder</p>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-outlook"></span><section class="tex2jax_ignore mathjax_ignore" id="outlook">
+<h2>Outlook<a class="headerlink" href="#outlook" title="Link to this heading">¶</a></h2>
+<p>placeholder</p>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-quick-reference"></span><section class="tex2jax_ignore mathjax_ignore" id="quick-reference">
+<h2>Quick Reference<a class="headerlink" href="#quick-reference" title="Link to this heading">¶</a></h2>
+</section>
+<span id="document-guide"></span><section class="tex2jax_ignore mathjax_ignore" id="instructor-s-guide">
+<h2>Instructor’s guide<a class="headerlink" href="#instructor-s-guide" title="Link to this heading">¶</a></h2>
+<section id="why-we-teach-this-lesson">
+<h3>Why we teach this lesson<a class="headerlink" href="#why-we-teach-this-lesson" title="Link to this heading">¶</a></h3>
+</section>
+<section id="intended-learning-outcomes">
+<h3>Intended learning outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Link to this heading">¶</a></h3>
+</section>
+<section id="timing">
+<h3>Timing<a class="headerlink" href="#timing" title="Link to this heading">¶</a></h3>
+</section>
+<section id="preparing-exercises">
+<h3>Preparing exercises<a class="headerlink" href="#preparing-exercises" title="Link to this heading">¶</a></h3>
+<p>e.g. what to do the day before to set up common repositories.</p>
+</section>
+<section id="other-practical-aspects">
+<h3>Other practical aspects<a class="headerlink" href="#other-practical-aspects" title="Link to this heading">¶</a></h3>
+</section>
+<section id="interesting-questions-you-might-get">
+<h3>Interesting questions you might get<a class="headerlink" href="#interesting-questions-you-might-get" title="Link to this heading">¶</a></h3>
+</section>
+<section id="typical-pitfalls">
+<h3>Typical pitfalls<a class="headerlink" href="#typical-pitfalls" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+</div>
+<section id="learning-outcomes">
+<h2>Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">¶</a></h2>
+<p>FIXME</p>
+<p>This material is for …</p>
+<p>By the end of this module, learners should:</p>
+<ul class="simple">
+<li><p>…</p></li>
+<li><p>…</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<div class="warning admonition">
+<p class="admonition-title">Credit</p>
+<p>FIXME</p>
+<p>Don’t forget to check out additional course materials from …</p>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">License</p>
+<div class="attention dropdown admonition">
+<p class="admonition-title">CC BY-SA for media and pedagogical material</p>
+<p>Copyright © 2026, LUMI AI Factory, Sweden AI Factory, Abdul Ghafoor, Ashwin Mohanan, Daniel Medeiros, Francesco Fiusco, Marlon Tobaben, Mitja Sainio, Vijeta Sharma
+. This material is released by LUMI AI Factory and Sweden AI Factory under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+<p><strong>Canonical URL</strong>: <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a></p>
+<p><a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en">See the legal code</a></p>
+<p class="rubric" id="you-are-free-to">You are free to</p>
+<ol class="arabic simple">
+<li><p><strong>Share</strong> — copy and redistribute the material in any medium or format for any purpose, even commercially.</p></li>
+<li><p><strong>Adapt</strong> — remix, transform, and build upon the material for any purpose, even commercially.</p></li>
+<li><p>The licensor cannot revoke these freedoms as long as you follow the license terms.</p></li>
+</ol>
+<p class="rubric" id="under-the-following-terms">Under the following terms</p>
+<ol class="arabic simple">
+<li><p><strong>Attribution</strong> — You must give <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-appropriate-credit">appropriate credit</a> , provide a link to the license, and <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-indicate-changes">indicate if changes were made</a> . You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</p></li>
+<li><p><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-same-license">same license</a> as the original.</p></li>
+<li><p><strong>No additional restrictions</strong> — You may not apply legal terms or <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-technological-measures">technological measures</a> that legally restrict others from doing anything the license permits.</p></li>
+</ol>
+<p class="rubric" id="notices">Notices</p>
+<p>You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/deed.en#ref-exception-or-limitation">exception or limitation</a> .</p>
+<p>No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/deed.en#ref-publicity-privacy-or-moral-rights">publicity, privacy, or moral rights</a> may limit how you use the material.</p>
+<p>This deed highlights only some of the key features and terms of the actual license. It is not a license and has no legal value. You should carefully review all of the terms and conditions of the actual license before using the licensed material.</p>
+</div>
+<div class="attention dropdown admonition">
+<p class="admonition-title">MIT for source code and code snippets</p>
+<p>MIT License</p>
+<p>Copyright (c) 2026, LUMI AI Factory, Sweden AI Factory, Abdul Ghafoor, Ashwin Mohanan, Daniel Medeiros, Francesco Fiusco, Marlon Tobaben, Mitja Sainio, Vijeta Sharma
+</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+</div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, LUMI AI Factory, Sweden AI Factory, Abdul Ghafoor, Ashwin Mohanan, Daniel Medeiros, Francesco Fiusco, Marlon Tobaben, Mitja Sainio, Vijeta Sharma
+The LUMI AI Factory Service Center is funded jointly by the
+EuroHPC Joint Undertaking and the participating states FI, CZ, DK, EE, NO, PL.
+Sweden AI Factory is hosted by NAISS (the National Academic Infrastructure for
+Supercomputing in Sweden) in partnership with RISE Research Institutes of
+Sweden. Funding is shared between Sweden (through the Swedish Research Council
+and Vinnova, Sweden’s Innovation Agency) and the EuroHPC Joint Undertaking,
+which is the EU’s supercomputer organisation.
+
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/sweden-ai-factory/agentic-ai-lesson" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-setup">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">LLMs and Agents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-large-language-model">1. Large Language Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-agent-basics">2. Basics of AI agents</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-setup">Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Moving to production</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-evaluation">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-security">Security</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Outlook</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-outlook">Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-quick-reference">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-guide">Instructor’s guide</a></li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=d6d90d09"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=35a8b989"></script>
+    <script src="_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/tabs.js?v=3030b3cb"></script>
+    <script data-domain="learn.swedenaifactory.se/agentic-ai-lesson" defer="defer" src="https://plausible.io/js/script.js"></script>
+    </body>
+</html>
