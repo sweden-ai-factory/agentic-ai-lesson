@@ -17,10 +17,18 @@ Intro
 ```
 
 ```{toctree}
-:caption: The lesson
+:caption: Setup
 :maxdepth: 1
 
-episode.md
+setup.md
+```
+
+```{toctree}
+:caption: LLMs and Agents
+:maxdepth: 1
+
+large-language-model.md
+agent-basics.md
 ```
 
 ```{toctree}

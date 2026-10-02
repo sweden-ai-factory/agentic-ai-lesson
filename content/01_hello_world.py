@@ -1,12 +1,10 @@
 import asyncio
+import sys
 import os
 
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
-from pydantic_ai import Agent
-from pydantic_ai.models.openai import OpenAIChatModel
-from pydantic_ai.providers.openai import OpenAIProvider
 
 load_dotenv()
 
@@ -15,22 +13,22 @@ client = AsyncOpenAI(
     base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
-model = OpenAIChatModel(
-    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
-    provider=OpenAIProvider(openai_client=client),
-)
-agent = Agent(model)
+# async function
+DEFAULT_PROMPT = "Where does 'hello world' come from?"
+async def main(prompt: str):
+    stream = await client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model=os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
+        stream=True,
+    )
 
-prompt = "Where does 'hello world' come from?"
-
-
-async def main():
-    async with agent.run_stream(prompt) as result:
-        print()
-        async for text in result.stream_text(delta=True):
-            print(text, end="", flush=True)
-        print()
+    async for event in stream:
+        token = event.choices[0].delta.content
+        if token:
+            print(token, end="", flush=True)
+    print()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    prompt = " ".join(sys.argv[1:]) or DEFAULT_PROMPT
+    asyncio.run(main(prompt))
