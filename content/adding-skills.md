@@ -11,6 +11,7 @@
 - https://github.com/agentskills/agentskills
 - How do skills compare to related ideas like system prompts, MCP, tool calls, 
 - Discussion: What would be skills that you could imagine?
+- Instructor idea: Discuss https://github.com/CSCfi/csc-skills
 
 ```{literalinclude} 05_skills.py
 :start-at: agent = Agent(
