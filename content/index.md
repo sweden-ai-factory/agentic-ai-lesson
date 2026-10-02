@@ -1,4 +1,4 @@
-# LESSON NAME
+# Agentic AI: Beyond Coding Assistants and Chatbots
 
 Intro
 

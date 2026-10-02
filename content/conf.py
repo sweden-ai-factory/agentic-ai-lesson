@@ -12,12 +12,28 @@
 #
 
 # -- Project information -----------------------------------------------------
+project = "Agentic AI Lesson"
 
-# FIXME: choose title
-project = "Your lesson name"
-# FIXME: insert correct author
-author = "The contributors"
-copyright = f"2026, Sweden AI Factory, {author}"
+author = """\
+Abdul Ghafoor, \
+Ashwin Mohanan, \
+Daniel Medeiros, \
+Francesco Fiusco, \
+Marlon Tobaben, \
+Mitja Sainio, \
+Vijeta Sharma
+"""
+
+funding = """The LUMI AI Factory Service Center is funded jointly by the
+EuroHPC Joint Undertaking and the participating states FI, CZ, DK, EE, NO, PL.
+Sweden AI Factory is hosted by NAISS (the National Academic Infrastructure for
+Supercomputing in Sweden) in partnership with RISE Research Institutes of
+Sweden. Funding is shared between Sweden (through the Swedish Research Council
+and Vinnova, Sweden’s Innovation Agency) and the EuroHPC Joint Undertaking,
+which is the EU’s supercomputer organisation.
+"""
+
+copyright = f"2026, LUMI AI Factory, Sweden AI Factory, {author}. {funding}"
 
 github_user = "sweden-ai-factory"
 github_repo_name = ""  # auto-detected from dirname if blank
@@ -105,8 +121,8 @@ github_repo_url = (
     f"https://github.com/{github_user}/{github_repo_name or detected_repo_name}"
 )
 html_theme_options = {
-    "light_logo": "SEAIF_favicon_black.png",
-    "dark_logo": "SEAIF_favicon_white.png",
+    "light_logo": "LAIF_SEAIF_stacked_black.png",
+    "dark_logo": "LAIF_SEAIF_stacked_white.png",
     "source_repository": github_repo_url,
     "source_branch": github_version,
     "source_directory": conf_py_path,
