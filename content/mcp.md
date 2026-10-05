@@ -20,13 +20,13 @@ client through which you can provide them with custom tools.
 
 ::::{tabs}
 :::{group-tab} Framework-native
-```{literalinclude} 03_flight_search.py
+```{literalinclude} hands-on/03_flight_search.py
 :lines: 12,15,30-31,34-47
 ```
 :::
 
 :::{group-tab} MCP
-```{literalinclude} 04_mcp_server.py
+```{literalinclude} hands-on/04_mcp_server.py
 :lines: 8-9,15-30
 :::
 

@@ -30,7 +30,7 @@ and [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/). The cod
 below shows how one would use Pydantic AI to build an agent on top of the OpenAI client
 used in the previous section.
 
-```{literalinclude} 02_time.py
+```{literalinclude} hands-on/02_time.py
 :start-at: "client = AsyncOpenAI("
 :end-at: "agent = Agent(model)"
 ```
@@ -41,7 +41,7 @@ and conversation history.
 
 We run the agent in a loop as you can see below. It is constantly waiting for new prompts or processing prompts you just sent.
 
-```{literalinclude} 02_time.py
+```{literalinclude} hands-on/02_time.py
 :start-at: async def main():
 :end-before: print()
 ```
@@ -137,7 +137,7 @@ and the model resumes generation.
 
 Below you can see the tool `get_current_datetime` that returns the current time given a timezone. While the LLM has no access to the current time, your computer knows the time very well. This tool simply returns the time of your computer to the agent. Note that the tool's docstring tells the agent when to use it.
 
-```{literalinclude} 02_time.py
+```{literalinclude} hands-on/02_time.py
 :start-at: "@agent.tool_plain"
 :end-at: "return result"
 :dedent: 4
@@ -188,7 +188,7 @@ a model, every new input must include all previous inputs and responses. While c
 history can be naïvely implemented by manually appending messages to a list, pre-made
 harnesses typically take care of this on behalf of the programmer.
 
-```{literalinclude} 02_time.py
+```{literalinclude} hands-on/02_time.py
 :start-at: "async def main():"
 :end-at: "history = result.all_messages()"
 ```
@@ -229,7 +229,7 @@ calling `get_current_datetime` first and then passing the resolved date to
 
 See the `search_flights` tool below. It is quite complicated, but in the end it just allows access to a flight database. The results from that database can be filtered. If you are interested, you can find the full mock flight database under `data/flights.csv`.
 
-```{literalinclude} 03_flight_search.py
+```{literalinclude} hands-on/03_flight_search.py
 :start-after: flight search tool
 :end-at: "return result"
 ```

@@ -11,7 +11,7 @@
 
 The following adds memory to our agent: `Memory(FileStore(MEMORY_DIR))`
 
-```{literalinclude} 06_memory.py
+```{literalinclude} hands-on/06_memory.py
 :start-at: agent = Agent(
 :end-before: async def main():
 ```
