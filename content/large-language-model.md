@@ -180,7 +180,7 @@ The `base_url` is set here to use AITTA, but it can be changed. For example, you
 The API key authenticates you to the service. Keep it secret and never share it with anyone. See the [setup section](./setup.md) for how to obtain one for AITTA.
 
 
-```{literalinclude} 01_hello_world.py
+```{literalinclude} hands-on/01_hello_world.py
 :end-before: async function
 ```
 
@@ -190,7 +190,7 @@ Setting `stream=True` tells the API to send the response in small pieces, called
 
 We receive these pieces one at a time in the `async for` loop. Each `event` contains a `delta` with only the text that is new since the previous event. Printing with `end=""` joins the pieces into continuous text, and `flush=True` makes each one appear on screen immediately instead of being buffered.
 
-```{literalinclude} 01_hello_world.py
+```{literalinclude} hands-on/01_hello_world.py
 :start-after: async function
 :end-before: if __name__ == "__main__":
 ```

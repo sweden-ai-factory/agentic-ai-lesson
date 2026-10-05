@@ -4,7 +4,7 @@
 - Explain how they work
 - What gets loaded in
 
-```{literalinclude} agent-skills/travel-policy/SKILL.md
+```{literalinclude} hands-on/agent-skills/travel-policy/SKILL.md
 ```
 
 - How to include the skills file into the framework
@@ -13,7 +13,7 @@
 - Discussion: What would be skills that you could imagine?
 - Instructor idea: Discuss https://github.com/CSCfi/csc-skills
 
-```{literalinclude} 05_skills.py
+```{literalinclude} hands-on/05_skills.py
 :start-at: agent = Agent(
 :end-before: async def main():
 ```
