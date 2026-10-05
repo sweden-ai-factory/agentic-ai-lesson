@@ -4,7 +4,20 @@
 .jupyter_cache
 jupyter_execute
 uv.lock
-.env
-__pycache__
+
+# More python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pdm-build
+
+# Virtual environments
+.venv
+
+# Hands-on artefacts
 travel_history.json
 .memory-operations.json
+.env
