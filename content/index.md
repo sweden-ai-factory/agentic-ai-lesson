@@ -32,12 +32,12 @@ agent-basics.md
 ```
 
 ```{toctree}
-:caption: The lesson
-:caption: Setup
+:caption: Add more context
 :maxdepth: 1
 
-episode.md
-setup.md
+mcp.md
+adding-skills.md
+adding-memory.md
 ```
 
 ```{toctree}
