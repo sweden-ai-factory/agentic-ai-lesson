@@ -31,8 +31,9 @@ distribution = false
 
 [tool.uv.workspace]
 members = [
-    "content",
+    "content/hands-on",
 ]
 
 [tool.uv.sources]
 agentic-ai-hands-on = { workspace = true, editable = true }
+
