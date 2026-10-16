@@ -121,7 +121,6 @@ async def validate_flights(
             )
 
     if errors:
-        print(errors)
         raise ModelRetry('\n'.join(errors))
     else:
         return output
