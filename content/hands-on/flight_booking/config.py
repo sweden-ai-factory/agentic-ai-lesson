@@ -17,7 +17,7 @@ INSTRUMENTATION = "JAEGER"
 # 	docker run --rm -it -p 4318:4318 --name otel-tui docker://ymtdzzz/otel-tui:latest
 
 # INSTRUMENTATION = "JAEGER"
-# docker run --rm -p 16686:16686 -p 4318:4318  docker://jaegertracing/all-in-one:latest
+# Run using ./07_run_jaeger.sh script
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 if INSTRUMENTATION == "OTEL":
@@ -40,7 +40,7 @@ elif INSTRUMENTATION == "JAEGER":
         send_to_logfire=False,
     )
     logfire.instrument_pydantic_ai()
-    logfire.instrument_httpx(capture_all=True)
+    logfire.instrument_httpx(capture_request_body=True, capture_response_body=True)
 else:
     # 'if-token-present' means nothing will be sent (and the example will work) if you don't have logfire configured
     logfire.configure(send_to_logfire='if-token-present')

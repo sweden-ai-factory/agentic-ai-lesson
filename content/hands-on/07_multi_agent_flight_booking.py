@@ -34,7 +34,7 @@ def wait_for_mcp(process: subprocess.Popen, url: str = MCP_URL, timeout: float =
             httpx.get(url, timeout=1.0)
             return
         except httpx.TransportError:
-            time.sleep(0.1)
+            time.sleep(0.3)
     raise TimeoutError(f"MCP server not ready at {url} within {timeout:.0f}s")
 
 
@@ -43,7 +43,9 @@ mcp_process = subprocess.Popen(
     stdout=subprocess.DEVNULL,
     stderr=subprocess.DEVNULL,
 )
-wait_for_mcp(mcp_process)
+with logfire.span("Wait for MCP"):
+    wait_for_mcp(mcp_process)
+
 try:
     asyncio.run(main())
 finally:
