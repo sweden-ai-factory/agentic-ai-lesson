@@ -18,8 +18,7 @@ os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 
 # the MCP server (04_mcp_server.py) that serves the flight search tools;
 # 07_multi_agent_flight_booking.py launches it on this port
-MCP_PORT = 8111
-MCP_URL = f"http://127.0.0.1:{MCP_PORT}/mcp"
+MCP_URL = f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"
 
 
 # configure the inference endpoint
@@ -31,7 +30,7 @@ client = AsyncOpenAI(
 # choose the model from the inference endpoint
 model_settings = ModelSettings(
     # temperature=0.0,
-    timeout=10,
+    timeout=30,
 )
 model = OpenAIChatModel(
     os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),

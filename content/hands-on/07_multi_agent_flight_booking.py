@@ -12,28 +12,30 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-from flight_booking.config import MCP_PORT, MCP_URL  # noqa
+from flight_booking.config import MCP_URL  # noqa
 from flight_booking.main import main  # noqa
 
 
 def wait_for_mcp(process: subprocess.Popen, url: str = MCP_URL, timeout: float = 30.0):
-    """Block until the MCP server responds at `url`.
+    """Block until an MCP server responds at `url`.
 
     Any HTTP response (even an error status) means the server is up; only
-    connection failures are retried. Raises if the process dies or the
-    timeout expires.
+    connection failures are retried. The URL is checked before the process
+    state, so an already-running MCP server (e.g. from lesson 04) on the same
+    port also counts. Raises if the process dies or the timeout expires.
     """
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        if process.poll() is not None:
-            raise RuntimeError(
-                f"MCP server exited early with code {process.returncode}"
-            )
         try:
             httpx.get(url, timeout=1.0)
             return
         except httpx.TransportError:
-            time.sleep(0.3)
+            pass
+        if process.poll() is not None:
+            raise RuntimeError(
+                f"MCP server exited early with code {process.returncode}"
+            )
+        time.sleep(0.3)
     raise TimeoutError(f"MCP server not ready at {url} within {timeout:.0f}s")
 
 
@@ -52,7 +54,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 mcp_process = subprocess.Popen(
-    [sys.executable, "04_mcp_server.py", "--port", str(MCP_PORT)],
+    [sys.executable, "04_mcp_server.py"],
     stdout=subprocess.DEVNULL,
     stderr=subprocess.DEVNULL,
 )

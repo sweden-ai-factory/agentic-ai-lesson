@@ -1,11 +1,15 @@
 import datetime
+import os
 from pathlib import Path
 
 import logfire
 import pandas as pd
+from dotenv import load_dotenv
 from zoneinfo import ZoneInfo
 
 from mcp.server import MCPServer
+
+load_dotenv()
 
 mcp = logfire.configure(service_name="mcp-server", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
@@ -66,9 +70,4 @@ def search_flights(
 
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Run the demo MCP server.")
-    parser.add_argument("--port", type=int, default=8000)
-    args = parser.parse_args()
-    mcp.run("streamable-http", port=args.port)
+    mcp.run("streamable-http", port=int(os.getenv("MCP_PORT", "8000")))
