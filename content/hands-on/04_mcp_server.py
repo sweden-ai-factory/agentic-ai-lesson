@@ -63,3 +63,12 @@ def search_flights(
         result = flights.head(20).to_string(index=False)
     logfire.info("tool result: {result}", result=result)
     return result
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run the demo MCP server.")
+    parser.add_argument("--port", type=int, default=8000)
+    args = parser.parse_args()
+    mcp.run("streamable-http", port=args.port)

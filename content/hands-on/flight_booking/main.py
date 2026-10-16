@@ -1,5 +1,6 @@
 """Main application flow for the flight booking system."""
 
+import logfire
 from pydantic_ai import ModelMessage, RunUsage
 from rich.prompt import Prompt
 

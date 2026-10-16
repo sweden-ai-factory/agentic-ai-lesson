@@ -62,6 +62,12 @@ else:
     logging.basicConfig(handlers=[logfire_handler], level=logging.DEBUG)
 
 
+# the MCP server (04_mcp_server.py) that serves the flight search tools;
+# 07_multi_agent_flight_booking.py launches it on this port
+MCP_PORT = 8111
+MCP_URL = f"http://127.0.0.1:{MCP_PORT}/mcp"
+
+
 # configure the inference endpoint
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),

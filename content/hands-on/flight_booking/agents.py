@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelRetry, RunContext
 from pydantic_ai.capabilities import MCP
 
-from .config import model
+from .config import MCP_URL, model
 
 # Data models for the agents.
 
@@ -82,13 +82,13 @@ async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> T
 
 
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
-# MCP server (04_mcp_server.py), which must be running at the URL below.
+# MCP server (04_mcp_server.py), which must be running at MCP_URL (see config.py).
 search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
     model,
     output_type=list[FlightDetails] | NoFlightFound,
     deps_type=Deps,
     retries=4,
-    capabilities=[MCP(url='http://127.0.0.1:8000/mcp')],
+    capabilities=[MCP(url=MCP_URL)],
     instructions=(
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
