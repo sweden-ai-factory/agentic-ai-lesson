@@ -12,14 +12,14 @@ from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
-# INSTRUMENTATION = ""
+INSTRUMENTATION = ""
 
 
 # INSTRUMENTATION = "OTEL"
 # Run it via:
 # 	docker run --rm -it -p 4318:4318 --name otel-tui docker://ymtdzzz/otel-tui:latest
 
-INSTRUMENTATION = "JAEGER"
+# INSTRUMENTATION = "JAEGER"
 # Run using ./07_run_jaeger.sh script
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
