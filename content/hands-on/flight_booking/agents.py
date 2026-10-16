@@ -70,15 +70,15 @@ conversational_agent = Agent[TripRequest](
     ),
 )
 
-@conversational_agent.tool
-async def log_trip_request(ctx: RunContext[Deps]) -> TripRequest:
-    """Log origin and destination of the trip."""
+@conversational_agent.output_validator
+async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
+    """Validate origin and destination of the trip."""
     logfire.info(
         'requested trip from {origin} to {destination}',
-        origin=result.output.req_origin,
-        destination=result.output.req_destination,
+        origin=output.req_origin,
+        destination=output.req_destination,
     )
-    return result.output
+    return output
 
 
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
@@ -100,7 +100,7 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
 )
 
 @search_agent.output_validator
-async def validate_output(
+async def validate_flights(
     ctx: RunContext[Deps], output: list[FlightDetails] | NoFlightFound
 ) -> list[FlightDetails] | NoFlightFound:
     """Procedural validation that every returned flight meets the constraints."""
