@@ -15,9 +15,9 @@
 ## Why skills?
 
 In the previous lessons we have covered tools and made them available via an MCP server. Our agent can
-now look up the date, search for flights, and book them with the `book_flight` tool from Exercise 3.2. However, as the MCP tools are general they
+now look up the date, search for flights, and book them with the `book_flight` tool from Exercise 3.2. However, as the MCP tools are general, they
 are not customized to how we want to use the tools. For example, company rules, conventions, and workflows 
-are not included in the context of the LLM when interacting with it. There are multiple options how to include
+are not included in the context of the LLM when interacting with it. There are multiple options for including
 these instructions in the context:
 
 1. Include everything in the system prompt of our harness but then the context will grow with every customization
@@ -27,8 +27,8 @@ when searching flights.
 2. Another option is to write a new tool. But that is overkill for something that just includes natural language
 and everyone should be able to modify even when they do not have any coding experience.
 
-Skills are a compromise between both: They are packaged instructions in natural language files that only get
-partly loaded every time, but then fully included when they are needed based on the context. 
+Skills are a compromise between both: They are packaged instructions in natural language files, of which only
+the name and description are always loaded, while the full instructions are included only when they are needed.
 
 Keeping the context small matters. LLMs are stateless, so the whole context is sent again with every
 request, including every round trip for a tool call. A larger context takes longer to process before the
@@ -36,7 +36,7 @@ first token is generated, and with providers that bill per token, every extra to
 is paid for again on each request. Prompt caching can reduce this cost for a context that stays the same.
 Very long contexts can also make the model worse at picking out the instructions that matter.
 
-## Anatomy of a skill
+## Structure of a skill
 A skill is a folder containing a `SKILL.md` file (plus optional scripts, references, assets). Skills follow
 an [open standard](https://github.com/agentskills/agentskills) and are supported by several harnesses 
 (coding agents, frameworks), which makes them portable in a similar way as the MCP server in the earlier
@@ -96,8 +96,8 @@ The full body is added to the context:
 The main steps are as follows. You can compare them with the MCP log walk-through in Exercise 3.1:
   1. Harness scans the skills folder and extracts the name and descriptions.
   2. Name and description are appended into the context, together with a tool to load a skill (`load_capability`).
-  3. The LLM detects that a skill is relevant, generates a tool call to `load_capability`. That tool call is parsed by the inference server.
-  4. The harness returns the skill body as tool result.
+  3. The LLM detects that a skill is relevant and generates a tool call to `load_capability`. The inference server parses it into a structured tool call.
+  4. The harness executes `load_capability` and returns the skill body as tool result.
   5. The skill body is added to the context of the LLM, and LLM (hopefully) follows the instructions.
 
 Because of the progressive disclosure, many skills can be available while costing only a few tokens each.
@@ -207,9 +207,9 @@ Let us now write our own skill. It should be a skill that tells the agent to alw
 
 The MCP server that you started in Exercise 4.1 already has the `book_flight` tool.
 
-To create a new skill, create a new folder under `agent-skills/` containing a `SKILL.md`. The folder name
-must match the `name` in the frontmatter. Then add the skill to `include=[...]` in `05_skills.py` and
-restart the agent.
+The folder for the new skill already exists: `agent-skills/booking-confirmation/`. Create a `SKILL.md`
+in it and use `booking-confirmation` as the `name` in the frontmatter, since the name must match the
+folder name. Then add the skill to `include=[...]` in `05_skills.py` and restart the agent.
 
 Try out the skill, e.g., by trying to book a flight. Is it working as you intended?
 

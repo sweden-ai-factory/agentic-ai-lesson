@@ -13,7 +13,7 @@ from pydantic_ai_harness import Skills
 
 load_dotenv()
 
-logfire.configure(service_name="mcp_client", send_to_logfire=False)
+logfire.configure(service_name="skills_agent", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
 
 client = AsyncOpenAI(
