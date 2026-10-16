@@ -18,7 +18,8 @@ mcp_process = subprocess.Popen(
     stdout=subprocess.DEVNULL,
     stderr=subprocess.DEVNULL,
 )
-# time.sleep(2)
-asyncio.run(main())
-
-mcp_process.terminate()
+time.sleep(2)
+try:
+    asyncio.run(main())
+finally:
+    mcp_process.terminate()
