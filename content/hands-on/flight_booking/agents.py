@@ -4,6 +4,7 @@ import datetime
 from dataclasses import dataclass
 from typing import Literal
 
+import logfire
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelRetry, RunContext
 from pydantic_ai.capabilities import MCP
@@ -53,6 +54,33 @@ class SeatPreference(BaseModel):
 class Failed(BaseModel):
     """Unable to extract a seat selection."""
 
+
+# This agent is responsible for extracting trip request from user
+# TODO: add date into request and in search age
+conversational_agent = Agent[TripRequest](
+    model,
+    deps_type=Deps,
+    output_type=TripRequest,
+    instructions=(
+        "You are a helpful assistant that helps the user find a flight. "
+        "Extract the origin, destination, and travel date of the trip the user "
+        "is looking for. Keep the date exactly as the user phrased it (e.g. "
+        "'tomorrow' or 'next Friday') and do not resolve it yourself; use 'today' "
+        "if the user did not specify a date."
+    ),
+)
+
+@conversational_agent.tool
+async def log_trip_request(ctx: RunContext[Deps]) -> TripRequest:
+    """Log origin and destination of the trip."""
+    logfire.info(
+        'requested trip from {origin} to {destination}',
+        origin=result.output.req_origin,
+        destination=result.output.req_destination,
+    )
+    return result.output
+
+
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
 # MCP server (04_mcp_server.py), which must be running at the URL below.
 search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
@@ -70,7 +98,6 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
         'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
     ),
 )
-
 
 @search_agent.output_validator
 async def validate_output(
@@ -94,6 +121,7 @@ async def validate_output(
             )
 
     if errors:
+        print(errors)
         raise ModelRetry('\n'.join(errors))
     else:
         return output
@@ -111,30 +139,3 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
         'Rows 14, and 20 also have extra leg room. '
     ),
 )
-
-# This agent is responsible for extracting trip request from user
-# TODO: add date into request and in search age
-conversational_agent = Agent[TripRequest](
-    model,
-    deps_type=Deps,
-    output_type=TripRequest,
-    instructions=(
-        "You are a helpful assistant that helps the user find a flight. "
-        "Extract the origin, destination, and travel date of the trip the user "
-        "is looking for. Keep the date exactly as the user phrased it (e.g. "
-        "'tomorrow' or 'next Friday') and do not resolve it yourself; use 'today' "
-        "if the user did not specify a date."
-    ),
-)
-
-@conversational_agent.tool
-async def extract_trig_request(ctx: RunContext[Deps]) -> TripRequest:
-    """Get details of all flights."""
-    # we pass the usage to the search agent so requests within this agent are counted
-    result = await extraction_agent.run(ctx.deps.web_page_text, usage=ctx.usage)
-    logfire.info(
-        'requested trip from {origin} to {destination}',
-        origin=result.output.req_origin,
-        destination=result.output.req_destination,
-    )
-    return result.output

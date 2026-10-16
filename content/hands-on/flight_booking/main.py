@@ -48,6 +48,9 @@ async def main():
     usage: RunUsage = RunUsage()
 
     while True:
+        if user_prompt.strip().lower() in {'quit', 'exit'}:
+            break
+
         # work out the trip the user wants (origin, destination, date), keeping the
         # conversation history so follow-ups like "make it next Monday" or "try Rome
         # instead" refine the previous request rather than starting from scratch
@@ -99,8 +102,6 @@ async def main():
             'Tell me what to change (e.g. a different date or destination), '
             'or type "quit" to stop'
         )
-        if user_prompt.strip().lower() in {'quit', 'exit'}:
-            break
 
 
 if __name__ == '__main__':
