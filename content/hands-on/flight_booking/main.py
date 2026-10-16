@@ -19,7 +19,7 @@ from .config import usage_limits
 async def find_seat(usage: RunUsage) -> SeatPreference:
     message_history: list[ModelMessage] | None = None
     while True:
-        answer = Prompt.ask('What seat would you like?')
+        answer = input('🤖 What seat would you like? ')
 
         result = await seat_preference_agent.run(
             answer,
@@ -38,12 +38,11 @@ async def buy_tickets(flight_details: FlightDetails, seat: SeatPreference):
     print(f'Purchasing flight {flight_details=!r} {seat=!r}...')
 
 
-async def main():
-    # user_prompt = Prompt.ask(
-    #     "Hi! I am a flight search assistant. "
-    #     "You can tell me the locations and dates of your trip and I will find the best flight for you\n>"
-    # )
-    user_prompt = "Flight from Helsinki to Stockholm tomorrow"
+async def main(test_prompt: str | None = None):
+    user_prompt = test_prompt or input(
+        '🤖 Hi! I am a flight search assistant. '
+        'You can tell me the locations and dates of your trip and I will find the best flight for you\n> '
+    )
     conversation_history: list[ModelMessage] | None = None
     deps = Deps()
     usage: RunUsage = RunUsage()
@@ -90,7 +89,7 @@ async def main():
                     f'{flight.departure_time} - {flight.arrival_time} for €{flight.price}'
                 )
             answer = Prompt.ask(
-                'Enter the number of the flight to buy, or press Enter to change your trip',
+                '🤖 Enter the number of the flight to buy, or press Enter to change your trip',
                 choices=[str(i) for i in range(1, len(flights) + 1)] + [''],
                 show_choices=False,
             )
@@ -104,9 +103,9 @@ async def main():
                 break
 
         # nothing bought yet: let the user change the date, destination, etc.
-        user_prompt = Prompt.ask(
-            'Tell me what to change (e.g. a different date or destination), '
-            'or type "quit" to stop'
+        user_prompt = input(
+            '🤖 Tell me what to change (e.g. a different date or destination), '
+            'or type "quit" to stop '
         )
 
 

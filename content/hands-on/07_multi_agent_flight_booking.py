@@ -1,4 +1,6 @@
+import argparse
 import asyncio
+import random
 import subprocess
 import sys
 import time
@@ -38,6 +40,20 @@ def wait_for_mcp(process: subprocess.Popen, url: str = MCP_URL, timeout: float =
     raise TimeoutError(f"MCP server not ready at {url} within {timeout:.0f}s")
 
 
+TEST_PROMPTS = [
+    'Flight from Helsinki to Stockholm tomorrow',
+    'I want to fly from Paris to Rome next Friday',
+    'Book me a trip from Warsaw to Vienna in three days',
+]
+
+parser = argparse.ArgumentParser(description='Multi-agent flight booking demo')
+parser.add_argument(
+    '--test',
+    action='store_true',
+    help='run with a random test prompt instead of asking the user',
+)
+args = parser.parse_args()
+
 mcp_process = subprocess.Popen(
     [sys.executable, "04_mcp_server.py", "--port", str(MCP_PORT)],
     stdout=subprocess.DEVNULL,
@@ -47,6 +63,6 @@ with logfire.span("Wait for MCP"):
     wait_for_mcp(mcp_process)
 
 try:
-    asyncio.run(main())
+    asyncio.run(main(random.choice(TEST_PROMPTS) if args.test else None))
 finally:
     mcp_process.terminate()
