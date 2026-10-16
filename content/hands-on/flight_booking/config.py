@@ -9,7 +9,7 @@ from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
-INSTRUMENTATION = ""
+INSTRUMENTATION = "JAEGER"
 
 
 # INSTRUMENTATION = "OTEL"
@@ -34,11 +34,13 @@ elif INSTRUMENTATION == "JAEGER":
     logfire.configure(
         # Setting a service name is good practice in general, but especially
         # important for Jaeger, otherwise spans will be labeled as 'unknown_service'
-        service_name='my_logfire_service',
+        service_name="flight_booking",
         # Sending to Logfire is on by default regardless of the OTEL env vars.
         # Keep this line here if you don't want to send to both Jaeger and Logfire.
         send_to_logfire=False,
     )
+    logfire.instrument_pydantic_ai()
+    logfire.instrument_httpx(capture_all=True)
 else:
     # 'if-token-present' means nothing will be sent (and the example will work) if you don't have logfire configured
     logfire.configure(send_to_logfire='if-token-present')

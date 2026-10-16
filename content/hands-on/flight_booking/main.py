@@ -55,23 +55,25 @@ async def main():
         # work out the trip the user wants (origin, destination, date), keeping the
         # conversation history so follow-ups like "make it next Monday" or "try Rome
         # instead" refine the previous request rather than starting from scratch
-        user_result = await conversational_agent.run(
-            user_prompt,
-            deps=deps,
-            message_history=conversation_history,
-            usage_limits=usage_limits,
-        )
-        conversation_history = user_result.all_messages()
-        trip = user_result.output
-        deps.req_origin = trip.req_origin
-        deps.req_destination = trip.req_destination
+        with logfire.span("Conversational Agent: Prompt -> TripRequest"):
+            user_result = await conversational_agent.run(
+                user_prompt,
+                deps=deps,
+                message_history=conversation_history,
+                usage_limits=usage_limits,
+            )
+            conversation_history = user_result.all_messages()
+            trip = user_result.output
+            deps.req_origin = trip.req_origin
+            deps.req_destination = trip.req_destination
 
-        result = await search_agent.run(
-            f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
-            deps=deps,
-            usage=usage,
-            usage_limits=usage_limits,
-        )
+        with logfire.span("Search Agent: TripRequest -> Flights"):
+            result = await search_agent.run(
+                f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
+                deps=deps,
+                usage=usage,
+                usage_limits=usage_limits,
+            )
 
         if isinstance(result.output, NoFlightFound):
             print(
@@ -94,7 +96,10 @@ async def main():
             )
             if answer.isdigit():
                 flight = flights[int(answer) - 1]
-                seat = await find_seat(usage)
+
+                with logfire.span("Seat Preference Agent: get a valid seat"):
+                    seat = await find_seat(usage)
+
                 await buy_tickets(flight, seat)
                 break
 
