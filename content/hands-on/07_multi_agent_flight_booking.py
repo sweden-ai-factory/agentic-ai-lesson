@@ -10,9 +10,6 @@ import logfire
 from dotenv import load_dotenv
 
 load_dotenv()
-logfire.install_auto_tracing(
-    modules=["flight_booking", "flight_booking.main"], min_duration=0.01
-)
 
 
 from flight_booking.config import MCP_PORT, MCP_URL  # noqa
