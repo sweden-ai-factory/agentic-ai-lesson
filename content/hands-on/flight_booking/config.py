@@ -1,25 +1,79 @@
 """Configuration for the flight booking application."""
 
+import json
 import os
 
 import logfire
 from openai import AsyncOpenAI
+from opentelemetry.sdk.trace import ReadableSpan
+from opentelemetry.sdk.trace.export import SpanProcessor
 from pydantic_ai import UsageLimits
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
-INSTRUMENTATION = "JAEGER"
+# INSTRUMENTATION = ""
 
 
 # INSTRUMENTATION = "OTEL"
 # Run it via:
 # 	docker run --rm -it -p 4318:4318 --name otel-tui docker://ymtdzzz/otel-tui:latest
 
-# INSTRUMENTATION = "JAEGER"
+INSTRUMENTATION = "JAEGER"
 # Run using ./07_run_jaeger.sh script
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
+
+
+def _filter_sse(text: str) -> str:
+    """Extract the JSON payloads from a text/event-stream body."""
+    data_lines = [
+        line.removeprefix('data:').strip()
+        for line in text.splitlines()
+        if line.startswith('data:')
+    ]
+    return '\n'.join(data_lines) if data_lines else text
+
+
+class GenAiHttpBodyProcessor(SpanProcessor):
+    """Copy captured HTTP bodies into gen_ai attributes.
+
+    The httpx instrumentation (capture_all=True) stores request and response
+    bodies under http.request.body.text / http.response.body.text, which Jaeger
+    only shows in the generic Tags view. This processor copies them into
+    gen_ai.input.messages / gen_ai.output.messages, the format Jaeger's GenAI
+    tab renders as conversation messages. SSE envelopes are filtered down to
+    their JSON payloads.
+
+    It is passed to logfire.configure(additional_span_processors=[...]), so it
+    runs before the exporting processor: enriching the span here is picked up
+    when the span is exported. The public SDK has no way to modify a span in
+    on_end, hence the private _attributes replacement.
+    """
+
+    def on_end(self, span: ReadableSpan) -> None:
+        attributes = span.attributes or {}
+        request_body = attributes.get('http.request.body.text')
+        response_body = attributes.get('http.response.body.text')
+        if not (request_body or response_body):
+            return
+        attributes = dict(attributes)
+        if request_body:
+            attributes['gen_ai.input.messages'] = json.dumps(
+                [{'role': 'user', 'parts': [{'type': 'text', 'content': request_body}]}]
+            )
+        if response_body:
+            attributes['gen_ai.output.messages'] = json.dumps(
+                [
+                    {
+                        'role': 'assistant',
+                        'parts': [{'type': 'text', 'content': _filter_sse(response_body)}],
+                    }
+                ]
+            )
+        span._attributes = attributes
+
+
 if INSTRUMENTATION == "OTEL":
     os.environ['OTEL_EXPORTER_OTLP_ENDPOINT'] = 'http://localhost:4318'
     logfire.configure(send_to_logfire=False)
@@ -38,6 +92,9 @@ elif INSTRUMENTATION == "JAEGER":
         # Sending to Logfire is on by default regardless of the OTEL env vars.
         # Keep this line here if you don't want to send to both Jaeger and Logfire.
         send_to_logfire=False,
+        # Copy captured HTTP bodies into gen_ai attributes so that they show
+        # up in Jaeger's GenAI tab instead of only in the Tags view.
+        additional_span_processors=[GenAiHttpBodyProcessor()],
     )
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx(capture_request_body=True, capture_response_body=True)
