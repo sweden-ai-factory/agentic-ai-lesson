@@ -44,7 +44,7 @@ agent = Agent(
         "Use tools named *_memory to understand and to give personalized recommendations."
     ),
     capabilities=[
-        MCP(url="http://127.0.0.1:8000/mcp"),
+        MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"),
         # `Skills` reads SKILL.md files through the run's workspace, so attach one rooted
         # at this script's directory: "skills" then resolves to content/skills no matter
         # where the lesson is launched from.
