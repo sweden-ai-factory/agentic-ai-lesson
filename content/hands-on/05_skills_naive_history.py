@@ -38,8 +38,8 @@ agent = Agent(
     capabilities=[
         MCP(url="http://127.0.0.1:8000/mcp"),
         # `Skills` reads SKILL.md files through the run's workspace, so attach one rooted
-        # at this script's directory: "skills" then resolves to content/skills no matter
-        # where the lesson is launched from.
+        # at this script's directory: "./agent-skills" then resolves to hands-on/agent-skills
+        # no matter where the lesson is launched from.
         LocalWorkspace(Path(__file__).parent),
         Skills("./agent-skills", include=["travel-policy"]),
     ],

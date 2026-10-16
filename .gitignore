@@ -21,3 +21,4 @@ wheels/
 travel_history.json
 .memory-operations.json
 .env
+content/hands-on/data/bookings.csv
