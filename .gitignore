@@ -19,6 +19,7 @@ wheels/
 
 # Hands-on artefacts
 travel_history.json
+bookings.csv
 .memory-operations.json
 .env
 .env.*

@@ -38,8 +38,8 @@ agent = Agent(
     capabilities=[
         MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"),
         # `Skills` reads SKILL.md files through the run's workspace, so attach one rooted
-        # at this script's directory: "skills" then resolves to content/skills no matter
-        # where the lesson is launched from.
+        # at this script's directory: "./agent-skills" then resolves to hands-on/agent-skills
+        # no matter where the lesson is launched from.
         LocalWorkspace(Path(__file__).parent),
         Skills("./agent-skills", include=["travel-policy"]),
     ],
@@ -120,8 +120,9 @@ if __name__ == "__main__":
     #   "Does it comply with the travel policy?"               -> Applies the instructions from the skill
     #
     # Memory (lesson 05 extension):
-    #   python 05_skills.py                       -> fresh session every time, the agent asks for your preferences again
-    #   python 05_skills.py --remember-history    -> history is saved to travel_history.json on exit and
-    #                                                 reloaded on the next run, so learned facts (e.g. whether you
-    #                                                 prefer morning or afternoon flights) are NOT asked again.
+    #   uv run 05_skills_naive_history.py                     -> fresh session every time, the agent asks
+    #                                                            for your preferences again
+    #   uv run 05_skills_naive_history.py --remember-history  -> history is saved to travel_history.json on exit
+    #                                                            and reloaded on the next run, so learned facts
+    #                                                            (e.g. morning vs. afternoon) are NOT asked again
     asyncio.run(main())
