@@ -127,6 +127,8 @@ the same mechanism: the list of skill names and descriptions is added to the ins
 ```
 
 ## Exercise 4.1: Try out the skill
+
+:::{exercise}
 Try out the skill. The agent uses the tools from the MCP server, so we first need to start it. In this
 lesson we use the model solution of Exercise 3.2, which also has the `book_flight` tool. If an MCP server
 from the previous lesson is still running, stop it first. Then start the model solution MCP server in a
@@ -179,10 +181,9 @@ all comply, so also try a route where some flights violate the policy:
 ```text
 I want to fly from Munich to Zurich next Tuesday afternoon.
 ```
+:::
 
-<details>
-<summary>Solution: Compare with what you saw</summary>
-
+:::{solution}
 A typical run calls `load_capability` with `{"id": "travel-policy"}`, `get_current_datetime` to resolve
 "tomorrow", and `search_flights`. The order of `load_capability` relative to the other tools can differ.
 If the skill is loaded before `search_flights`, the agent may first ask whether you prefer morning or
@@ -199,10 +200,11 @@ flight on Tuesdays. The agent should say so, not recommend LH200 without pointin
 suggest LH199 as the compliant alternative. Since your prompt already says "afternoon", the agent should
 not ask for your preference again (rule 5). Check whether your agent did this and whether its numbers are
 correct.
-
-</details>
+:::
 
 ## Exercise 4.2: Write your own skill
+
+:::{exercise}
 Let us now write our own skill. It should be a skill that tells the agent to always confirm before booking a flight.
 
 The MCP server that you started in Exercise 4.1 already has the `book_flight` tool.
@@ -212,10 +214,9 @@ in it and use `booking-confirmation` as the `name` in the frontmatter, since the
 folder name. Then add the skill to `include=[...]` in `05_skills.py` and restart the agent.
 
 Try out the skill, e.g., by trying to book a flight. Is it working as you intended?
+:::
 
-<details>
-<summary>Example solution</summary>
-
+:::{solution}
 Create `agent-skills/booking-confirmation/SKILL.md`:
 
 ```markdown
@@ -239,8 +240,7 @@ Then include it next to the travel policy in `05_skills.py`:
 ```python
 Skills("./agent-skills", include=["travel-policy", "booking-confirmation"]),
 ```
-
-</details>
+:::
 
 ## Skills compared to related ideas
 
