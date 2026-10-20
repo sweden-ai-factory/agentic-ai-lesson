@@ -59,6 +59,8 @@ able to use the tools of the MCP server.
 
 
 ## Exercise 3.1
+
+:::{exercise}
 Before modifying the MCP server, let's see how the existing `get_current_datetime` tool
 works. Start the MCP server in a new terminal from the `hands-on` directory:
 
@@ -81,10 +83,9 @@ uv run 04_mcp_client.py
 Ask the agent something like "What time is it?" and look at the log of the terminal
 where your agent is running. How many times is the MCP server called, and when does
 the LLM come into play?
+:::
 
-<details>
-<summary>Solution: Compare with what you saw</summary>
-
+:::{solution}
 You likely saw the following steps. This is what they mean:
 
 1. **`agent run`**: your prompt starts an agent run in the harness.
@@ -105,11 +106,12 @@ The key point: the LLM never interacts with the MCP server directly. The harness
 coordinates everything. Before the LLM is called for the first time, the harness has
 already fetched the server's tools and added them to the LLM's context together with
 your prompt.
-
-</details>
+:::
 
 
 ## Exercise 3.2
+
+:::{exercise}
 In this exercise, start expanding the MCP server given in `hands-on/04_mcp_server.py` to
 add your own tool.
 
@@ -133,9 +135,15 @@ You can test it as follows:
 3. Check the log: which tools does the agent call, and in what order?
 4. Check the file: `cat data/bookings.csv`
 
-<details>
-<summary>Example solution</summary>
+Think about the following:
 
+- Ask "Book me a flight to Stockholm tomorrow" without giving a name. Does the agent ask
+  for it, or make one up?
+- This tool might have more consequences than the search flights tool. Should the agent
+  ask for confirmation before booking?
+:::
+
+:::{solution}
 ```{literalinclude} hands-on/04_mcp_server_solution.py
 :start-after: model solution
 ```
@@ -146,19 +154,9 @@ server and starting a new one with the following command:
 ```bash
 uv run mcp run 04_mcp_server_solution.py --transport streamable-http
 ```
+:::
 
-</details>
-
-Think about the following:
-
-- Ask "Book me a flight to Stockholm tomorrow" without giving a name. Does the agent ask
-  for it, or make one up?
-- This tool might have more consequences than the search flights tool. Should the agent
-  ask for confirmation before booking?
-
-<details>
-<summary>Going further (optional)</summary>
-
+:::{exercise} Going further (optional)
 - Return an error if the flight doesn't exist in `flights.csv` or doesn't fly on that
   date.
 - Add a `list_bookings` tool that shows the bookings for a passenger.
@@ -167,8 +165,7 @@ Think about the following:
   IDE. Look up how it registers MCP servers, point it at `http://127.0.0.1:8000/mcp` and
   ask it something only your tools can answer. The same server now works in a harness
   you did not write.
-
-</details>
+:::
 
 ## Using existing MCP servers
 
