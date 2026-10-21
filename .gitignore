@@ -22,3 +22,5 @@ travel_history.json
 bookings.csv
 .memory-operations.json
 .env
+.env.*
+!.env.example

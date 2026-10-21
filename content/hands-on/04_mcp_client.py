@@ -26,7 +26,7 @@ model = OpenAIChatModel(
 )
 agent = Agent(
     model,
-    capabilities=[MCP(url="http://localhost:8000/mcp")],
+    capabilities=[MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp")],
 )
 
 

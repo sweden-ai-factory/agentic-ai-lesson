@@ -39,7 +39,7 @@ agent = Agent(
         "Use tools named *_memory to understand and to give personalized recommendations."
     ),
     capabilities=[
-        MCP(url="http://127.0.0.1:8000/mcp"),
+        MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"),
         # Resolve paths relative to this script's directory
         LocalWorkspace(Path(__file__).parent),
         Skills("./agent-skills", include=["travel-policy"]),
