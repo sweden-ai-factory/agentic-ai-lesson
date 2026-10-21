@@ -90,6 +90,10 @@ Terminal 2 – client:
 uv run python content/04_mcp_client.py
 ```
 
+The server and every example that uses the MCP capability read the port from
+the `MCP_PORT` environment variable (default `8000`), so you can change it in
+one place via `.env`.
+
 ### 05 – Skills
 
 Adds a travel-policy skill on top of the MCP tools. Skills are loaded on demand by the agent when relevant. It also connects to the MCP

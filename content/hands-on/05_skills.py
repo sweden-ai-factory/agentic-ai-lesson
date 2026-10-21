@@ -31,7 +31,7 @@ agent = Agent(
     name="travel_agent",
     instructions="You are a helpful travel assistant. Before answering, load any capability or skill relevant to the request.",
     capabilities=[
-        MCP(url="http://127.0.0.1:8000/mcp"),
+        MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"),
         # `Skills` reads SKILL.md files through the run's workspace, so attach one rooted
         # at this script's directory: "./agent-skills" then resolves to hands-on/agent-skills
         # no matter where the lesson is launched from.
