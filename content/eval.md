@@ -81,9 +81,18 @@ becomes more capable, evaluation becomes progressively more important.
 To answer the questions we posed earlier, we need to be able to trace the
 behaviour of the agent. This is often called *observability*.
 
-PydanticAI includes instrumentation support based on OpenTelemetry. When
-enabled, each run can be recorded as a trace containing the sequence of model
-calls and tool invocations performed by the agent.
+Pydantic AI (or LogFire) includes instrumentation support based on
+OpenTelemetry. You may have noticed the following statements in our example
+scripts:
+
+```python
+logfire.configure(send_to_logfire=False)
+logfire.instrument_pydantic_ai()
+```
+
+When enabled, each run can be recorded as a trace containing the sequence of
+model calls and tool invocations performed by the agent. These logs can then be
+examined during evaluation.
 
 A simplified trace might look like:
 
@@ -208,13 +217,11 @@ produce equally good answers, they might have very different costs.
 
 ## Building a small evaluation dataset
 
-Evaluation datasets do not need to be large.
-
-For a teaching project, a handful of carefully chosen examples can already be very valuable.
+In order to assess the performance of the agent, an *evaluation dataset* can (should) be used. This is a collection of example tasks that the agent is supposed to perform, with a known outcome, that we can use to evaluate if the agent improved, was not affected or worsened with a certain change (e.g. a new tool). In a lot of ways, this is similar to regression testing in traditional software development.
 
 For example:
 
-```yaml
+```text
 - prompt: "What day is tomorrow?"
   expectation: "uses datetime tool"
 
@@ -233,15 +240,14 @@ For example:
 
 Each time we modify the agent, we can run the same set of tests again and compare the results.
 
-This approach is similar to regression testing in traditional software development.
-
-## Manual evaluation and automatic evaluation
+### Manual evaluation and automatic evaluation
 
 The simplest evaluation method is to inspect the outputs manually.
 
-This works well when developing the system and experimenting with new features.
-
-Eventually, however, manual inspection becomes tedious. We may want automated checks.
+This works well when developing the system and experimenting with new features,
+but can quickly become unmanageable when we start tracking many different
+experiments. Thus, we may find ourselves very quickly wanting to move to
+automated checks.
 
 Some checks can be expressed as straightforward rules:
 
@@ -253,31 +259,58 @@ assert flight_search_called_once
 
 These deterministic checks are often reliable and easy to understand.
 
-Other aspects are harder to evaluate automatically. Consider:
+Other times, however, we want to assess qualities that are hard to judge deterministically: the "friendliness" of a reply, completeness, subjective language quality, and so on. In such situations, developers sometimes use another language model as a judge. The judge receives the user request, the agent response, and possibly the trace, and then evaluates whether the behaviour satisfies certain criteria. The easiest way of doing this is to instantiate another Pydantic agent and feed it the trace, so that it can return a typed result:
 
-> Was the flight recommendation helpful?
+```python
+from pydantic import BaseModel
+from pydantic_ai import Agent
 
-There may be several reasonable answers.
 
-In such situations, developers sometimes use another language model as a judge. The judge receives the user request, the agent response, and possibly the trace, and then evaluates whether the behaviour satisfies certain criteria.
+class Evaluation(BaseModel):
+    passed: bool
+    explanation: str
 
-This can be useful, but it should not replace simpler checks when those are available. If a fact can be checked directly, a direct check is usually preferable.
+
+judge = Agent(
+    output_type=Evaluation
+)
+
+result = judge.run_sync("""
+Did this response satisfy the user's request?
+
+User:
+Book me a flight to Paris next week
+
+Response:
+I found three flights departing on Tuesday.
+
+Evaluate it.
+""")
+
+print(result.output)
+
+```
+
+This can be useful, but it should not replace simpler checks when those are
+available. If a fact can be checked directly, a direct check is usually
+preferable.
 
 ## What should we remember?
 
 When building an agent, evaluation should not be treated as a final step performed after everything else is finished.
-
-Each new capability introduces new failure modes and therefore new evaluation questions.
-
 A useful evaluation strategy often combines several perspectives:
 
 - task success
 - correct tool usage
 - correct memory usage
 - cost
-- latency
 - trace inspection
 
-Once evaluations are in place, improvements become measurable. Instead of asking whether a new version "feels better", we can compare it against previous versions and determine whether it actually performs better on representative tasks.
+Once evaluations are in place, improvements become measurable. Instead of
+asking whether a new version "feels better", we can compare it against previous
+versions and determine whether it actually performs better on representative
+tasks.
 
-In that sense, evaluation plays the same role for agents that testing plays for traditional software: it gives us confidence that the system behaves as expected when it changes.
+In that sense, evaluation plays the same role for agents that testing plays for
+traditional software: it gives us confidence that the system behaves as
+expected when it changes.
