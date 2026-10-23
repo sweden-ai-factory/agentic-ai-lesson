@@ -9,9 +9,10 @@ from zoneinfo import ZoneInfo
 
 from mcp.server import MCPServer
 
+
 load_dotenv()
 
-mcp = logfire.configure(service_name="mcp-server", send_to_logfire=False)
+logfire.configure(service_name="mcp-server", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
 
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
