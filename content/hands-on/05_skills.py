@@ -1,4 +1,3 @@
-import argparse
 import asyncio
 import os
 from pathlib import Path
@@ -6,20 +5,16 @@ from pathlib import Path
 import logfire
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
-from pydantic import TypeAdapter
 from pydantic_ai import Agent
 from pydantic_ai.capabilities import MCP, LocalWorkspace
-from pydantic_ai.messages import ModelMessage
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai_harness import Skills
 
 load_dotenv()
 
-logfire.configure(service_name="mcp_client", send_to_logfire=False)
+logfire.configure(service_name="skills_agent", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
-
-HISTORY_FILE = Path(__file__).parent / "travel_history.json"
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
@@ -38,46 +33,43 @@ agent = Agent(
     capabilities=[
         MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"),
         # `Skills` reads SKILL.md files through the run's workspace, so attach one rooted
-        # at this script's directory: "skills" then resolves to content/skills no matter
-        # where the lesson is launched from.
+        # at this script's directory: "./agent-skills" then resolves to hands-on/agent-skills
+        # no matter where the lesson is launched from.
         LocalWorkspace(Path(__file__).parent),
         Skills("./agent-skills", include=["travel-policy"]),
     ],
 )
 
-async def main():
-        while True:
-            try:
-                prompt = input("You: ")
-            except (EOFError, KeyboardInterrupt):
-                break
-            if prompt.strip().lower() in {"quit", "exit", ""}:
-                break
 
-            async with agent.run_stream(prompt, message_history=history) as result:
-                print("Agent: ", end="")
-                async for text in result.stream_text(delta=True):
-                    print(text, end="", flush=True)
-                print()
-            history = result.all_messages()
+async def main():
+    history = []
+    while True:
+        try:
+            prompt = input("You: ")
+        except (EOFError, KeyboardInterrupt):
+            break
+        if prompt.strip().lower() in {"quit", "exit", ""}:
+            break
+
+        async with agent.run_stream(prompt, message_history=history) as result:
+            print("Agent: ", end="")
+            async for text in result.stream_text(delta=True):
+                print(text, end="", flush=True)
+            print()
+        history = result.all_messages()
 
 
 if __name__ == "__main__":
-    # Building on lesson 03: search_flights now takes a concrete date, so a relative
+    # Start the MCP server with the book_flight tool first:
+    #   uv run mcp run 04_mcp_server_solution.py --transport streamable-http
+    #
+    # Building on lesson 03: search_flights takes a concrete date, so a relative
     # date forces the agent to CHAIN the tools -- first get_current_datetime, then
     # feed the resolved date into search_flights.
     #   "Are there any flights from Paris to Rome tomorrow?"   -> get_current_datetime, then search_flights
-    #   "I want to fly from Munich to Lisbon this Friday."     -> get_current_datetime, then search_flights
-    #   "And the day after? What about the cheapest one?"      -> reuses history to keep the context
+    #   "Does it comply with the travel policy?"               -> applies the instructions from the skill
     #
     # To invoke the skill, if it does not happen automatically, you can prompt
     #
     #   "/travel-policy"                                       -> You should see running tool: load_capability
-    #   "Does it comply with the travel policy?"               -> Applies the instructions from the skill
-    #
-    # Memory (lesson 05 extension):
-    #   python 05_skills.py                       -> fresh session every time, the agent asks for your preferences again
-    #   python 05_skills.py --remember-history    -> history is saved to travel_history.json on exit and
-    #                                                 reloaded on the next run, so learned facts (e.g. whether you
-    #                                                 prefer morning or afternoon flights) are NOT asked again.
     asyncio.run(main())
