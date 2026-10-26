@@ -1,4 +1,4 @@
-# LESSON NAME
+# Agentic AI: Beyond Coding Assistants and Chatbots
 
 Intro
 
@@ -17,10 +17,42 @@ Intro
 ```
 
 ```{toctree}
-:caption: The lesson
+:caption: Setup
 :maxdepth: 1
 
-episode.md
+setup.md
+```
+
+```{toctree}
+:caption: LLMs and Agents
+:maxdepth: 1
+
+large-language-model.md
+agent-basics.md
+```
+
+```{toctree}
+:caption: Add more context
+:maxdepth: 1
+
+mcp.md
+adding-skills.md
+adding-memory.md
+```
+
+```{toctree}
+:caption: Moving to production
+:maxdepth: 1
+
+evaluation.md
+security.md
+```
+
+```{toctree}
+:caption: Outlook
+:maxdepth: 1
+
+outlook.md
 ```
 
 ```{toctree}
@@ -59,7 +91,7 @@ Don't forget to check out additional course materials from ...
 :::{admonition} CC BY-SA for media and pedagogical material
 :class: attention dropdown
 
-Copyright © 2026 Sweden AI Factory. This material is released by Sweden AI Factory under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+Copyright © {{ copyright }}. This material is released by LUMI AI Factory and Sweden AI Factory under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 
 **Canonical URL**: <https://creativecommons.org/licenses/by-sa/4.0/>
 
@@ -92,7 +124,7 @@ This deed highlights only some of the key features and terms of the actual licen
 
 MIT License
 
-Copyright (c) 2026, Sweden AI Factory project, {{ author }}
+Copyright (c) {{ copyright }}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

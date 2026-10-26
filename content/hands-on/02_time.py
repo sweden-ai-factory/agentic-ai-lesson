@@ -4,12 +4,15 @@ import datetime
 import os
 
 import logfire
+from dotenv import load_dotenv
 from openai import AsyncOpenAI
 from zoneinfo import ZoneInfo
 
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
+
+load_dotenv()
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--enable_tools", action="store_true")
@@ -21,11 +24,11 @@ logfire.instrument_pydantic_ai()
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 model = OpenAIChatModel(
-    "google/gemma-4-31b-it",
+    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
 )
 agent = Agent(model)
