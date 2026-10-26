@@ -40,7 +40,7 @@ def main() -> None:
     token = os.getenv("OPENAI_API_KEY")
     if not token:
         raise SystemExit(
-            "OPENAI_API_KEY is not set: copy content/.env.example to content/.env "
+            "OPENAI_API_KEY is not set: copy content/hands-on/.env.example to content/hands-on/.env "
             "and add your Aitta token (https://aitta-auth.csc.fi/myToken)."
         )
 
