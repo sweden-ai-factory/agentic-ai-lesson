@@ -100,6 +100,13 @@ The main steps are as follows. You can compare them with the MCP log walk-throug
   4. The harness executes `load_capability` and returns the skill body as tool result.
   5. The skill body is added to the context of the LLM, and LLM (hopefully) follows the instructions.
 
+:::{callout} Key insight
+You may have noticed the "hopefully" in step 5. Nothing actually forces the model to load a skill, or to
+follow it once it is loaded. A skill is more of a nudge than a rule. That is the flip side of being able to
+write skills in plain language: it is easy, but you give up some control, and the same skill may be followed
+in one run and ignored in the next. We will come back to this at the end of the lesson.
+:::
+
 Because of the progressive disclosure, many skills can be available while costing only a few tokens each.
 
 :::{discussion}
@@ -193,6 +200,11 @@ Whether and when the skill is loaded depends on the model and on how well the `d
 prompt. The same prompt can load the skill in one run and skip it in the next. If the skill is not loaded,
 the agent will answer without applying the policy.
 
+This is not a bug in our setup. Getting models to call the right tool or skill at the right time is a big
+part of how frontier models are trained today, so the developers have a lot of say in how this works. Try a
+different model, or even a newer version of the same one, and it may load the skill earlier, later or not
+at all.
+
 The Paris–Rome flights cost between 0.10 and 0.13 EUR/km and none uses a wide aircraft, so all of them
 comply. For Munich–Zurich (242 km) on a Tuesday, there are only two flights: LH199 at 06:45 (58 EUR,
 0.24 EUR/km) complies, but LH200 at 11:45 (71 EUR, 0.29 EUR/km) exceeds the limit. There is no afternoon
@@ -258,7 +270,7 @@ Let us briefly recap and discuss how skills compare to related ideas like system
 Skills and tools complement each other: tools define *what the agent can do*, skills describe *how it
 should do it*.
 
-Skills are suggestions, not enforcement. A rule like "Cost per km must not exceed 0.25 EUR" is only text
+As we said earlier, skills guide the agent but do not enforce anything. A rule like "Cost per km must not exceed 0.25 EUR" is only text
 in the context, and the LLM can ignore it or miscalculate, as you may have seen in Exercise 4.1. Hard
 rules belong in code, for example in a tool that rejects bookings that violate the policy. Skills are
 better suited for guidance, conventions and workflows. How to check whether an agent actually follows
@@ -267,12 +279,34 @@ the rules is covered in the [evaluation section](evaluation.md).
 Finally, skills are instructions that go straight into the context of the LLM, so only use skills you
 trust. More on this in the [security section](security.md).
 
-:::{discussion}
-What would be skills that you could imagine?
+## What can skills be used for?
+
+Our travel policy is just one example. Skills are useful whenever an agent needs to know how *you* do
+things, not just how things are done in general. Some ideas:
+
+- **A well-known tool on your system.** The model already knows Slurm or the OpenShift CLI (`oc`), but it
+  doesn't know that on LUMI you need a specific `--account` and partition, or which project you deploy to on
+  Rahti, CSC's OpenShift-based container cloud. A skill can fill in those details.
+- **Code snippets and templates**, for example how your group usually sets up a job script or a new project.
+- **Things that have nothing to do with code.** [sciwrite](https://github.com/labarba/sciwrite) by Lorena
+  Barba is a skill for reviewing scientific manuscripts, based on the *Writing in the Sciences* course.
+
+:::{admonition} Where to find skills
+:class: tip
+
+If you want to see what others have written, these are good places to start:
+
+- [CSC skills](https://github.com/CSCfi/csc-skills), for working with CSC's services
+- [huggingface/skills](https://github.com/huggingface/skills), for the Hugging Face Hub, datasets and training
+- [pydantic/skills](https://github.com/pydantic/skills), for Pydantic, Logfire and building Pydantic AI agents
+- [skills.sh](https://www.skills.sh/) and [obra/superpowers](https://github.com/obra/superpowers), popular
+  collections, mostly written by individuals
 :::
 
-:::{instructor-note}
-Discuss <https://github.com/CSCfi/csc-skills>
+As with any skill, read it before you use it: whatever is in there ends up in your agent's context.
+
+:::{discussion}
+What would you write a skill for in your own work?
 :::
 
 ## Summary
