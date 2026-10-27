@@ -8,9 +8,9 @@ Queries the Aitta REST API, which returns a HAL+JSON collection of workers
       -H 'accept: application/hal+json' \
       -H 'Authorization: Bearer <token>'
 
-Run from the repository root:
+Run from content/hands-on:
 
-    uv run content/00_check_inference_server.py
+    uv run 00_check_inference_server.py
 """
 
 import os

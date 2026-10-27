@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # Start the MCP server with the book_flight tool first:
     #   uv run mcp run 04_mcp_server_solution.py --transport streamable-http
     #
-    # Building on lesson 03: search_flights takes a concrete date, so a relative
+    # As in 03_flight_search.py: search_flights takes a concrete date, so a relative
     # date forces the agent to CHAIN the tools -- first get_current_datetime, then
     # feed the resolved date into search_flights.
     #   "Are there any flights from Paris to Rome tomorrow?"   -> get_current_datetime, then search_flights
