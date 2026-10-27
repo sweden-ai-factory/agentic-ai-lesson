@@ -58,7 +58,7 @@ def main() -> None:
         print(f"{status} models ({len(models)}):")
         for model in models:
             print(f"  {model}")
-        if not running:
+        if not models:
             print("  <none>")
 
     show_models("Running", running)
