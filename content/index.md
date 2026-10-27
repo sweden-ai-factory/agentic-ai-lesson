@@ -91,7 +91,9 @@ The times of the episodes are approximate and include the exercises.
 70 min ; {doc}`multi-agent` (in preparation)
 ```
 
-### Day 3 · Thursday 5 November: Evaluation, risks and security
+### Day 3 · Thursday 5 November
+
+> Evaluation, risks and security
 
 🇸🇪 12:30–15:30 (CET) · 🇫🇮 13:30–16:30 (EET)
 
