@@ -146,6 +146,7 @@ Think about the following:
 :::{solution}
 ```{literalinclude} hands-on/03_mcp_server_solution.py
 :start-after: model solution
+:end-before: if __name__
 ```
 
 You can also try out an MCP server with the model solution by stopping the old MCP
