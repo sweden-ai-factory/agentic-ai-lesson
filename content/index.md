@@ -44,11 +44,11 @@ The times of the episodes are approximate and include the exercises.
 
 ```{csv-table}
 :delim: ;
-:widths: auto
+:widths: 20 50 30
 :width: 100%
-:header: Time; Episode
+:header: Time; Episode; Instructors
 
-60 min ; {doc}`setup`
+60 min ; {doc}`setup` ; ...
 ```
 
 ### Day 1 · Tuesday 3 November
@@ -59,16 +59,16 @@ The times of the episodes are approximate and include the exercises.
 
 ```{csv-table}
 :delim: ;
-:widths: auto
+:widths: 20 50 30
 :width: 100%
-:header: Time; Episode
+:header: Time; Episode; Instructors
 
 15 min ; Welcome and practicalities
-45 min ; {doc}`large-language-model`
+45 min ; {doc}`large-language-model` ; AM & MT
 10 min ; ☕ Break
-60 min ; {doc}`agent-basics`
+60 min ; {doc}`agent-basics` ; MT & MS
 10 min ; ☕ Break
-40 min ; {doc}`mcp`
+40 min ; {doc}`mcp` ; MT & MS
 ```
 
 ### Day 2 · Wednesday 4 November
@@ -79,15 +79,15 @@ The times of the episodes are approximate and include the exercises.
 
 ```{csv-table}
 :delim: ;
-:widths: auto
+:widths: 20 50 30
 :width: 100%
-:header: Time; Episode
+:header: Time; Episode; Instructors
 
-45 min ; {doc}`adding-skills`
+45 min ; {doc}`adding-skills` ; FF & MT
 10 min ; ☕ Break
-45 min ; {doc}`adding-memory`
+45 min ; {doc}`adding-memory` ; AM & MT
 10 min ; ☕ Break
-70 min ; {doc}`multi-agent` (in preparation)
+70 min ; {doc}`multi-agent` (in preparation); AM & FF
 ```
 
 ### Day 3 · Thursday 5 November
@@ -98,15 +98,15 @@ The times of the episodes are approximate and include the exercises.
 
 ```{csv-table}
 :delim: ;
-:widths: auto
+:widths: 20 50 30
 :width: 100%
-:header: Time; Episode
+:header: Time; Episode; Instructors
 
-50 min ; {doc}`evaluation` (in preparation)
+50 min ; {doc}`evaluation` (in preparation) ; FF & AG
 10 min ; ☕ Break
-80 min ; {doc}`security` (in preparation)
+80 min ; {doc}`security` (in preparation)  ; AG & AM
 10 min ; ☕ Break
-30 min ; {doc}`outlook` (in preparation)
+30 min ; {doc}`outlook` (in preparation) ; MT & AM
 ```
 
 ## Credits
