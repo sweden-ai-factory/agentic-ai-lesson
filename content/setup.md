@@ -15,7 +15,7 @@
 - [git](https://git-scm.com/) to download the course material.
 - A LUMI account, used to log in to [AITTA](https://aitta.csc.fi/), the CSC
   inference service that runs the LLMs on the LUMI supercomputer.
-- Optional: [Docker](https://docs.docker.com/get-docker/) for viewing traces with
+- Optional: [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/docs/installation) for viewing traces with
   Jaeger in the multi-agent episode. The script that starts Jaeger is a bash script,
   so it doesn't run in plain PowerShell on Windows. That's okay: tracing is optional
   and you can follow the episode without it.
