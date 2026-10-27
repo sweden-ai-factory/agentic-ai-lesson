@@ -127,7 +127,7 @@ only matters for the conversation history: a `system_prompt` is stored in the me
 from there, while the `instructions` are always taken from the current agent. The `Skills` capability uses
 the same mechanism: the list of skill names and descriptions is added to the instructions.
 
-```{literalinclude} hands-on/05_skills.py
+```{literalinclude} hands-on/04_skills.py
 :start-at: agent = Agent(
 :end-before: async def main():
 :emphasize-lines: 10-11
@@ -142,13 +142,13 @@ from the previous lesson is still running, stop it first. Then start the model s
 separate terminal from the `hands-on` directory:
 
 ```bash
-uv run mcp run 04_mcp_server_solution.py --transport streamable-http
+uv run mcp run 03_mcp_server_solution.py --transport streamable-http
 ```
 
 Run the agent with the skill with the following command.
 
 ```bash
-uv run 05_skills.py
+uv run 04_skills.py
 ```
 
 There are multiple prompts you could try. For example, start with:
@@ -223,7 +223,7 @@ The MCP server that you started in Exercise 4.1 already has the `book_flight` to
 
 The folder for the new skill already exists: `agent-skills/booking-confirmation/`. Create a `SKILL.md`
 in it and use `booking-confirmation` as the `name` in the frontmatter, since the name must match the
-folder name. Then add the skill to `include=[...]` in `05_skills.py` and restart the agent.
+folder name. Then add the skill to `include=[...]` in `04_skills.py` and restart the agent.
 
 Try out the skill, e.g., by trying to book a flight. Is it working as you intended?
 :::
@@ -247,7 +247,7 @@ Before calling `book_flight`:
 4. If the passenger name is missing, ask for it. Never make one up.
 ```
 
-Then include it next to the travel policy in `05_skills.py`:
+Then include it next to the travel policy in `04_skills.py`:
 
 ```python
 Skills("./agent-skills", include=["travel-policy", "booking-confirmation"]),
@@ -264,7 +264,7 @@ Let us briefly recap and discuss how skills compare to related ideas like system
 | When in context | Always, with every request | Definition (name, docstring, parameters) always, result from the call onwards | Name and description always, body from loading onwards |
 | Who decides to use it | Nobody, it always applies | The LLM, by requesting a tool call | The LLM, by calling `load_capability` |
 | Can execute code | No | Yes | The standard allows [bundled scripts](https://agentskills.io/specification#scripts/), but the `Skills` capability we use never runs them |
-| Who writes it | Whoever builds the harness: here us, in `05_skills.py` | The MCP server provider, e.g. the travel agency | Anyone, no coding needed |
+| Who writes it | Whoever builds the harness: here us, in `04_skills.py` | The MCP server provider, e.g. the travel agency | Anyone, no coding needed |
 | Reusable across harnesses | Only by copying the text | Yes, via any MCP client | Yes, in any harness that supports the standard |
 
 Skills and tools complement each other: tools define *what the agent can do*, skills describe *how it

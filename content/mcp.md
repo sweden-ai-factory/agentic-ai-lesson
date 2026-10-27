@@ -26,13 +26,13 @@ case) and to change the decorator to `@mcp.tool()`.
 
 ::::{tabs}
 :::{group-tab} Framework-native
-```{literalinclude} hands-on/03_flight_search.py
+```{literalinclude} hands-on/02b_flight_search.py
 :lines: 12,15,30-31,34-47
 ```
 :::
 
 :::{group-tab} MCP
-```{literalinclude} hands-on/04_mcp_server.py
+```{literalinclude} hands-on/03_mcp_server.py
 :lines: 10-11,20-35
 ```
 :::
@@ -43,7 +43,7 @@ it. You will do this in Exercise 3.1 with the following command. The `streamable
 transport runs the server as an HTTP service that clients connect to over the network.
 
 ```bash
-uv run mcp run 04_mcp_server.py --transport streamable-http
+uv run mcp run 03_mcp_server.py --transport streamable-http
 ```
 
 This will start the MCP server locally at the address `http://127.0.0.1:8000/mcp`.
@@ -52,7 +52,7 @@ But how do we connect the MCP server to our agent? In the code snippet below, we
 new `MCP` capability to the agent. This is all that is needed: the agent will now be
 able to use the tools of the MCP server.
 
-```{literalinclude} hands-on/04_mcp_client.py
+```{literalinclude} hands-on/03_mcp_client.py
 :start-at: agent = Agent(
 :end-before: async def main():
 ```
@@ -65,7 +65,7 @@ Before modifying the MCP server, let's see how the existing `get_current_datetim
 works. Start the MCP server in a new terminal from the `hands-on` directory:
 
 ```bash
-uv run mcp run 04_mcp_server.py --transport streamable-http
+uv run mcp run 03_mcp_server.py --transport streamable-http
 ```
 
 You can try opening `http://127.0.0.1:8000/mcp` in your browser. Do not worry if it
@@ -77,7 +77,7 @@ Leave it running, and in a second terminal start the agent from the `hands-on` d
 (it reads your token from `.env`, as in the previous episodes):
 
 ```bash
-uv run 04_mcp_client.py
+uv run 03_mcp_client.py
 ```
 
 Ask the agent something like "What time is it?" and look at the log of the terminal
@@ -112,10 +112,10 @@ your prompt.
 ## Exercise 3.2
 
 :::{exercise}
-In this exercise, start expanding the MCP server given in `hands-on/04_mcp_server.py` to
+In this exercise, start expanding the MCP server given in `hands-on/03_mcp_server.py` to
 add your own tool.
 
-Add a tool `book_flight` to `04_mcp_server.py` that takes a flight number (`flight_no`,
+Add a tool `book_flight` to `03_mcp_server.py` that takes a flight number (`flight_no`,
 as in `data/flights.csv`), a passenger name and a date, and appends the booking as a new
 row to `data/bookings.csv` using pandas.
 
@@ -144,7 +144,7 @@ Think about the following:
 :::
 
 :::{solution}
-```{literalinclude} hands-on/04_mcp_server_solution.py
+```{literalinclude} hands-on/03_mcp_server_solution.py
 :start-after: model solution
 ```
 
@@ -152,7 +152,7 @@ You can also try out an MCP server with the model solution by stopping the old M
 server and starting a new one with the following command:
 
 ```bash
-uv run mcp run 04_mcp_server_solution.py --transport streamable-http
+uv run mcp run 03_mcp_server_solution.py --transport streamable-http
 ```
 :::
 
