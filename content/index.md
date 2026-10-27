@@ -54,7 +54,9 @@ The times of the episodes are approximate and include the exercises.
 60 min ; {doc}`setup`
 ```
 
-### Day 1 · Tuesday 3 November: LLMs and agents with simple tool calling
+### Day 1 · Tuesday 3 November
+
+> LLMs and agents with simple tool calling
 
 🇸🇪 12:30–15:30 (CET) · 🇫🇮 13:30–16:30 (EET)
 
