@@ -1,63 +1,180 @@
 # Agentic AI: Beyond Coding Assistants and Chatbots
 
-Intro
+A hands-on workshop on building AI agents step by step. We build agents in stages, starting with a
+plain OpenAI REST API call and ending with multi-agent workflows in [Pydantic AI](https://ai.pydantic.dev/).
+The models run on the LUMI supercomputer and are served by the [Aitta](https://aitta.csc.fi/) inference
+service. Our running example is a flight-booking assistant.
+
+We cover:
+
+- LLM basics and inference, including serving models with the AITTA inference server and using prompt
+  templates
+- Building agents from scratch, from a single REST call to structured workflows
+- Agent components: model, harness, loop, tools, MCP servers, skills and memory
+- Security and evaluation, including running agents reliably outside a laptop
 
 :::{prereq}
+- Prior Python programming experience. No machine learning background is needed.
+- Basic use of a terminal and a code editor.
+- A LUMI account, used to log in to Aitta. Course participants are added to a LUMI project for the
+  training.
+- For technical requirements follow the [setup instructions](setup.md) before the workshop.
+:::
 
-- FIXME
-- ...
-- ...
-  :::
+## Schedule
+
+The workshop runs online over four afternoons in November 2026. Registration and further details are on
+the [course page](https://csc.fi/en/training-calendar/agentic-ai-beyond-coding-assistants-and-chatbots/).
+
+:::{important}
+The Zoom link and the instructions for getting your LUMI account have been sent to you by email.
+
+We highly encourage you to join the setup session on Monday. We will go through the
+[setup](setup.md) together and fix any problems, so that the hands-on exercises run for you from the
+first day.
+:::
+
+The times of the episodes are approximate and include the exercises.
+
+### Setup session · Monday 2 November
+
+> Pre-workshop setup with AITTA and the training environment
+
+🇸🇪 13:00–14:00 (CET) · 🇫🇮 14:00–15:00 (EET)
 
 ```{csv-table}
 :delim: ;
 :widths: auto
+:width: 100%
+:header: Time; Episode
 
-20 min ; {doc}`filename`
+60 min ; {doc}`setup`
 ```
+
+### Day 1 · Tuesday 3 November
+
+> LLMs and agents with simple tool calling
+
+🇸🇪 12:30–15:30 (CET) · 🇫🇮 13:30–16:30 (EET)
+
+```{csv-table}
+:delim: ;
+:widths: auto
+:width: 100%
+:header: Time; Episode
+
+15 min ; Welcome and practicalities
+45 min ; {doc}`large-language-model`
+10 min ; ☕ Break
+60 min ; {doc}`agent-basics`
+10 min ; ☕ Break
+40 min ; {doc}`mcp`
+```
+
+### Day 2 · Wednesday 4 November
+
+> Agentic workflows with skills, memory and multiple agents
+
+🇸🇪 12:30–15:30 (CET) · 🇫🇮 13:30–16:30 (EET)
+
+```{csv-table}
+:delim: ;
+:widths: auto
+:width: 100%
+:header: Time; Episode
+
+45 min ; {doc}`adding-skills`
+10 min ; ☕ Break
+45 min ; {doc}`adding-memory`
+10 min ; ☕ Break
+70 min ; {doc}`multi-agent` (in preparation)
+```
+
+### Day 3 · Thursday 5 November
+
+> Evaluation, risks and security
+
+🇸🇪 12:30–15:30 (CET) · 🇫🇮 13:30–16:30 (EET)
+
+```{csv-table}
+:delim: ;
+:widths: auto
+:width: 100%
+:header: Time; Episode
+
+50 min ; {doc}`evaluation` (in preparation)
+10 min ; ☕ Break
+80 min ; {doc}`security` (in preparation)
+10 min ; ☕ Break
+30 min ; {doc}`outlook` (in preparation)
+```
+
+## Credits
+
+:::{admonition} How do I get 1 ECTS credit or a certificate?
+:class: important
+
+[Aalto Scientific Computing](https://scicomp.aalto.fi/) has kindly offered to give 1 ECTS credit for this workshop.
+
+- Do all the exercises and report your results in a text, PDF, Markdown or Word file. For each exercise,
+  include:
+  - the prompts you gave the agent and its answers;
+  - the relevant part of the agent's log, for example the tool calls and their results. You can copy
+    the log from your terminal or add screenshots;
+  - your code, if the exercise asks you to write some, for example the `book_flight` tool or your own
+    `SKILL.md`;
+  - a few sentences answering the questions in the exercise.
+- Send everything to <scip@aalto.fi> by 30 November 2026. Ideally, you do all the tasks during the
+  course: remember that the LUMI training project, and with it your
+  access, ends on 23 November 2026.
+- If you are a doctoral student in Finland, add Aalto University's SCI-L1010 to your study program
+  (see [doctoralcourses.fi](https://www.doctoralcourses.fi/aalto-courses/)).
+- If you are **not** a doctoral student in Finland, you get a certificate to give to your study
+  coordinator or supervisor to register it, similar to a workshop at a conference.
+:::
 
 ```{toctree}
 :caption: Setup
 :maxdepth: 1
+:hidden:
 
 setup.md
 ```
 
 ```{toctree}
-:caption: LLMs and Agents
+:caption: Day 1: LLMs, agents and MCP
 :maxdepth: 1
+:hidden:
 
 large-language-model.md
 agent-basics.md
+mcp.md
 ```
 
 ```{toctree}
-:caption: Add more context
+:caption: Day 2: Skills, memory and multiple agents
 :maxdepth: 1
+:hidden:
 
-mcp.md
 adding-skills.md
 adding-memory.md
+multi-agent.md
 ```
 
 ```{toctree}
-:caption: Moving to production
+:caption: Day 3: Evaluation and security
 :maxdepth: 1
+:hidden:
 
 evaluation.md
 security.md
-```
-
-```{toctree}
-:caption: Outlook
-:maxdepth: 1
-
 outlook.md
 ```
 
 ```{toctree}
 :caption: Reference
 :maxdepth: 1
+:hidden:
 
 quick-reference
 guide
@@ -65,23 +182,26 @@ guide
 
 ## Learning outcomes
 
-FIXME
+This workshop is for IT professionals, software engineers and data scientists, for programmers who want
+to use AI beyond a chat interface, and for people who use chatbots or coding assistants and want to
+understand how they work.
 
-This material is for ...
+By the end of this workshop, learners should be able to:
 
-By the end of this module, learners should:
-
-- ...
-- ...
+- Identify the main components of an AI agent and explain concepts such as tool calling and MCP.
+- Build agents in stages and connect tools, MCP servers and memory to them.
+- Analyze pitfalls when moving agents from development to production.
 
 ## See also
 
 :::{admonition} Credit
 :class: warning
 
-FIXME
+This workshop is organized by the LUMI AI Factory Service Center and Sweden AI Factory.
 
-Don't forget to check out additional course materials from ...
+If you are interested in using AI coding assistants responsibly in your research software work, check
+out the CodeRefinery lesson
+[Responsible Use of Generative AI in Assisted Coding](https://coderefinery.github.io/coding-with-ai/).
 
 :::
 
