@@ -184,7 +184,7 @@ The API key authenticates you to the service. Keep it secret and never share it 
 :end-before: async function
 ```
 
-Now we can use our client to send the prompt `"Where does 'hello world' come from?"` to the model `LumiOpen/Poro-34B-chat`.
+Now we can use our client to send the prompt `"Where does 'hello world' come from?"` to the model `google/gemma-4-31b-it`, or whichever model you set as `MODEL_NAME` in your `.env`.
 
 Setting `stream=True` tells the API to send the response in small pieces, called tokens, as soon as the model produces them, rather than waiting until the whole answer is finished.
 
@@ -236,5 +236,5 @@ changes.
 
 In Exercise 1.1 we used such a model in practice. We created an `AsyncOpenAI`
 client pointed at the Aitta inference service, sent a prompt to
-`LumiOpen/Poro-34B-chat`, and streamed the reply token by token. Because the
+`google/gemma-4-31b-it`, and streamed the reply token by token. Because the
 output is stochastic, the exact reply changes each time you run it.
