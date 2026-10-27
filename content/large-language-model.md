@@ -195,6 +195,7 @@ We receive these pieces one at a time in the `async for` loop. Each `event` cont
 :end-before: if __name__ == "__main__":
 ```
 
+:::{exercise}
 You can run it yourself with the following command. Make sure you have set up your API key correctly as described in the [setup section](setup.md).
 
 ```shell
@@ -214,6 +215,7 @@ Try changing the prompt by passing a new prompt to the script with:
 ```shell
 uv run 01_hello_world.py "Where does the name Python come from?"
 ```
+:::
 
 This is a bit clumsy, so in the next part we will make it interactive, letting you type new prompts directly from the command line without needing to restart the script.
 
