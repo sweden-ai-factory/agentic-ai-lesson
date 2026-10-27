@@ -34,16 +34,17 @@ def wait_for_mcp(url: str = MCP_URL, timeout: float = 30.0) -> subprocess.Popen 
         pass
 
     process = subprocess.Popen(
-        [sys.executable, "03_mcp_server.py"],
+        [sys.executable, "03_mcp_server_solution.py"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
     deadline = time.monotonic() + timeout
+
     while time.monotonic() < deadline:
         try:
             httpx2.get(url, timeout=1.0)
             return process
-        except httpx2.TransportError:
+        except httpx2.TransportError as e:
             pass
         if process.poll() is not None:
             raise RuntimeError(
