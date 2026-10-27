@@ -2,7 +2,7 @@
 
 A hands-on workshop on building AI agents step by step. We build agents in stages, starting with a
 plain OpenAI REST API call and ending with multi-agent workflows in [Pydantic AI](https://ai.pydantic.dev/).
-The models run on the LUMI supercomputer and are served by the [AITTA](https://aitta.csc.fi/) inference
+The models run on the LUMI supercomputer and are served by the [Aitta](https://aitta.csc.fi/) inference
 service. Our running example is a flight-booking assistant.
 
 We cover:
