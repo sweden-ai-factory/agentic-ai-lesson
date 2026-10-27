@@ -17,7 +17,7 @@ We cover:
 - Prior Python programming experience. No machine learning background is needed.
 - Basic use of a terminal and a code editor.
 - A laptop with Linux, macOS or Windows (WSL recommended on Windows) and [git](https://git-scm.com/).
-- A LUMI account, used to log in to AITTA. Course participants are added to a LUMI project for the
+- A LUMI account, used to log in to Aitta. Course participants are added to a LUMI project for the
   training.
 - Optional: Docker, for viewing traces with Jaeger.
 
