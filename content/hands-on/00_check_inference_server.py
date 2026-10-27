@@ -59,10 +59,9 @@ def fetch_models(client: httpx2.Client, base_url: str) -> list[str]:
     response.raise_for_status()
     models = []
     for entry in response.json().get("data", []):
-        capabilities = entry.get("capabilities")
-        if capabilities is not None and not capabilities.get("function_calling"):
-            continue
-        models.append(entry["id"])
+        capabilities = entry.get("capabilities", {})
+        if capabilities.get("function_calling"):
+            models.append(entry["id"])
     return sorted(models)
 
 
