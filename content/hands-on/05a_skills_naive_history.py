@@ -107,7 +107,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    # As in 03_flight_search.py: search_flights takes a concrete date, so a relative
+    # As in 02b_flight_search.py: search_flights takes a concrete date, so a relative
     # date forces the agent to CHAIN the tools -- first get_current_datetime, then
     # feed the resolved date into search_flights.
     #   "Are there any flights from Paris to Rome tomorrow?"   -> get_current_datetime, then search_flights
@@ -119,10 +119,10 @@ if __name__ == "__main__":
     #   "/travel-policy"                                       -> You should see running tool: load_capability
     #   "Does it comply with the travel policy?"               -> Applies the instructions from the skill
     #
-    # Naive memory (used in the memory lesson, see 06_memory.py for the Memory capability):
-    #   uv run 05_skills_naive_history.py                     -> fresh session every time, the agent asks
+    # Naive memory (used in the memory lesson, see 05b_memory.py for the Memory capability):
+    #   uv run 05a_skills_naive_history.py                     -> fresh session every time, the agent asks
     #                                                            for your preferences again
-    #   uv run 05_skills_naive_history.py --remember-history  -> history is saved to travel_history.json on exit
+    #   uv run 05a_skills_naive_history.py --remember-history  -> history is saved to travel_history.json on exit
     #                                                            and reloaded on the next run, so learned facts
     #                                                            (e.g. morning vs. afternoon) are NOT asked again
     asyncio.run(main())

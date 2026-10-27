@@ -16,8 +16,8 @@ config_logging.log_default()  # noqa
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 
 
-# the MCP server (04_mcp_server.py) that serves the flight search tools;
-# 07_multi_agent_flight_booking.py launches it on this port
+# the MCP server (03_mcp_server.py) that serves the flight search tools;
+# 06_multi_agent_flight_booking.py launches it on this port
 MCP_URL = f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp"
 
 

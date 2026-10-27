@@ -54,7 +54,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 mcp_process = subprocess.Popen(
-    [sys.executable, "04_mcp_server.py"],
+    [sys.executable, "03_mcp_server.py"],
     stdout=subprocess.DEVNULL,
     stderr=subprocess.DEVNULL,
 )

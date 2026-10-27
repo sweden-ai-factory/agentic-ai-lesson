@@ -72,7 +72,7 @@ def log_otel():
     logfire.instrument_httpx(capture_all=True)
 
 def log_jaeger():
-    """Run Jaeger using ./07_run_jaeger.sh script"""
+    """Run Jaeger using ./06_run_jaeger.sh script"""
     #
     # Jaeger only supports traces, not metrics, so only set the traces endpoint
     # to avoid errors about failing to export metrics.
