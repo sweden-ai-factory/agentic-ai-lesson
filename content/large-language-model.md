@@ -10,7 +10,7 @@
 :::{objectives}
 - Explain next-token prediction and the role of tokens.
 - Distinguish pre-training from fine-tuning and instruction tuning, and understand why training cut-off dates matter.
-- Call an LLM through the AITTA inference service with the OpenAI client and stream a response.
+- Call an LLM through the Aitta inference service with the OpenAI client and stream a response.
 :::
 
 A Large Language Model (LLM) is a type of artificial intelligence trained on
@@ -125,7 +125,7 @@ is a heavy commitment. It is expensive, both in terms of time (person-hours) and
 compute, which in turn means that very few actors do this and most users rely on
 such pre-trained "frontier" models for their specific use cases.
 
-In our course we use the AITTA inference service that serves such frontier models via an API. We just need to implement the API client and then can use such models in our Python code.
+In our course we use the Aitta inference service that serves such frontier models via an API. We just need to implement the API client and then can use such models in our Python code.
 
 
 ### 2. Fine-tuning and instruction tuning
@@ -170,14 +170,14 @@ Pick a stable library, even if it is a little bit older: [Choose Boring Technolo
 ## Exercise 1.1: Use an LLM
 
 To use an LLM in our code, we need to create a client.
-Even though the LLM provider in our case is [AITTA](https://aitta.csc.fi), an inference service that runs LLMs on the LUMI supercomputer, we use the [OpenAI Python library](https://pypi.org/project/openai/).
-AITTA implements a subset of the [OpenAI API](https://github.com/openai/openai-openapi), which has become a de facto standard for LLM APIs. This means we can easily switch to any other provider that implements the same API.
+Even though the LLM provider in our case is [Aitta](https://aitta.csc.fi), an inference service that runs LLMs on the LUMI supercomputer, we use the [OpenAI Python library](https://pypi.org/project/openai/).
+Aitta implements a subset of the [OpenAI API](https://github.com/openai/openai-openapi), which has become a de facto standard for LLM APIs. This means we can easily switch to any other provider that implements the same API.
 
 We use `AsyncOpenAI`, the asynchronous version of the client, which works with [`asyncio`](https://docs.python.org/3/library/asyncio.html). `asyncio` is Python's built-in library for running many tasks concurrently in a single program, so that while one task waits (for example, for an LLM to respond), others can keep working instead of sitting idle. This lets us send multiple requests to the LLM at the same time instead of one after another. We don't need this yet, but it will be useful in later exercises.
 
-The `base_url` is set here to use AITTA, but it can be changed. For example, you can set it to `http://localhost:8000/v1` when running vLLM locally, or to `https://api.openai.com/v1` for OpenAI.
+The `base_url` is set here to use Aitta, but it can be changed. For example, you can set it to `http://localhost:8000/v1` when running vLLM locally, or to `https://api.openai.com/v1` for OpenAI.
 
-The API key authenticates you to the service. Keep it secret and never share it with anyone. See the [setup section](./setup.md) for how to obtain one for AITTA.
+The API key authenticates you to the service. Keep it secret and never share it with anyone. See the [setup section](./setup.md) for how to obtain one for Aitta.
 
 
 ```{literalinclude} hands-on/01_hello_world.py
@@ -233,6 +233,6 @@ stops at a cut-off date, so a model may not know about newer libraries or recent
 changes.
 
 In Exercise 1.1 we used such a model in practice. We created an `AsyncOpenAI`
-client pointed at the AITTA inference service, sent a prompt to
+client pointed at the Aitta inference service, sent a prompt to
 `LumiOpen/Poro-34B-chat`, and streamed the reply token by token. Because the
 output is stochastic, the exact reply changes each time you run it.

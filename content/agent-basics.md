@@ -35,7 +35,7 @@ used in the previous section.
 :end-at: "agent = Agent(model)"
 ```
 
-Here Pydantic AI's `Agent` wraps the same AITTA-hosted client we built in the
+Here Pydantic AI's `Agent` wraps the same Aitta-hosted client we built in the
 previous episode, turning it into an agent that we can later extend with tools
 and conversation history.
 
