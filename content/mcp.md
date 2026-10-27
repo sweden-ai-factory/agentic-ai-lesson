@@ -33,7 +33,7 @@ case) and to change the decorator to `@mcp.tool()`.
 
 :::{group-tab} MCP
 ```{literalinclude} hands-on/04_mcp_server.py
-:lines: 8-9,15-30
+:lines: 10-11,20-35
 ```
 :::
 ::::
@@ -74,7 +74,7 @@ needs to contain more information than what your browser sends. You should also 
 message in the terminal where you started the server.
 
 Leave it running, and in a second terminal start the agent from the `hands-on` directory
-(remember to `export OPENAI_API_KEY=<your-aitta-token>` first):
+(it reads your token from `.env`, as in the previous episodes):
 
 ```bash
 uv run 04_mcp_client.py
@@ -181,7 +181,7 @@ capability:
 agent = Agent(
     model,
     capabilities=[
-        MCP(url="http://localhost:8000/mcp"),
+        MCP(url="http://127.0.0.1:8000/mcp"),
         MCP(url="https://lumi-aif-agents.2.rahtiapp.fi/mcp"),
     ],
 )
