@@ -7,20 +7,6 @@
 - Check that you can reach the model before the first lesson.
 :::
 
-:::{admonition} Setup session: Monday 2 November 2026
-:class: important
-
-Before the workshop we run a one-hour setup and dry-run session. We'll go through
-this page together: getting started with AITTA and the training environment, and
-checking that everything works.
-
-- Sweden (CET): 13:00–14:00
-- Finland (EET): 14:00–15:00
-
-The Zoom link has been sent to you by email.
-
-Attendance is highly encouraged for a smooth workshop experience.
-:::
 
 ## What you need
 
