@@ -1,37 +1,184 @@
-# Setup
+# 0. Setup
+
+:::{objectives}
+- Get access to the AITTA inference service and an API token.
+- Install the course code and its Python dependencies with `uv`.
+- Configure the token and model settings in a `.env` file.
+- Check that you can reach the model before the first lesson.
+:::
+
+
+## What you need
+
+- A laptop running Linux, macOS, or Windows (WSL recommended on Windows).
+- A terminal and a code editor.
+- [git](https://git-scm.com/) to download the course material.
+- A LUMI account, used to log in to [AITTA](https://aitta.csc.fi/), the CSC
+  inference service that runs the LLMs on the LUMI supercomputer.
+- Optional: [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/docs/installation) for viewing traces with
+  Jaeger in the multi-agent episode. The script that starts Jaeger is a bash script,
+  so it doesn't run in plain PowerShell on Windows. That's okay: tracing is optional
+  and you can follow the episode without it.
+
+You do **not** need to install Python yourself: `uv` downloads the right version
+(Python 3.14) automatically.
 
 ## 0. Get LUMI access
 
+You log in to AITTA with your LUMI account. As a course participant you should
+already have been added to a LUMI project for this training.
 
+If you have not, any existing LUMI account works: it does not need to belong to
+the training project.
 
-## 1. Install dependencies
+## 1. Get the course material
+
+```bash
+git clone https://github.com/sweden-ai-factory/agentic-ai-lesson.git
+cd agentic-ai-lesson
+```
+
+## 2. Install dependencies
 
 The project is managed with [uv](https://docs.astral.sh/uv/). Install uv if you
 don't have it:
+
+::::{tabs}
+:::{group-tab} Linux / macOS
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Create venv
+:::
+:::{group-tab} Windows (PowerShell)
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+:::
+::::
+
+If these don't work for you, the
+[uv installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+lists other options, such as Homebrew, WinGet, or pip.
+
+Open a new terminal so `uv` is on your `PATH`, then create the virtual environment
+from the repository root:
 
 ```bash
 uv sync
 ```
 
-## 2. Get an Aitta access token
+This installs Python 3.14 if needed and all packages used in the hands-on examples
+(Pydantic AI, the OpenAI client, MCP, ...).
+
+## 3. Get an AITTA access token
 
 1. Go to <https://aitta-auth.csc.fi/myToken> (also reachable from
    <https://aitta.csc.fi/> → **Generate token**).
-2. Log in with your account.
-3. Generate a token and copy it.
+2. Log in with **MyAccessID**.
+3. Pick the course project **465002387**.
+4. Generate a token and copy it.
 
-## 3. Export the token
+If you access LUMI another way (for example, through a different login or your own
+LUMI project), that works too. You only need one working route to a token.
 
-The scripts read the token from the `OPENAI_API_KEY` environment variable.
+:::{warning}
+Treat the token like a password: don't paste it into chats, commit it to git, or
+share it in screenshots. Tokens expire, so generate a new one if requests suddenly
+fail with `401 Unauthorized`.
+:::
+
+### Revoking a token
+
+AITTA tokens are valid for 90 days. A token stops working earlier if the LUMI
+project it is tied to ends or your user account is closed. Revoke your token
+yourself when you no longer need it, for example after the course, or right away
+if it has leaked (committed to git, shared in a chat, ...):
+
+1. Go to <https://aitta-auth.csc.fi/idp/profile/userprofile> and log in.
+2. Open **Connected Organizations**.
+3. Find **Aitta Token Generator** and click **Revoke now**.
+4. If you still need access, generate a new token (see above) and update your
+   `.env`.
+
+A leaked token must always be revoked: removing it from git in a new commit is not
+enough, because it stays in the history.
+
+## 4. Configure your environment
+
+All examples live in `content/hands-on/` and read their settings from environment
+variables. The easiest way is a `.env` file, which the scripts load automatically:
+
+```bash
+cd content/hands-on
+cp .env.example .env
+```
+
+Open `.env` and fill in your token:
+
+```bash
+OPENAI_API_KEY=<your-aitta-token>
+MODEL_NAME=google/gemma-4-31b-it
+MODEL_BASE_URL=https://aitta-api.csc.fi/openai/v1
+#MCP_PORT=8000
+```
+
+| Variable         | Meaning                                                 |
+| ---------------- | ------------------------------------------------------- |
+| `OPENAI_API_KEY` | Your AITTA token (AITTA has an OpenAI-compatible API).  |
+| `MODEL_NAME`     | Which model to use. See step 5 for available models.    |
+| `MODEL_BASE_URL` | Where the API lives. Change only to use another server. |
+| `MCP_PORT`       | Port of the local MCP server used from episode 3 on.    |
+
+`.env` is gitignored, so your token stays out of version control.
+
+:::{admonition} Alternative: export in the shell
+:class: dropdown
+
+Instead of a `.env` file you can export the variables in the terminal you use for
+the scripts. This has to be repeated in every new terminal.
 
 ```bash
 export OPENAI_API_KEY=<your-aitta-token>
 ```
 
-Run this in the same terminal session you use for the scripts.
+:::
+
+## 5. Check that everything works
+
+Run all commands from `content/hands-on/`. If you are not already there, change
+into it from the repository root:
+
+```bash
+cd content/hands-on
+```
+
+First, list the models currently running on AITTA. This also checks that your
+token is valid:
+
+```bash
+uv run 00_check_inference_server.py
+```
+
+You should see a list of running models. Make sure the `MODEL_NAME` in your `.env`
+is one of them.
+
+Then send a first prompt to the model:
+
+```bash
+uv run 01_hello_world.py
+```
+
+If the answer is streamed to your terminal, you are ready for the course.
+
+## Troubleshooting
+
+| Problem                                | Fix                                                                                                    |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `OPENAI_API_KEY is not set`            | The `.env` file is missing or not in `content/hands-on/`. Check step 4.                                |
+| `401 Unauthorized`                     | The token is wrong or has expired. Generate a new one (step 3).                                        |
+| `uv: command not found`                | Open a new terminal after installing `uv`, or see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/). |
+| Connection errors in the MCP examples  | Start the MCP server in a **second terminal** (see {doc}`mcp`). If port 8000 is taken, set `MCP_PORT`. |
