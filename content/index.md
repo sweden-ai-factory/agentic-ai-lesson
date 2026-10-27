@@ -74,7 +74,9 @@ The times of the episodes are approximate and include the exercises.
 40 min ; {doc}`mcp`
 ```
 
-### Day 2 · Wednesday 4 November: Agentic workflows with skills, memory and multiple agents
+### Day 2 · Wednesday 4 November
+
+> Agentic workflows with skills, memory and multiple agents
 
 🇸🇪 12:30–15:30 (CET) · 🇫🇮 13:30–16:30 (EET)
 
