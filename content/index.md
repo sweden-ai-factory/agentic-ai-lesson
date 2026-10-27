@@ -7,7 +7,7 @@ service. Our running example is a flight-booking assistant.
 
 We cover:
 
-- LLM basics and inference, including serving models with the AITTA inference server and using prompt
+- LLM basics and inference, including serving models with the Aitta inference server and using prompt
   templates
 - Building agents from scratch, from a single REST call to structured workflows
 - Agent components: model, harness, loop, tools, MCP servers, skills and memory
@@ -38,7 +38,7 @@ The times of the episodes are approximate and include the exercises.
 
 ### Setup session · Monday 2 November
 
-> Pre-workshop setup with AITTA and the training environment
+> Pre-workshop setup with Aitta and the training environment
 
 🇸🇪 13:00–14:00 (CET) · 🇫🇮 14:00–15:00 (EET)
 

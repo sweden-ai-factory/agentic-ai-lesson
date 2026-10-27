@@ -1,7 +1,7 @@
 # 0. Setup
 
 :::{objectives}
-- Get access to the AITTA inference service and an API token.
+- Get access to the Aitta inference service and an API token.
 - Install the course code and its Python dependencies with `uv`.
 - Configure the token and model settings in a `.env` file.
 - Check that you can reach the model before the first lesson.
@@ -13,7 +13,7 @@
 - A laptop running Linux, macOS, or Windows (WSL recommended on Windows).
 - A terminal and a code editor.
 - [git](https://git-scm.com/) to download the course material.
-- A LUMI account, used to log in to [AITTA](https://aitta.csc.fi/), the CSC
+- A LUMI account, used to log in to [Aitta](https://aitta.csc.fi/), the CSC
   inference service that runs the LLMs on the LUMI supercomputer.
 - Optional: [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/docs/installation) for viewing traces with
   Jaeger in the multi-agent episode. The script that starts Jaeger is a bash script,
@@ -25,7 +25,7 @@ You do **not** need to install Python yourself: `uv` downloads the right version
 
 ## 0. Get LUMI access
 
-You log in to AITTA with your LUMI account. As a course participant you should
+You log in to Aitta with your LUMI account. As a course participant you should
 already have been added to a LUMI project for this training.
 
 If you have not, any existing LUMI account works: it does not need to belong to
@@ -74,7 +74,7 @@ uv sync
 This installs Python 3.14 if needed and all packages used in the hands-on examples
 (Pydantic AI, the OpenAI client, MCP, ...).
 
-## 3. Get an AITTA access token
+## 3. Get an Aitta access token
 
 1. Go to <https://aitta-auth.csc.fi/myToken> (also reachable from
    <https://aitta.csc.fi/> → **Generate token**).
@@ -93,7 +93,7 @@ fail with `401 Unauthorized`.
 
 ### Revoking a token
 
-AITTA tokens are valid for 90 days. A token stops working earlier if the LUMI
+Aitta tokens are valid for 90 days. A token stops working earlier if the LUMI
 project it is tied to ends or your user account is closed. Revoke your token
 yourself when you no longer need it, for example after the course, or right away
 if it has leaked (committed to git, shared in a chat, ...):
@@ -128,7 +128,7 @@ MODEL_BASE_URL=https://aitta-api.csc.fi/openai/v1
 
 | Variable         | Meaning                                                 |
 | ---------------- | ------------------------------------------------------- |
-| `OPENAI_API_KEY` | Your AITTA token (AITTA has an OpenAI-compatible API).  |
+| `OPENAI_API_KEY` | Your Aitta token (Aitta has an OpenAI-compatible API).  |
 | `MODEL_NAME`     | Which model to use. See step 5 for available models.    |
 | `MODEL_BASE_URL` | Where the API lives. Change only to use another server. |
 | `MCP_PORT`       | Port of the local MCP server used from episode 3 on.    |
@@ -156,7 +156,7 @@ into it from the repository root:
 cd content/hands-on
 ```
 
-First, list the models currently running on AITTA. This also checks that your
+First, list the models currently running on Aitta. This also checks that your
 token is valid:
 
 ```bash

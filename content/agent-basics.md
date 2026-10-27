@@ -35,7 +35,7 @@ used in the previous section.
 :end-at: "agent = Agent(model)"
 ```
 
-Here Pydantic AI's `Agent` wraps the same AITTA-hosted client we built in the
+Here Pydantic AI's `Agent` wraps the same Aitta-hosted client we built in the
 previous episode, turning it into an agent that we can later extend with tools
 and conversation history.
 
@@ -54,6 +54,7 @@ machine, and which part runs elsewhere?
 
 ### Exercise 2.1: Ask the agent for the time
 
+:::{exercise}
 We can try to use the agent with the following command.
 
 ```bash
@@ -64,6 +65,7 @@ Try asking the agent about the time and observe the result:
 ```text
 What is the time currently in Helsinki?
 ```
+:::
 
 :::{discussion}
 What do you see? Is this surprising to you?
@@ -149,6 +151,7 @@ What other tools could you imagine?
 
 ### Exercise 2.2: Enable a tool
 
+:::{exercise}
 We can try the agent with the `get_current_datetime` tool enabled by passing `--enable_tools`. The agent will call this tool if it seems appropriate for replying to your prompt.
 
 ```bash
@@ -172,6 +175,7 @@ Followed by the second prompt:
 ```text
 What is the time currently in the city that the instructor lives in?
 ```
+:::
 
 You will notice that this is not possible for the LLM to answer. We will now explore why.
 
@@ -195,6 +199,7 @@ harnesses typically take care of this on behalf of the programmer.
 
 ### Exercise 2.3: Enable conversation history
 
+:::{exercise}
 We can try the agent by additionally enabling the history with `--enable_history`.
 
 ```bash
@@ -212,6 +217,7 @@ Followed by the second prompt:
 ```text
 What is the time currently in the city that the instructor lives in?
 ```
+:::
 
 Now the LLM should reply with the current time in Helsinki.
 
@@ -240,6 +246,7 @@ Before running it, which tools do you expect the agent to call, and in what orde
 
 ### Exercise 2.4: Chain two tools
 
+:::{exercise}
 Run the flight search agent, which has both tools enabled:
 
 ```bash
@@ -252,6 +259,7 @@ call `get_current_datetime` first and then `search_flights`:
 ```text
 Are there any flights from Paris to Rome tomorrow?
 ```
+:::
 
 The agent should have returned a list of flights.
 
