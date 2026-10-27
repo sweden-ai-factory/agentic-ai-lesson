@@ -12,6 +12,7 @@ from .agents import (
     conversational_agent,
     search_agent,
     seat_preference_agent,
+    buy_agent,
 )
 from .config import usage_limits
 
@@ -34,8 +35,15 @@ async def find_seat(usage: RunUsage) -> SeatPreference:
             message_history = result.all_messages()
 
 
-async def buy_tickets(flight_details: FlightDetails, seat: SeatPreference):
+async def buy_tickets(usage: RunUsage, flight_details: FlightDetails, seat: SeatPreference):
     print(f'Purchasing flight {flight_details=!r} {seat=!r}...')
+    result = await buy_agent.run(
+        f"Book the flight {flight_details=} and record the {seat=}",
+        deps=(flight_details, seat),
+        usage=usage,
+        usage_limits=usage_limits,
+    )
+    print(result.output)
 
 
 async def main(test_prompt: str | None = None):
@@ -99,7 +107,8 @@ async def main(test_prompt: str | None = None):
                 with logfire.span("Seat Preference Agent: get a valid seat"):
                     seat = await find_seat(usage)
 
-                await buy_tickets(flight, seat)
+                with logfire.span("Buy Agent: purchase a flight"):
+                    await buy_tickets(usage, flight, seat)
                 break
 
         # nothing bought yet: let the user change the date, destination, etc.
