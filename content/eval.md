@@ -258,9 +258,21 @@ assert memory_retrieved
 assert search_flights_called_once
 ```
 
-These deterministic checks are often reliable and easy to understand.
+These deterministic checks are often reliable and easy to understand, and can
+be somewhat extended to "less objective" qualities, such as the quality of a
+summary, when a reference answer exists. Common metrics include:
 
-Other times, however, we want to assess qualities that are hard to judge deterministically: the "friendliness" of a reply, completeness, subjective language quality, and so on. In such situations, developers sometimes use another language model as a judge. The judge receives the user request, the agent response, and possibly the trace, and then evaluates whether the behaviour satisfies certain criteria. The easiest way of doing this is to instantiate another Pydantic agent and feed it the trace, so that it can return a typed result:
+- Exact match between an answer and a reference
+- BLEU, which counts how many short-word sequences in the output also appear in
+the reference
+- ROUGE, which measures how much of the reference is covered by the output.
+
+In such situations, developers sometimes can also use another language model as
+a judge. The judge receives the user request, the agent response, and possibly
+the trace, and then evaluates whether the behaviour satisfies certain criteria.
+The easiest way of doing this is to instantiate another Pydantic agent and feed
+it the trace, so that it can return a typed result (bool, a numerical score, or
+a label for categorical classification):
 
 ```python
 from pydantic import BaseModel
@@ -294,12 +306,17 @@ print(result.output)
 
 This can be useful, but it should not replace simpler checks when those are
 available. If a fact can be checked directly, a direct check is usually
-preferable.
+preferable. More information can be found in the Pydantic
+[evals](https://pydantic.dev/docs/ai/evals/evaluators/overview/#_top)
+documentation for agentic workflows, and in a Sweden AI Factory
+[lesson](https://learn.swedenaifactory.se/roadshow/evaluating-llms/#evaluating-large-language-models)
+for LLMs in particular.
 
 ## What should we remember?
 
-When building an agent, evaluation should not be treated as a final step performed after everything else is finished.
-A useful evaluation strategy often combines several perspectives:
+When building an agent, evaluation should not be treated as a final step
+performed after everything else is finished. A useful evaluation strategy often
+combines several perspectives:
 
 - task success
 - correct tool usage
