@@ -16,8 +16,8 @@ We cover:
 :::{prereq}
 - Prior Python programming experience. No machine learning background is needed.
 - Basic use of a terminal and a code editor.
-- A LUMI account, used to log in to Aitta. Course participants are added to a LUMI project for the
-  training.
+- A LUMI account that is a member of any LUMI project, used to log in to Aitta. Course participants
+  are added to the training project, but any other LUMI project works too.
 - For technical requirements follow the [setup instructions](setup.md) before the workshop.
 :::
 

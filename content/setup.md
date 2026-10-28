@@ -25,11 +25,12 @@ You do **not** need to install Python yourself: `uv` downloads the right version
 
 ## 0. Get LUMI access
 
-You log in to Aitta with your LUMI account. As a course participant you should
-already have been added to a LUMI project for this training.
+You log in to Aitta with your LUMI account, and your Aitta token is tied to a
+LUMI project. You need to be a member of **any** LUMI project:
 
-If you have not, any existing LUMI account works: it does not need to belong to
-the training project.
+- If you have been added to the training project (**465002387**), use that one.
+- If not, any other LUMI project you belong to works just as well. Aitta does not
+  bill token usage to the project yet, so it doesn't matter which one you pick.
 
 ## 1. Get the course material
 
@@ -78,12 +79,12 @@ This installs Python 3.14 if needed and all packages used in the hands-on exampl
 
 1. Go to <https://aitta-auth.csc.fi/myToken> (also reachable from
    <https://aitta.csc.fi/> → **Generate token**).
-2. Log in with **MyAccessID**.
-3. Pick the course project **465002387**.
+2. Log in with the account you use for LUMI. For the course project this is
+   **MyAccessID**; if you use another LUMI project, log in the way you normally
+   access that project.
+3. Pick a LUMI project: the course project **465002387** if you are a member,
+   otherwise any other LUMI project you belong to (see step 0).
 4. Generate a token and copy it.
-
-If you access LUMI another way (for example, through a different login or your own
-LUMI project), that works too. You only need one working route to a token.
 
 :::{warning}
 Treat the token like a password: don't paste it into chats, commit it to git, or
