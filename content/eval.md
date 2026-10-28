@@ -312,7 +312,45 @@ documentation for agentic workflows, and in a Sweden AI Factory
 [lesson](https://learn.swedenaifactory.se/roadshow/evaluating-llms/#evaluating-large-language-models)
 for LLMs in particular.
 
-## What should we remember?
+## Exercises
+
+::::{exercise} Evaluate the tool calling in our flight booker
+
+We want to deterministically check whether the agent calls the right tools in
+the right order. To do it, we will use `pydantic_evals`, which lets us test the
+*trajectory* of a agent turn (i.e. if the right tools are called, in the right
+order, for the right amount of times). To do this, you can inspect and run the
+code in `hands-on/07_eval.py`. The script creates the agent with skills and MCP
+like in the previous hands-on, then wires them up for evaluation. The new
+snippet is reported here for clarity:
+
+```{literalinclude} hands-on/07_eval.py
+:lines: 54-
+:language: python
+```
+
+As you can see, we create a `Case` which contains the prompt and a few
+`evaluators`:
+
+- A `TrajectoryMatch`, i.e. the sequence of tool calls
+- An `ArgumentCorrectness` to check whether the tools are called with the right
+arguments
+- `MaxToolCalls` to check if the total number of tool calls is what we expect.
+
+Then we collect this one-item list of cases into a `Dataset` and we run our
+agent on it.
+
+To run this, we will need our MCP server running (`uv run 03_mcp_server.py`).
+Try to run the code yourselves and see if the agent behaves according to our
+expectations!
+
+::::
+
+::::{exercise} More evaluation!
+
+::::
+
+## Summary
 
 When building an agent, evaluation should not be treated as a final step
 performed after everything else is finished. A useful evaluation strategy often

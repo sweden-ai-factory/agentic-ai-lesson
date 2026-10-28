@@ -50,6 +50,7 @@ agent = Agent(
     ],
 )
 
+
 async def run_agent_eval(prompt: str):
     result = await agent.run(prompt)
     return result
@@ -76,27 +77,8 @@ cases = [
             MaxToolCalls(max_calls=2),
         ],
     ),
-    Case(
-        name="flight_search_broken",
-        inputs="Today is 2026-10-28. Are there any transportations from Paris to Rome tomorrow?",
-        evaluators=[
-            TrajectoryMatch(
-                expected_trajectory=[
-                    "get_current_datetime",
-                    "search_flights",
-                ]
-            ),
-            ArgumentCorrectness(
-                tool_name="search_flights",
-                expected_arguments={
-                    "origin": "Paris",
-                    "destination": "Rome",
-                },
-            ),
-            MaxToolCalls(max_calls=2),
-        ],
-    ),
 ]
+
 
 async def main():
     report = await Dataset(name="experiment", cases=cases).evaluate(run_agent_eval)
