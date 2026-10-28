@@ -20,3 +20,8 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = false
+
+[dependency-groups]
+dev = [
+    "ty>=0.0.92",
+]
