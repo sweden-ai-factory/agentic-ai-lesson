@@ -8,9 +8,9 @@ Queries the Aitta REST API, which returns a HAL+JSON collection of workers
       -H 'accept: application/hal+json' \
       -H 'Authorization: Bearer <token>'
 
-Run from the repository root:
+Run from content/hands-on:
 
-    uv run content/00_check_inference_server.py
+    uv run 00_check_inference_server.py
 """
 
 import os
@@ -40,7 +40,7 @@ def main() -> None:
     token = os.getenv("OPENAI_API_KEY")
     if not token:
         raise SystemExit(
-            "OPENAI_API_KEY is not set: copy content/.env.example to content/.env "
+            "OPENAI_API_KEY is not set: copy content/hands-on/.env.example to content/hands-on/.env "
             "and add your Aitta token (https://aitta-auth.csc.fi/myToken)."
         )
 
@@ -58,7 +58,7 @@ def main() -> None:
         print(f"{status} models ({len(models)}):")
         for model in models:
             print(f"  {model}")
-        if not running:
+        if not models:
             print("  <none>")
 
     show_models("Running", running)

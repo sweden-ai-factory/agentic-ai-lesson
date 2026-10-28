@@ -98,6 +98,8 @@ exclude_patterns = [
     ".DS_Store",
     "jupyter_execute",
     "*venv*",
+    "hands-on/README.md",
+    "hands-on/**/*.md",
 ]
 
 # -- Options for HTML output -------------------------------------------------

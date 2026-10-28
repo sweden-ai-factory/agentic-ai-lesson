@@ -102,7 +102,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    # Building on lesson 03: search_flights now takes a concrete date, so a relative
+    # Building on 02a_time.py: search_flights takes a concrete date, so a relative
     # date forces the agent to CHAIN the tools -- first get_current_datetime, then
     # feed the resolved date into search_flights.
     #   "Are there any flights from Paris to Rome tomorrow?"   -> get_current_datetime, then search_flights

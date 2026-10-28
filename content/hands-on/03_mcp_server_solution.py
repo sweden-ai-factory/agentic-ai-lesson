@@ -79,4 +79,3 @@ def book_flight(flight_no: str, passenger_name: str, date: str) -> str:
     booking = pd.DataFrame([{"flight_no": flight_no, "passenger_name": passenger_name, "date": date}])
     booking.to_csv(bookings_csv, mode="a", header=not bookings_csv.exists(), index=False)
     return f"Booked flight {flight_no} on {date} for {passenger_name}."
-

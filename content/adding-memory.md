@@ -19,7 +19,7 @@ As discussed in [Basics of AI agents](agent-basics.md), LLMs do not have any mem
 but are stateless. The conversation history that we enabled in Exercise 2.3
 just sends the full chat history again with every request, which is why the agent seemed to "remember".
 
-```{literalinclude} hands-on/02_time.py
+```{literalinclude} hands-on/02a_time.py
 :start-at: "history = result.all_messages()"
 :end-at: "history = result.all_messages()"
 :dedent:
@@ -68,15 +68,15 @@ the gist. If someone asks how this is done in practice, point to
 A first idea for remembering across sessions is to write the whole history to a file when exiting.
 When restarting the agent the history will be loaded into the context again.
 Note that the file is only written when the agent exits, not after every message.
-We implemented this in `05_skills_naive_history.py` with `--remember-history`.
+We implemented this in `05a_skills_naive_history.py` with `--remember-history`.
 The history is saved to `travel_history.json`: every prompt, every reply, and every tool call with its full result.
 
-```{literalinclude} hands-on/05_skills_naive_history.py
+```{literalinclude} hands-on/05a_skills_naive_history.py
 :start-at: def save_history(
 :end-at: print(f"(History saved
 ```
 
-```{literalinclude} hands-on/05_skills_naive_history.py
+```{literalinclude} hands-on/05a_skills_naive_history.py
 :start-at: async def main():
 :end-before: if __name__ == "__main__":
 :emphasize-lines: 3, 18, 21
@@ -90,7 +90,7 @@ What problems does this approach cause after just a few sessions?
 :class: dropdown
 Before the discussion, one instructor shows a `travel_history.json` on the shared screen for about a minute,
 while the other moderates. Prepare the file before the session: run
-`uv run 05_skills_naive_history.py --remember-history`, ask for a flight, answer the morning/afternoon
+`uv run 05a_skills_naive_history.py --remember-history`, ask for a flight, answer the morning/afternoon
 question, quit, restart once and ask for another flight. Scroll through the file and point out the full
 flight lists from `search_flights` and the loaded `SKILL.md` body.
 :::
@@ -115,7 +115,7 @@ A better way is to store only the most important information, not everything.
 The idea is that the LLM itself writes down notes to a file via tools.
 In the Pydantic AI harness it is the `Memory` capability with a `FileStore`.
 
-```{literalinclude} hands-on/06_memory.py
+```{literalinclude} hands-on/05b_memory.py
 :start-at: agent = Agent(
 :end-before: async def main():
 :emphasize-lines: 7, 12, 15
@@ -180,13 +180,13 @@ The agent still uses the MCP server. If it is not running anymore, start it agai
 from the `hands-on` directory:
 
 ```bash
-uv run mcp run 04_mcp_server_solution.py --transport streamable-http
+uv run mcp run 03_mcp_server_solution.py --transport streamable-http
 ```
 
 Then run the agent with memory:
 
 ```bash
-uv run 06_memory.py
+uv run 05b_memory.py
 ```
 
 - Prompts to try:
@@ -237,7 +237,7 @@ Forget where I live.
 - Edit `MEMORY.md` by hand: change the travel preference from `Prefers **cheap flights**` to
   `Prefers **the most expensive flights**`, then ask for a flight again. What does the agent recommend?
 
-To reset the memory afterwards, see the comment at the end of `06_memory.py`.
+To reset the memory afterwards, see the comment at the end of `05b_memory.py`.
 :::
 
 :::{solution}

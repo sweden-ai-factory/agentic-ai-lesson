@@ -67,7 +67,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    # python3 content/02_time.py -> hallucinates 
-    # python3 content/02_time.py --enable_tools -> knows how to check time, but doesn't memorize prompt before
-    # python3 content/02_time.py --enable_tools --enable_history -> works quite well
+    # uv run 02a_time.py -> hallucinates
+    # uv run 02a_time.py --enable_tools -> knows how to check time, but doesn't memorize prompt before
+    # uv run 02a_time.py --enable_tools --enable_history -> works quite well
     asyncio.run(main())

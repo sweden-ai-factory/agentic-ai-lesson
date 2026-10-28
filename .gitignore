@@ -25,3 +25,4 @@ bookings.csv
 .env
 .env.*
 !.env.example
+content/hands-on/data/bookings.csv

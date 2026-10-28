@@ -30,18 +30,18 @@ and [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/). The cod
 below shows how one would use Pydantic AI to build an agent on top of the OpenAI client
 used in the previous section.
 
-```{literalinclude} hands-on/02_time.py
+```{literalinclude} hands-on/02a_time.py
 :start-at: "client = AsyncOpenAI("
 :end-at: "agent = Agent(model)"
 ```
 
-Here Pydantic AI's `Agent` wraps the same AITTA-hosted client we built in the
+Here Pydantic AI's `Agent` wraps the same Aitta-hosted client we built in the
 previous episode, turning it into an agent that we can later extend with tools
 and conversation history.
 
 We run the agent in a loop as you can see below. It is constantly waiting for new prompts or processing prompts you just sent.
 
-```{literalinclude} hands-on/02_time.py
+```{literalinclude} hands-on/02a_time.py
 :start-at: async def main():
 :end-before: print()
 ```
@@ -54,16 +54,18 @@ machine, and which part runs elsewhere?
 
 ### Exercise 2.1: Ask the agent for the time
 
+:::{exercise}
 We can try to use the agent with the following command.
 
 ```bash
-uv run 02_time.py
+uv run 02a_time.py
 ```
 
 Try asking the agent about the time and observe the result:
 ```text
 What is the time currently in Helsinki?
 ```
+:::
 
 :::{discussion}
 What do you see? Is this surprising to you?
@@ -137,7 +139,7 @@ and the model resumes generation.
 
 Below you can see the tool `get_current_datetime` that returns the current time given a timezone. While the LLM has no access to the current time, your computer knows the time very well. This tool simply returns the time of your computer to the agent. Note that the tool's docstring tells the agent when to use it.
 
-```{literalinclude} hands-on/02_time.py
+```{literalinclude} hands-on/02a_time.py
 :start-at: "@agent.tool_plain"
 :end-at: "return result"
 :dedent: 4
@@ -149,10 +151,11 @@ What other tools could you imagine?
 
 ### Exercise 2.2: Enable a tool
 
+:::{exercise}
 We can try the agent with the `get_current_datetime` tool enabled by passing `--enable_tools`. The agent will call this tool if it seems appropriate for replying to your prompt.
 
 ```bash
-uv run 02_time.py --enable_tools
+uv run 02a_time.py --enable_tools
 ```
 
 Try asking the agent again about the time and observe the result (note that you can see potential tool calls in the log):
@@ -172,6 +175,7 @@ Followed by the second prompt:
 ```text
 What is the time currently in the city that the instructor lives in?
 ```
+:::
 
 You will notice that this is not possible for the LLM to answer. We will now explore why.
 
@@ -188,17 +192,18 @@ a model, every new input must include all previous inputs and responses. While c
 history can be naïvely implemented by manually appending messages to a list, pre-made
 harnesses typically take care of this on behalf of the programmer.
 
-```{literalinclude} hands-on/02_time.py
+```{literalinclude} hands-on/02a_time.py
 :start-at: "async def main():"
 :end-at: "history = result.all_messages()"
 ```
 
 ### Exercise 2.3: Enable conversation history
 
+:::{exercise}
 We can try the agent by additionally enabling the history with `--enable_history`.
 
 ```bash
-uv run 02_time.py --enable_tools --enable_history
+uv run 02a_time.py --enable_tools --enable_history
 ```
 
 This example will now work:
@@ -212,6 +217,7 @@ Followed by the second prompt:
 ```text
 What is the time currently in the city that the instructor lives in?
 ```
+:::
 
 Now the LLM should reply with the current time in Helsinki.
 
@@ -221,7 +227,7 @@ An agent is not limited to a single tool. We can register several tools on the
 same agent, and the LLM decides which one to call for a given prompt. Tools can
 also be _chained_: the result of one tool becomes the input to another.
 
-The `03_flight_search.py` example adds a `search_flights` tool alongside
+The `02b_flight_search.py` example adds a `search_flights` tool alongside
 `get_current_datetime`. The flight search only understands concrete dates, so
 its docstring instructs the agent to resolve relative dates like "tomorrow" by
 calling `get_current_datetime` first and then passing the resolved date to
@@ -229,7 +235,7 @@ calling `get_current_datetime` first and then passing the resolved date to
 
 See the `search_flights` tool below. It is quite complicated, but in the end it just allows access to a flight database. The results from that database can be filtered. If you are interested, you can find the full mock flight database under `data/flights.csv`.
 
-```{literalinclude} hands-on/03_flight_search.py
+```{literalinclude} hands-on/02b_flight_search.py
 :start-after: flight search tool
 :end-at: "return result"
 ```
@@ -240,10 +246,11 @@ Before running it, which tools do you expect the agent to call, and in what orde
 
 ### Exercise 2.4: Chain two tools
 
+:::{exercise}
 Run the flight search agent, which has both tools enabled:
 
 ```bash
-uv run 03_flight_search.py
+uv run 02b_flight_search.py
 ```
 
 Ask a question that depends on today's date, and watch the log to see the agent
@@ -252,6 +259,7 @@ call `get_current_datetime` first and then `search_flights`:
 ```text
 Are there any flights from Paris to Rome tomorrow?
 ```
+:::
 
 The agent should have returned a list of flights.
 
