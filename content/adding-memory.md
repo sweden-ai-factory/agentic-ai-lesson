@@ -180,7 +180,7 @@ The agent still uses the MCP server. If it is not running anymore, start it agai
 from the `hands-on` directory:
 
 ```bash
-uv run mcp run 03_mcp_server_solution.py --transport streamable-http
+uv run 03_mcp_server_solution.py
 ```
 
 Then run the agent with memory:
