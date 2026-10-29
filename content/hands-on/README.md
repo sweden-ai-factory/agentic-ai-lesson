@@ -60,9 +60,9 @@ A `You:` / `Agent:` chat loop. Flags turn features on so you can see the
 difference:
 
 ```bash
-uv run python content/02_time.py                              # plain model, invents the time
-uv run python content/02_time.py --enable_tools               # can look the time up
-uv run python content/02_time.py --enable_tools --enable_history   # also remembers the conversation
+uv run python content/02a_time.py                              # plain model, invents the time
+uv run python content/02a_time.py --enable_tools               # can look the time up
+uv run python content/02a_time.py --enable_tools --enable_history   # also remembers the conversation
 ```
 
 ### 03 – Flight search (multiple tools)
@@ -71,7 +71,7 @@ Adds a second tool (`search_flights`) and shows tool selection and chaining. Typ
 `quit`, `exit`, or an empty line to stop.
 
 ```bash
-uv run python content/03_flight_search.py
+uv run python content/02b_flight_search.py
 ```
 
 ### 04 – MCP server and client
@@ -81,21 +81,25 @@ Here the tools live in a separate MCP server. Start the server first, then the c
 Terminal 1 – server (listens on `http://localhost:8000/mcp`):
 
 ```bash
-uv run python content/04_mcp_server.py
+uv run python content/03_mcp_server.py
 ```
 
 Terminal 2 – client:
 
 ```bash
-uv run python content/04_mcp_client.py
+uv run python content/03_mcp_client.py
 ```
+
+The server and every example that uses the MCP capability read the port from
+the `MCP_PORT` environment variable (default `8000`), so you can change it in
+one place via `.env`.
 
 ### 05 – Skills
 
-Adds a travel-policy skill on top of the MCP tools. It also connects to the MCP
+Adds a travel-policy skill on top of the MCP tools. Skills are loaded on demand by the agent when relevant. It also connects to the MCP
 server from lesson 04, so keep that server running (Terminal 1 above).
 
 ```bash
-uv run python content/05_skills.py                    # fresh session each run
-uv run python content/05_skills.py --remember-history # persists history to travel_history.json
+uv run python content/04_skills.py                    # fresh session each run
+uv run python content/04_skills.py --remember-history # persists history to travel_history.json
 ```

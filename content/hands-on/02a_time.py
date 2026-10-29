@@ -24,11 +24,11 @@ logfire.instrument_pydantic_ai()
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 model = OpenAIChatModel(
-    "google/gemma-4-31b-it",
+    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
 )
 agent = Agent(model)
@@ -67,7 +67,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    # python3 content/02_time.py -> hallucinates 
-    # python3 content/02_time.py --enable_tools -> knows how to check time, but doesn't memorize prompt before
-    # python3 content/02_time.py --enable_tools --enable_history -> works quite well
+    # uv run 02a_time.py -> hallucinates
+    # uv run 02a_time.py --enable_tools -> knows how to check time, but doesn't memorize prompt before
+    # uv run 02a_time.py --enable_tools --enable_history -> works quite well
     asyncio.run(main())

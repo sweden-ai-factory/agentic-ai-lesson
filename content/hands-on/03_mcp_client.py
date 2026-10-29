@@ -17,16 +17,16 @@ logfire.instrument_pydantic_ai()
 
 client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY", default="EMPTY"),
-    base_url="https://aitta-api.csc.fi/openai/v1",
+    base_url=os.getenv("MODEL_BASE_URL", "https://aitta-api.csc.fi/openai/v1"),
 )
 
 model = OpenAIChatModel(
-    "google/gemma-4-31b-it",
+    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
 )
 agent = Agent(
     model,
-    capabilities=[MCP(url="http://localhost:8000/mcp")],
+    capabilities=[MCP(url=f"http://127.0.0.1:{os.getenv('MCP_PORT', '8000')}/mcp")],
 )
 
 
