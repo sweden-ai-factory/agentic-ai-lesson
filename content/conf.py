@@ -79,6 +79,8 @@ myst_enable_extensions = [
     "attrs_block",
 ]
 myst_dmath_double_inline = True
+# Generate anchors for headings up to level 3, e.g. page.md#exercise-23-enable-conversation-history
+myst_heading_anchors = 3
 myst_fence_as_directive = {"mermaid"}
 myst_substitutions = {"author": author, "copyright": copyright_sans_funding}
 
