@@ -37,3 +37,45 @@ members = [
 [tool.uv.sources]
 agentic-ai-hands-on = { workspace = true, editable = true }
 
+# rumdl configuration - Relaxed preset
+# Lenient settings for existing projects adopting rumdl incrementally.
+# Minimizes initial warnings while still catching important issues.
+
+[tool.rumdl]
+exclude = [
+    ".git",
+    ".github",
+    "node_modules",
+    "vendor",
+    "dist",
+    "build",
+    "CHANGELOG.md",
+    "LICENSE.md",
+]
+respect-gitignore = true
+
+# Disable rules that produce the most noise on existing projects
+disable = [
+    "MD013",  # Line length - most existing files exceed 80 chars
+    "MD033",  # Inline HTML - commonly used in real-world markdown
+    "MD041",  # First line heading - not all files need it
+]
+
+[tool.rumdl.global]
+flavor = "myst"
+
+# Consistent heading style (any style, just be consistent)
+[tool.rumdl.MD003]
+style = "consistent"
+
+# Consistent list style
+[tool.rumdl.MD004]
+style = "consistent"
+
+# Consistent emphasis style
+[tool.rumdl.MD049]
+style = "consistent"
+
+# Consistent strong style
+[tool.rumdl.MD050]
+style = "consistent"
