@@ -11,6 +11,10 @@ The server is detected from MODEL_BASE_URL:
       -H 'accept: application/hal+json' \
       -H 'Authorization: Bearer <token>'
 
+  The status code tells you what is wrong: 200 means the token is valid
+  and LUMI is available, 401 means the token is wrong or expired, and
+  503 means LUMI is down.
+
 - Any other OpenAI-compatible server (e.g. Berget,
   https://api.berget.ai/v1): queries the standard `GET /models` endpoint
   (https://api.berget.ai/v1/models/) and lists the models the server
@@ -41,6 +45,16 @@ def fetch_workers(client: httpx2.Client, api_root: str) -> list[dict]:
     href = "/worker"
     while href:
         response = client.get(f"{api_root}{href}", headers={"accept": "application/hal+json"})
+        if response.status_code == 401:
+            raise SystemExit(
+                "401 Unauthorized: the token is wrong or has expired. "
+                "Generate a new one at https://aitta-auth.csc.fi/myToken."
+            )
+        if response.status_code == 503:
+            raise SystemExit(
+                "503 Service Unavailable: your token is fine, but LUMI is currently down, "
+                "so Aitta cannot serve models. Try again later."
+            )
         response.raise_for_status()
         document = response.json()
         workers.extend(document.get("_embedded", {}).get("workers", []))

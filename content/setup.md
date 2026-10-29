@@ -167,7 +167,11 @@ uv run 00_check_inference_server.py
 You should see a list of running models. Make sure the `MODEL_NAME` in your `.env`
 is one of them.
 
-Then send a first prompt to the model:
+Aitta runs its models on LUMI, so when LUMI is down (for example during a
+maintenance break) no models are available. The script then tells you so
+instead of listing models. Your token is still fine; try again later.
+
+If this was successful, send a first prompt to the model:
 
 ```bash
 uv run 01_hello_world.py
@@ -181,5 +185,6 @@ If the answer is streamed to your terminal, you are ready for the course.
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `OPENAI_API_KEY is not set`            | The `.env` file is missing or not in `content/hands-on/`. Check step 4.                                |
 | `401 Unauthorized`                     | The token is wrong or has expired. Generate a new one (step 3).                                        |
+| `503 Service Unavailable`              | Your token is fine, but LUMI is down, so Aitta cannot serve models. Try again later.                   |
 | `uv: command not found`                | Open a new terminal after installing `uv`, or see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/). |
 | Connection errors in the MCP examples  | Start the MCP server in a **second terminal** (see {doc}`mcp`). If port 8000 is taken, set `MCP_PORT`. |
