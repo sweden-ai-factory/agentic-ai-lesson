@@ -5,7 +5,7 @@ import subprocess
 import sys
 import time
 
-import httpx
+import httpx2
 import logfire
 from dotenv import load_dotenv
 
@@ -27,9 +27,9 @@ def wait_for_mcp(process: subprocess.Popen, url: str = MCP_URL, timeout: float =
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         try:
-            httpx.get(url, timeout=1.0)
+            httpx2.get(url, timeout=1.0)
             return
-        except httpx.TransportError:
+        except httpx2.TransportError:
             pass
         if process.poll() is not None:
             raise RuntimeError(
