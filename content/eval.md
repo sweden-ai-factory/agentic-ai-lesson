@@ -348,6 +348,34 @@ expectations!
 
 ::::{exercise} More evaluation!
 
+Let us try to break on purpose the agentic workflow, by trying to prompt the
+LLM in a way that it skips a tool call or calls a tool with the wrong
+arguments. This exercise is open ended for you to experiment, but a hint is
+proposed below.
+
+:::{hint}
+:class: dropdown
+If we try to create a case where we tell the LLM the current date, it'll
+probably skip the datetime tool call.
+:::
+
+:::{solution}
+
+The full solution is available at `hands-on/07_eval_solution.py`, but the new
+`Case` is reported here for clarity.
+
+```{literalinclude} hands-on/07_eval_solution.py
+:lines: 79-98
+:language: python 
+```
+
+The message of this example is that evaluation is hard, no less because it can
+be brittle: while the agent is behaving "correctly", it is still not following
+the trajectory we thought it would. Non-determinism is a both the greatest
+feature and the most unmanageable part of LLMs.
+
+:::
+
 ::::
 
 ## Summary
