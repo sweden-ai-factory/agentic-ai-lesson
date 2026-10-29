@@ -142,7 +142,7 @@ from the previous lesson is still running, stop it first. Then start the model s
 separate terminal from the `hands-on` directory:
 
 ```bash
-uv run mcp run 03_mcp_server_solution.py --transport streamable-http
+uv run 03_mcp_server_solution.py
 ```
 
 Run the agent with the skill with the following command.
