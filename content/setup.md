@@ -23,6 +23,36 @@
 You do **not** need to install Python yourself: `uv` downloads the right version
 (Python 3.14) automatically.
 
+::::{admonition} Alternative: noppe (no installation)
+:class: dropdown
+
+If you cannot install the course software on your laptop, you can use
+[noppe](https://noppe.csc.fi/), a CSC service that runs JupyterLab in your browser.
+The course material and all Python packages are already installed there. You
+still need LUMI access and an Aitta token (steps 0 and 3).
+
+1. Go to <https://noppe.csc.fi/> and log in with the same account you use for
+   the Aitta token (step 3), for example **MyAccessID**.
+2. Click **Join workspace** and enter the **join code** we sent you by email.
+3. Start the application **agentic-ai-lesson**. JupyterLab opens in
+   `agentic-ai-lesson/content/hands-on`.
+4. Skip steps 1 and 2 below and continue with step 3. Run the commands in a
+   JupyterLab terminal (**File → New → Terminal**). It starts in
+   `content/hands-on`, so skip the `cd content/hands-on` commands in steps 4 and 5.
+   When an episode needs a second terminal, for example for the MCP server, open
+   another one the same way.
+
+:::{warning}
+Nothing you change in noppe is kept when your session restarts or ends. Every
+time you start the application, you get a fresh copy of the course material:
+
+- **Your `.env` is gone.** Create it again as in step 4, so keep your token in a
+  safe place, such as a password manager.
+- **Your own code is gone.** Before you stop, download the files you want to
+  keep: right-click them in the file browser and choose **Download**.
+:::
+::::
+
 ## 0. Get LUMI access
 
 You log in to Aitta with your LUMI account, and your Aitta token is tied to a
