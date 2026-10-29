@@ -166,7 +166,7 @@ multi-agent.md
 :maxdepth: 1
 :hidden:
 
-evaluation.md
+eval.md
 security.md
 outlook.md
 ```

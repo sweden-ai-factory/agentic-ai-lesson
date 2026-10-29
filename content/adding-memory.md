@@ -305,4 +305,4 @@ Memory also brings risks: private information can end up in the files, outdated 
 and injected text affects all future sessions.
 
 How do we know that the agent actually follows its skills and its memory? This is the topic of the
-section on [evaluation](evaluation.md).
+section on [evaluation](eval.md).
