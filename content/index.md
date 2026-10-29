@@ -102,7 +102,7 @@ The times of the episodes are approximate and include the exercises.
 :width: 100%
 :header: Time; Episode; Instructors
 
-50 min ; {doc}`evaluation` (in preparation) ; FF & AG
+50 min ; {doc}`eval` ; FF & AG
 10 min ; ☕ Break
 80 min ; {doc}`security` (in preparation)  ; AG & AM
 10 min ; ☕ Break
