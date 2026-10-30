@@ -144,7 +144,7 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
 # Memory files are stored in hands-on/agent-memory/main/
 MEMORY_DIR = "agent-memory"
 
-book_agent = Agent(
+book_agent = Agent[tuple[FlightDetails, SeatPreference], str](
     model,
     deps_type=tuple[FlightDetails, SeatPreference],
     output_type=str,

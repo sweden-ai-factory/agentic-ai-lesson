@@ -85,7 +85,13 @@ with logfire.span("Wait for MCP"):
 
 try:
     main = main_delegation if args.pattern == 'delegation' else main_handoff
-    asyncio.run(main(random.choice(TEST_PROMPTS) if args.test else None))
+    if args.test:
+        user_prompt = random.choice(TEST_PROMPTS)
+        print("You:", user_prompt)
+    else:
+        user_prompt = None
+
+    asyncio.run(main(user_prompt))
 finally:
     if mcp_process is not None:
         mcp_process.terminate()
