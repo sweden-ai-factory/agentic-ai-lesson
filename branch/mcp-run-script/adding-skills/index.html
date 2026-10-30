@@ -1,0 +1,740 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex/"><link rel="search" title="Search" href="../search/"><link rel="next" title="5. Memory" href="../adding-memory/"><link rel="prev" title="3. Model Context Protocol" href="../mcp/">
+        <link rel="prefetch" href="../_static/LAIF_SEAIF_stacked_black.png" as="image">
+        <link rel="prefetch" href="../_static/LAIF_SEAIF_stacked_white.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>4. Skills - Agentic AI Lesson</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+    <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="../_static/furo_ext_lesson.css?v=6c0cde2e" />
+    <link rel="stylesheet" type="text/css" href="../_static/EN_Co-funded.css?v=bf081b0b" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=1c72d2de" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">Agentic AI Lesson</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/LAIF_SEAIF_stacked_black.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/LAIF_SEAIF_stacked_white.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Agentic AI Lesson</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">0. Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Day 1: LLMs, agents and MCP</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../large-language-model/">1. Large Language Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agent-basics/">2. Basics of AI agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcp/">3. Model Context Protocol</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Day 2: Skills, memory and multiple agents</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">4. Skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding-memory/">5. Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multi-agent/">6. Multiple agents</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Day 3: Evaluation and security</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../evaluation/">Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outlook/">Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/sweden-ai-factory/agentic-ai-lesson/blob/main//content/adding-skills.md?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/sweden-ai-factory/agentic-ai-lesson/edit/main//content/adding-skills.md" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="skills">
+<h1>4. Skills<a class="headerlink" href="#skills" title="Link to this heading">¶</a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What is a skill, and what problem does it solve?</p></li>
+<li><p>How does an agent decide when to load a skill?</p></li>
+<li><p>How do skills differ from system prompts and MCP tools?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand the structure of a <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code> file.</p></li>
+<li><p>Understand which parts of a skill end up in the LLM’s context, and when.</p></li>
+<li><p>Add a skill to the agent and write your own.</p></li>
+</ul>
+</div>
+<section id="why-skills">
+<h2>Why skills?<a class="headerlink" href="#why-skills" title="Link to this heading">¶</a></h2>
+<p>In the previous lessons we have covered tools and made them available via an MCP server. Our agent can
+now look up the date, search for flights, and book them with the <code class="docutils literal notranslate"><span class="pre">book_flight</span></code> tool from Exercise 3.2. However, as the MCP tools are general, they
+are not customized to how we want to use the tools. For example, company rules, conventions, and workflows
+are not included in the context of the LLM when interacting with it. There are multiple options for including
+these instructions in the context:</p>
+<ol class="arabic simple">
+<li><p>Include everything in the system prompt of our harness but then the context will grow with every customization
+even if it is not relevant for the current interaction. For example, detailed train preferences are not relevant
+when searching flights.</p></li>
+<li><p>Another option is to write a new tool. But that is overkill for something that just includes natural language
+and everyone should be able to modify even when they do not have any coding experience.</p></li>
+</ol>
+<p>Skills are a compromise between both: They are packaged instructions in natural language files, of which only
+the name and description are always loaded, while the full instructions are included only when they are needed.</p>
+<p>Keeping the context small matters. LLMs are stateless, so the whole context is sent again with every
+request, including every round trip for a tool call. A larger context takes longer to process before the
+first token is generated, and with providers that bill per token, every extra token in the system prompt
+is paid for again on each request. Prompt caching can reduce this cost for a context that stays the same.
+Very long contexts can also make the model worse at picking out the instructions that matter.</p>
+</section>
+<section id="structure-of-a-skill">
+<h2>Structure of a skill<a class="headerlink" href="#structure-of-a-skill" title="Link to this heading">¶</a></h2>
+<p>A skill is a folder containing a <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code> file (plus optional scripts, references, assets). Skills follow
+an <a class="reference external" href="https://github.com/agentskills/agentskills">open standard</a> and are supported by several harnesses
+(coding agents, frameworks), which makes them portable in a similar way as the MCP server in the earlier
+example.</p>
+<p>Let’s look at a concrete example: For our running example of a flight booking agent, we could imagine
+that our company has some travel policy that we need to follow. While the MCP server could be provided
+by the travel agency, the skills are custom to our company. Let us explore the travel-policy skill.</p>
+<p>The folder layout in our example is as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>agent-skills/
+└── travel-policy/
+    └── SKILL.md
+</pre></div>
+</div>
+<p>Where the <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code> file consists of a YAML frontmatter and some markdown body. The frontmatter
+includes the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code> fields that are standardized. The <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code> are
+what is included in the context of the LLM to select different skills from all available skills
+if they seem likely to be relevant. This is comparable to the tool docstring in the previous
+lesson. The markdown body includes natural language. See the <code class="docutils literal notranslate"><span class="pre">travel-policy/SKILL.md</span></code>:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>---
+name: travel-policy
+<span class="gu">description: Corporate travel policy to apply when searching for or recommending flights (cost-per-km cap, aircraft restrictions, and the user's time-of-day preference).</span>
+<span class="gu">---</span>
+
+<span class="gh"># Corporate Travel Policy</span>
+
+Rules:
+
+<span class="k">1.</span> Cost per km must not exceed 0.25 EUR.
+<span class="k">2.</span> Wide aircraft are prohibited below 1000 km.
+<span class="k">3.</span> Prefer the cheapest compliant option.
+<span class="k">4.</span> If no compliant option exists, recommend the least severe violation.
+<span class="k">5.</span> When searching for flights, always ask the user whether they prefer morning or afternoon flights — unless that preference is already known from the conversation history, in which case do not ask again and apply it silently.
+</pre></div>
+</div>
+<div class="admonition-instructor-note instructor-note admonition" id="instructor-note-0">
+<p class="admonition-title">Instructor note</p>
+<p>Highlight rule 5: Skills can also tell the agent to ask the user something.</p>
+</div>
+</section>
+<section id="how-skills-work">
+<h2>How skills work<a class="headerlink" href="#how-skills-work" title="Link to this heading">¶</a></h2>
+<p>As described earlier, skills work following the <em>progressive disclosure</em> idea: At first only the
+name and description are loaded into the context, then later the whole skill. You can compare this using
+the tabs. The <a class="reference external" href="https://agentskills.io/specification#progressive-disclosure">Agent Skills specification</a> describes progressive disclosure in more detail.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-QXQgc3RhcnR1cA==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-QXQgc3RhcnR1cA==" name="QXQgc3RhcnR1cA==" role="tab" tabindex="0">At startup</button><button aria-controls="panel-0-V2hlbiB0aGUgc2tpbGwgaXMgbG9hZGVk" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-V2hlbiB0aGUgc2tpbGwgaXMgbG9hZGVk" name="V2hlbiB0aGUgc2tpbGwgaXMgbG9hZGVk" role="tab" tabindex="-1">When the skill is loaded</button></div><div aria-labelledby="tab-0-QXQgc3RhcnR1cA==" class="sphinx-tabs-panel group-tab" id="panel-0-QXQgc3RhcnR1cA==" name="QXQgc3RhcnR1cA==" role="tabpanel" tabindex="0"><p>Only the frontmatter of every skill is added to the context:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">travel-policy</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Corporate travel policy to apply when searching for or recommending flights (cost-per-km cap, aircraft restrictions, and the user's time-of-day preference).</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-V2hlbiB0aGUgc2tpbGwgaXMgbG9hZGVk" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-V2hlbiB0aGUgc2tpbGwgaXMgbG9hZGVk" name="V2hlbiB0aGUgc2tpbGwgaXMgbG9hZGVk" role="tabpanel" tabindex="0"><p>The full body is added to the context:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># Corporate Travel Policy</span>
+
+Rules:
+
+<span class="k">1.</span> Cost per km must not exceed 0.25 EUR.
+<span class="k">2.</span> Wide aircraft are prohibited below 1000 km.
+<span class="k">3.</span> Prefer the cheapest compliant option.
+<span class="k">4.</span> If no compliant option exists, recommend the least severe violation.
+<span class="k">5.</span> When searching for flights, always ask the user whether they prefer morning or afternoon flights — unless that preference is already known from the conversation history, in which case do not ask again and apply it silently.
+</pre></div>
+</div>
+</div></div>
+<p>The main steps are as follows. You can compare them with the MCP log walk-through in Exercise 3.1:</p>
+<ol class="arabic simple">
+<li><p>Harness scans the skills folder and extracts the name and descriptions.</p></li>
+<li><p>Name and description are appended into the context, together with a tool to load a skill (<code class="docutils literal notranslate"><span class="pre">load_capability</span></code>).</p></li>
+<li><p>The LLM detects that a skill is relevant and generates a tool call to <code class="docutils literal notranslate"><span class="pre">load_capability</span></code>. The inference server parses it into a structured tool call.</p></li>
+<li><p>The harness executes <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> and returns the skill body as tool result.</p></li>
+<li><p>The skill body is added to the context of the LLM, and LLM (hopefully) follows the instructions.</p></li>
+</ol>
+<div class="admonition-key-insight callout admonition" id="callout-0">
+<p class="admonition-title">Key insight</p>
+<p>You may have noticed the “hopefully” in step 5. Nothing actually forces the model to load a skill, or to
+follow it once it is loaded. A skill is more of a nudge than a rule. That is the flip side of being able to
+write skills in plain language: it is easy, but you give up some control, and the same skill may be followed
+in one run and ignored in the next. We will come back to this at the end of the lesson.</p>
+</div>
+<p>Because of the progressive disclosure, many skills can be available while costing only a few tokens each.</p>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p>Why does the <code class="docutils literal notranslate"><span class="pre">description</span></code> matter so much? What would happen with a description like “Some rules”?</p>
+</div>
+</section>
+<section id="adding-skills-to-the-agent">
+<h2>Adding skills to the agent<a class="headerlink" href="#adding-skills-to-the-agent" title="Link to this heading">¶</a></h2>
+<p>How do we include the skills into the framework? Skills are another capability besides our MCP server.
+We first give the harness file access, rooted at the script’s directory using <code class="docutils literal notranslate"><span class="pre">LocalWorkspace</span></code> and
+add the skill using <code class="docutils literal notranslate"><span class="pre">Skills(&quot;./agent-skills&quot;,</span> <span class="pre">include=[...])</span></code>. We can see that the MCP server from the
+previous lesson is still attached. Through the <code class="docutils literal notranslate"><span class="pre">instructions</span></code> block we nudge the model to load relevant
+skills before answering.</p>
+<p>For the model, the <code class="docutils literal notranslate"><span class="pre">instructions</span></code> are the system prompt: Pydantic AI sends them as a <code class="docutils literal notranslate"><span class="pre">system</span></code> message
+at the start of every request. Pydantic AI also has a separate <code class="docutils literal notranslate"><span class="pre">system_prompt</span></code> argument. The difference
+only matters for the conversation history: a <code class="docutils literal notranslate"><span class="pre">system_prompt</span></code> is stored in the message history and re-sent
+from there, while the <code class="docutils literal notranslate"><span class="pre">instructions</span></code> are always taken from the current agent. The <code class="docutils literal notranslate"><span class="pre">Skills</span></code> capability uses
+the same mechanism: the list of skill names and descriptions is added to the instructions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"travel_agent"</span><span class="p">,</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="s2">"You are a helpful travel assistant. Before answering, load any capability or skill relevant to the request."</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">MCP</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">"http://127.0.0.1:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'MCP_PORT'</span><span class="p">,</span><span class="w"> </span><span class="s1">'8000'</span><span class="p">)</span><span class="si">}</span><span class="s2">/mcp"</span><span class="p">),</span>
+        <span class="c1"># `Skills` reads SKILL.md files through the run's workspace, so attach one rooted</span>
+        <span class="c1"># at this script's directory: "./agent-skills" then resolves to hands-on/agent-skills</span>
+        <span class="c1"># no matter where the lesson is launched from.</span>
+<span class="hll">        <span class="n">LocalWorkspace</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span>
+</span><span class="hll">        <span class="n">Skills</span><span class="p">(</span><span class="s2">"./agent-skills"</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">"travel-policy"</span><span class="p">]),</span>
+</span>    <span class="p">],</span>
+<span class="p">)</span>
+
+
+</pre></div>
+</div>
+</section>
+<section id="exercise-4-1-try-out-the-skill">
+<h2>Exercise 4.1: Try out the skill<a class="headerlink" href="#exercise-4-1-try-out-the-skill" title="Link to this heading">¶</a></h2>
+<div class="admonition-exercise exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise</p>
+<p>Try out the skill. The agent uses the tools from the MCP server, so we first need to start it. In this
+lesson we use the model solution of Exercise 3.2, which also has the <code class="docutils literal notranslate"><span class="pre">book_flight</span></code> tool. If an MCP server
+from the previous lesson is still running, stop it first. Then start the model solution MCP server in a
+separate terminal from the <code class="docutils literal notranslate"><span class="pre">hands-on</span></code> directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>03_mcp_server_solution.py
+</pre></div>
+</div>
+<p>Run the agent with the skill with the following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>04_skills.py
+</pre></div>
+</div>
+<p>There are multiple prompts you could try. For example, start with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Are there any flights from Paris to Rome tomorrow?
+</pre></div>
+</div>
+<p>Once the agent has answered, follow up with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Does it comply with the travel policy?
+</pre></div>
+</div>
+<p>Observe in the log of your agent. Is <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> called? Before or after <code class="docutils literal notranslate"><span class="pre">search_flights</span></code>?</p>
+<p>If the skill is not loaded automatically, you can nudge the agent by naming the skill in your prompt.
+Note that <code class="docutils literal notranslate"><span class="pre">/travel-policy</span></code> is not a special command in our harness, unlike the slash commands in many
+coding agents. It is ordinary text that matches the skill name in the list of available skills, which
+makes the model more likely to call <code class="docutils literal notranslate"><span class="pre">load_capability</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/travel-policy
+</pre></div>
+</div>
+<p>Does the agent ask whether you prefer morning or afternoon flights, as rule 5 of the skill demands?</p>
+<p>Next, look at what the model actually received. Find the <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> call and its tool result in
+the log. The skill body comes back as an ordinary tool result, just like the MCP tool results in
+Exercise 3.1.</p>
+<p>Finally, check the agent’s recommendation by hand against <code class="docutils literal notranslate"><span class="pre">data/flights.csv</span></code>, which contains the columns
+<code class="docutils literal notranslate"><span class="pre">price_eur</span></code>, <code class="docutils literal notranslate"><span class="pre">distance_km</span></code> and <code class="docutils literal notranslate"><span class="pre">aircraft_type</span></code>. Is the cost per km really at most 0.25 EUR? Is a wide
+aircraft used on a flight below 1000 km? Did the agent get the arithmetic right? The Paris–Rome flights
+all comply, so also try a route where some flights violate the policy:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>I want to fly from Munich to Zurich next Tuesday afternoon.
+</pre></div>
+</div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p>A typical run calls <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> with <code class="docutils literal notranslate"><span class="pre">{&quot;id&quot;:</span> <span class="pre">&quot;travel-policy&quot;}</span></code>, <code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code> to resolve
+“tomorrow”, and <code class="docutils literal notranslate"><span class="pre">search_flights</span></code>. The order of <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> relative to the other tools can differ.
+If the skill is loaded before <code class="docutils literal notranslate"><span class="pre">search_flights</span></code>, the agent may first ask whether you prefer morning or
+afternoon flights. The tool result of <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> contains the body of <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code>.</p>
+<p>Whether and when the skill is loaded depends on the model and on how well the <code class="docutils literal notranslate"><span class="pre">description</span></code> matches your
+prompt. The same prompt can load the skill in one run and skip it in the next. If the skill is not loaded,
+the agent will answer without applying the policy.</p>
+<p>This is not a bug in our setup. Getting models to call the right tool or skill at the right time is a big
+part of how frontier models are trained today, so the developers have a lot of say in how this works. Try a
+different model, or even a newer version of the same one, and it may load the skill earlier, later or not
+at all.</p>
+<p>The Paris–Rome flights cost between 0.10 and 0.13 EUR/km and none uses a wide aircraft, so all of them
+comply. For Munich–Zurich (242 km) on a Tuesday, there are only two flights: LH199 at 06:45 (58 EUR,
+0.24 EUR/km) complies, but LH200 at 11:45 (71 EUR, 0.29 EUR/km) exceeds the limit. There is no afternoon
+flight on Tuesdays. The agent should say so, not recommend LH200 without pointing out the violation, and
+suggest LH199 as the compliant alternative. Since your prompt already says “afternoon”, the agent should
+not ask for your preference again (rule 5). Check whether your agent did this and whether its numbers are
+correct.</p>
+</div>
+</section>
+<section id="exercise-4-2-write-your-own-skill">
+<h2>Exercise 4.2: Write your own skill<a class="headerlink" href="#exercise-4-2-write-your-own-skill" title="Link to this heading">¶</a></h2>
+<div class="admonition-exercise exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise</p>
+<p>Let us now write our own skill. It should be a skill that tells the agent to always confirm before booking a flight.</p>
+<p>The MCP server that you started in Exercise 4.1 already has the <code class="docutils literal notranslate"><span class="pre">book_flight</span></code> tool.</p>
+<p>The folder for the new skill already exists: <code class="docutils literal notranslate"><span class="pre">agent-skills/booking-confirmation/</span></code>. Create a <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code>
+in it and use <code class="docutils literal notranslate"><span class="pre">booking-confirmation</span></code> as the <code class="docutils literal notranslate"><span class="pre">name</span></code> in the frontmatter, since the name must match the
+folder name. Then add the skill to <code class="docutils literal notranslate"><span class="pre">include=[...]</span></code> in <code class="docutils literal notranslate"><span class="pre">04_skills.py</span></code> and restart the agent.</p>
+<p>Try out the skill, e.g., by trying to book a flight. Is it working as you intended?</p>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p>Create <code class="docutils literal notranslate"><span class="pre">agent-skills/booking-confirmation/SKILL.md</span></code>:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>---
+name: booking-confirmation
+<span class="gu">description: Rules to follow before booking a flight with the book_flight tool. Use whenever the user asks to book, reserve or buy a flight.</span>
+<span class="gu">---</span>
+
+<span class="gh"># Booking confirmation</span>
+
+Before calling <span class="sb">`book_flight`</span>:
+
+<span class="k">1.</span> Summarize the booking: flight number, origin, destination, date, departure time, price and passenger name.
+<span class="k">2.</span> Ask the user to explicitly confirm the booking.
+<span class="k">3.</span> Only call <span class="sb">`book_flight`</span> after the user has confirmed in their latest message. If they decline or change details, do not book.
+<span class="k">4.</span> If the passenger name is missing, ask for it. Never make one up.
+</pre></div>
+</div>
+<p>Then include it next to the travel policy in <code class="docutils literal notranslate"><span class="pre">04_skills.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Skills</span><span class="p">(</span><span class="s2">"./agent-skills"</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">"travel-policy"</span><span class="p">,</span> <span class="s2">"booking-confirmation"</span><span class="p">]),</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="skills-compared-to-related-ideas">
+<h2>Skills compared to related ideas<a class="headerlink" href="#skills-compared-to-related-ideas" title="Link to this heading">¶</a></h2>
+<p>Let us briefly recap and discuss how skills compare to related ideas like system prompts and MCP tools.</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>System prompt (our <code class="docutils literal notranslate"><span class="pre">instructions</span></code>)</p></th>
+<th class="head"><p>MCP tool</p></th>
+<th class="head"><p>Skill</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>What it is</p></td>
+<td><p>Instructions set in the harness, in our agent the <code class="docutils literal notranslate"><span class="pre">instructions</span></code> sentence plus the list of skill names and descriptions</p></td>
+<td><p>A function that the MCP server executes when the LLM requests it</p></td>
+<td><p>Instructions in a <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code> file, optionally with bundled files</p></td>
+</tr>
+<tr class="row-odd"><td><p>When in context</p></td>
+<td><p>Always, with every request</p></td>
+<td><p>Definition (name, docstring, parameters) always, result from the call onwards</p></td>
+<td><p>Name and description always, body from loading onwards</p></td>
+</tr>
+<tr class="row-even"><td><p>Who decides to use it</p></td>
+<td><p>Nobody, it always applies</p></td>
+<td><p>The LLM, by requesting a tool call</p></td>
+<td><p>The LLM, by calling <code class="docutils literal notranslate"><span class="pre">load_capability</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Can execute code</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>The standard allows <a class="reference external" href="https://agentskills.io/specification#scripts/">bundled scripts</a>, but the <code class="docutils literal notranslate"><span class="pre">Skills</span></code> capability we use never runs them</p></td>
+</tr>
+<tr class="row-even"><td><p>Who writes it</p></td>
+<td><p>Whoever builds the harness: here us, in <code class="docutils literal notranslate"><span class="pre">04_skills.py</span></code></p></td>
+<td><p>The MCP server provider, e.g. the travel agency</p></td>
+<td><p>Anyone, no coding needed</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reusable across harnesses</p></td>
+<td><p>Only by copying the text</p></td>
+<td><p>Yes, via any MCP client</p></td>
+<td><p>Yes, in any harness that supports the standard</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Skills and tools complement each other: tools define <em>what the agent can do</em>, skills describe <em>how it
+should do it</em>.</p>
+<p>As we said earlier, skills guide the agent but do not enforce anything. A rule like “Cost per km must not exceed 0.25 EUR” is only text
+in the context, and the LLM can ignore it or miscalculate, as you may have seen in Exercise 4.1. Hard
+rules belong in code, for example in a tool that rejects bookings that violate the policy. Skills are
+better suited for guidance, conventions and workflows. How to check whether an agent actually follows
+the rules is covered in the <a class="reference internal" href="../evaluation/"><span class="std std-doc">evaluation section</span></a>.</p>
+<p>Finally, skills are instructions that go straight into the context of the LLM, so only use skills you
+trust. More on this in the <a class="reference internal" href="../security/"><span class="std std-doc">security section</span></a>.</p>
+</section>
+<section id="what-can-skills-be-used-for">
+<h2>What can skills be used for?<a class="headerlink" href="#what-can-skills-be-used-for" title="Link to this heading">¶</a></h2>
+<p>Our travel policy is just one example. Skills are useful whenever an agent needs to know how <em>you</em> do
+things, not just how things are done in general. Some ideas:</p>
+<ul class="simple">
+<li><p><strong>A well-known tool on your system.</strong> The model already knows Slurm or the OpenShift CLI (<code class="docutils literal notranslate"><span class="pre">oc</span></code>), but it
+doesn’t know that on LUMI you need a specific <code class="docutils literal notranslate"><span class="pre">--account</span></code> and partition, or which project you deploy to on
+Rahti, CSC’s OpenShift-based container cloud. A skill can fill in those details.</p></li>
+<li><p><strong>Code snippets and templates</strong>, for example how your group usually sets up a job script or a new project.</p></li>
+<li><p><strong>Things that have nothing to do with code.</strong> <a class="reference external" href="https://github.com/labarba/sciwrite">sciwrite</a> by Lorena
+Barba is a skill for reviewing scientific manuscripts, based on the <em>Writing in the Sciences</em> course.</p></li>
+</ul>
+<div class="tip admonition">
+<p class="admonition-title">Where to find skills</p>
+<p>If you want to see what others have written, these are good places to start:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/CSCfi/csc-skills">CSC skills</a>, for working with CSC’s services</p></li>
+<li><p><a class="reference external" href="https://github.com/huggingface/skills">huggingface/skills</a>, for the Hugging Face Hub, datasets and training</p></li>
+<li><p><a class="reference external" href="https://github.com/pydantic/skills">pydantic/skills</a>, for Pydantic, Logfire and building Pydantic AI agents</p></li>
+<li><p><a class="reference external" href="https://www.skills.sh/">skills.sh</a> and <a class="reference external" href="https://github.com/obra/superpowers">obra/superpowers</a>, popular
+collections, mostly written by individuals</p></li>
+</ul>
+</div>
+<p>As with any skill, read it before you use it: whatever is in there ends up in your agent’s context.</p>
+<div class="admonition-discussion discussion important admonition" id="discussion-1">
+<p class="admonition-title">Discussion</p>
+<p>What would you write a skill for in your own work?</p>
+</div>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
+<p>A skill is a folder containing a <code class="docutils literal notranslate"><span class="pre">SKILL.md</span></code> file, which consists of a YAML frontmatter with <code class="docutils literal notranslate"><span class="pre">name</span></code> and
+<code class="docutils literal notranslate"><span class="pre">description</span></code> and a markdown body with instructions in natural language. Skills follow an open standard,
+so the same skill can be used in different harnesses.</p>
+<p>Skills follow the idea of progressive disclosure: the name and description of every skill are always in
+the context, while the body is only loaded when the LLM decides that the skill is relevant, by calling
+the <code class="docutils literal notranslate"><span class="pre">load_capability</span></code> tool. This keeps the context small even with many skills available, but it also
+means that a skill with a vague description may never be loaded.</p>
+<p>In Pydantic AI, we added skills with the <code class="docutils literal notranslate"><span class="pre">Skills(...)</span></code> capability, next to the MCP server from the
+previous lesson. Skills complement tools and MCP and keep the system prompt small. However, skills only
+guide the agent and do not enforce rules: hard constraints belong in code.</p>
+<p>Rule 5 of our travel policy relies on the time-of-day preference being known from the conversation
+history. What happens when you restart the agent? The preference is gone and the agent asks again. In the
+next lesson, we will look at how to give the agent <a class="reference internal" href="../adding-memory/"><span class="std std-doc">memory</span></a>.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../adding-memory/">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">5. Memory</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../mcp/">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">3. Model Context Protocol</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, LUMI AI Factory, Sweden AI Factory, Abdul Ghafoor, Ashwin Mohanan, Daniel Medeiros, Francesco Fiusco, Marlon Tobaben, Mitja Sainio, Vijeta Sharma
+The LUMI AI Factory Service Center is funded jointly by the
+EuroHPC Joint Undertaking and the participating states FI, CZ, DK, EE, NO, PL.
+Sweden AI Factory is hosted by NAISS (the National Academic Infrastructure for
+Supercomputing in Sweden) in partnership with RISE Research Institutes of
+Sweden. Funding is shared between Sweden (through the Swedish Research Council
+and Vinnova, Sweden’s Innovation Agency) and the EuroHPC Joint Undertaking,
+which is the EU’s supercomputer organisation.
+
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/sweden-ai-factory/agentic-ai-lesson" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">4. Skills</a><ul>
+<li><a class="reference internal" href="#why-skills">Why skills?</a></li>
+<li><a class="reference internal" href="#structure-of-a-skill">Structure of a skill</a></li>
+<li><a class="reference internal" href="#how-skills-work">How skills work</a></li>
+<li><a class="reference internal" href="#adding-skills-to-the-agent">Adding skills to the agent</a></li>
+<li><a class="reference internal" href="#exercise-4-1-try-out-the-skill">Exercise 4.1: Try out the skill</a></li>
+<li><a class="reference internal" href="#exercise-4-2-write-your-own-skill">Exercise 4.2: Write your own skill</a></li>
+<li><a class="reference internal" href="#skills-compared-to-related-ideas">Skills compared to related ideas</a></li>
+<li><a class="reference internal" href="#what-can-skills-be-used-for">What can skills be used for?</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=35a8b989"></script>
+    <script src="../_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/tabs.js?v=3030b3cb"></script>
+    </body>
+</html>
