@@ -20,7 +20,34 @@ application using LLMs in some capacity, even one as simple as our "hello world"
 from the previous section. In this course, we understand an AI agent to mean a computer
 program that leverages an LLM to interact with the program's environment (a _harness_ in
 AI jargon) in order to accomplish some task. This is enabled by outfitting the harness
-with _tools_, which may be implemented as, e.g., Python functions.
+with _capabilities_, which may be implemented as, e.g., Python functions.
+
+```mermaid
+flowchart LR
+    In([In])
+    Out([Out])
+    LLM[LLM]
+
+    In --> LLM
+    LLM --> Out
+
+    subgraph Capabilities["Capabilities"]
+        Retrieval[Retrieval]
+        Tools[Tools, MCP, Skills]
+        Memory[Memory]
+    end
+
+    LLM <-.->|Query/Results| Retrieval
+    LLM <-.->|Action/Feedback| Tools
+    LLM <-.->|Read/Write| Memory
+
+    style In fill:#f5a623
+    style Out fill:#f5a623
+    style LLM fill:#4caf50
+    style Retrieval fill:#9c27b0
+    style Tools fill:#9c27b0
+    style Memory fill:#9c27b0
+```
 
 At the time of writing these materials, there are many frameworks for building AI
 agents, each providing roughly the same features. This course uses
