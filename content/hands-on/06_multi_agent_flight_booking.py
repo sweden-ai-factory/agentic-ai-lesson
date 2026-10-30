@@ -13,7 +13,8 @@ load_dotenv()
 
 
 from flight_booking.config import MCP_URL  # noqa
-from flight_booking.main import main  # noqa
+from flight_booking.main import main as main_handoff  # noqa
+from flight_booking.main_delegation import main as main_delegation  # noqa
 
 
 def wait_for_mcp(process: subprocess.Popen, url: str = MCP_URL, timeout: float = 30.0):
@@ -51,6 +52,17 @@ parser.add_argument(
     action='store_true',
     help='run with a random test prompt instead of asking the user',
 )
+parser.add_argument(
+    '-p',
+    '--pattern',
+    choices=['handoff', 'delegation'],
+    default='handoff',
+    help=(
+        'multi-agent pattern to run: "handoff" is the programmatic agent '
+        'hand-off (flight_booking/main.py), "delegation" is agent delegation '
+        'through the SubAgents capability (flight_booking/main_delegation.py)'
+    ),
+)
 args = parser.parse_args()
 
 mcp_process = subprocess.Popen(
@@ -62,6 +74,7 @@ with logfire.span("Wait for MCP"):
     wait_for_mcp(mcp_process)
 
 try:
+    main = main_delegation if args.pattern == 'delegation' else main_handoff
     asyncio.run(main(random.choice(TEST_PROMPTS) if args.test else None))
 finally:
     mcp_process.terminate()
