@@ -9,10 +9,10 @@ from .agents import (
     FlightDetails,
     NoFlightFound,
     SeatPreference,
-    conversational_agent,
+    book_agent,
     search_agent,
     seat_preference_agent,
-    buy_agent,
+    trip_extractor_agent,
 )
 from .config import usage_limits
 
@@ -20,7 +20,7 @@ from .config import usage_limits
 async def find_seat(usage: RunUsage) -> SeatPreference:
     message_history: list[ModelMessage] | None = None
     while True:
-        answer = input('🤖 What seat would you like? ')
+        answer = input('🤖 What seat would you like?\nYou: ')
 
         result = await seat_preference_agent.run(
             answer,
@@ -35,9 +35,9 @@ async def find_seat(usage: RunUsage) -> SeatPreference:
             message_history = result.all_messages()
 
 
-async def buy_tickets(usage: RunUsage, flight_details: FlightDetails, seat: SeatPreference):
+async def book_tickets(usage: RunUsage, flight_details: FlightDetails, seat: SeatPreference):
     print(f'Purchasing flight {flight_details=!r} {seat=!r}...')
-    result = await buy_agent.run(
+    result = await book_agent.run(
         f"Book the flight {flight_details=} and record the {seat=}",
         deps=(flight_details, seat),
         usage=usage,
@@ -49,7 +49,8 @@ async def buy_tickets(usage: RunUsage, flight_details: FlightDetails, seat: Seat
 async def main(test_prompt: str | None = None):
     user_prompt = test_prompt or input(
         '🤖 Hi! I am a flight search assistant. '
-        'You can tell me the locations and dates of your trip and I will find the best flight for you\n> '
+        'You can tell me the locations and dates of your trip and I will find the best flight for you\n'
+        'You: '
     )
     conversation_history: list[ModelMessage] | None = None
     deps = Deps()
@@ -62,8 +63,8 @@ async def main(test_prompt: str | None = None):
         # work out the trip the user wants (origin, destination, date), keeping the
         # conversation history so follow-ups like "make it next Monday" or "try Rome
         # instead" refine the previous request rather than starting from scratch
-        with logfire.span("Conversational Agent: Prompt -> TripRequest"):
-            user_result = await conversational_agent.run(
+        with logfire.span("Trip Extractor Agent: Prompt -> TripRequest"):
+            user_result = await trip_extractor_agent.run(
                 user_prompt,
                 deps=deps,
                 message_history=conversation_history,
@@ -107,14 +108,15 @@ async def main(test_prompt: str | None = None):
                 with logfire.span("Seat Preference Agent: get a valid seat"):
                     seat = await find_seat(usage)
 
-                with logfire.span("Buy Agent: purchase a flight"):
-                    await buy_tickets(usage, flight, seat)
+                with logfire.span("Book Agent: purchase a flight"):
+                    await book_tickets(usage, flight, seat)
                 break
 
         # nothing bought yet: let the user change the date, destination, etc.
         user_prompt = input(
             '🤖 Tell me what to change (e.g. a different date or destination), '
-            'or type "quit" to stop '
+            'or type "quit" to stop\n'
+            'You: '
         )
 
 

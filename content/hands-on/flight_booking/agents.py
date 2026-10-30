@@ -59,8 +59,7 @@ class Failed(BaseModel):
 
 
 # This agent is responsible for extracting trip request from user
-# TODO: add date into request and in search age
-conversational_agent = Agent[TripRequest](
+trip_extractor_agent = Agent[TripRequest](
     model,
     deps_type=Deps,
     output_type=TripRequest,
@@ -73,7 +72,7 @@ conversational_agent = Agent[TripRequest](
     ),
 )
 
-@conversational_agent.output_validator
+@trip_extractor_agent.output_validator
 async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
     """Validate origin and destination of the trip."""
     logfire.info(
@@ -145,7 +144,7 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
 # Memory files are stored in hands-on/agent-memory/main/
 MEMORY_DIR = "agent-memory"
 
-buy_agent = Agent(
+book_agent = Agent(
     model,
     deps_type=tuple[FlightDetails, SeatPreference],
     output_type=str,

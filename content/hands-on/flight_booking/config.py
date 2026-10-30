@@ -9,9 +9,9 @@ from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
 # Configures logfire / OpenTelemetry / Jaeger on import.
-from . import config_logging  # noqa: F401
+from . import config_logging
 
-config_logging.log_default()  # noqa
+config_logging.log_default()
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 

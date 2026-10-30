@@ -18,9 +18,9 @@ from pydantic_ai_harness import SubAgent, SubAgents
 
 from .agents import (
     Deps,
-    conversational_agent,
     search_agent,
     seat_preference_agent,
+    trip_extractor_agent,
 )
 from .config import model, usage_limits
 
@@ -31,7 +31,7 @@ orchestrator = Agent(
         SubAgents(
             agents=[
                 SubAgent(
-                    conversational_agent,
+                    trip_extractor_agent,
                     name='trip_extractor',
                     description=(
                         'Extracts the origin, destination and travel date '
