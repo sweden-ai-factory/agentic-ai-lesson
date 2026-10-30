@@ -118,8 +118,7 @@ add your own tool.
 
 Add a tool `book_flight` to `03_mcp_server.py` that takes a flight number (`flight_no`,
 as in `data/flights.csv`), a passenger name and a date, and appends the booking as a new
-row to `data/bookings.csv` using pandas. Add it above the `if __name__ == "__main__":`
-block at the end of the file, which starts the server.
+row to `data/bookings.csv` using pandas.
 
 Some hints to help you get started:
 
