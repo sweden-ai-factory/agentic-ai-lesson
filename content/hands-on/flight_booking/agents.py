@@ -90,7 +90,7 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
     output_type=list[FlightDetails] | NoFlightFound,
     deps_type=Deps,
     retries=4,
-    capabilities=[MCP(url=MCP_URL, allowed_tools=["get_current_time", "search_flights"])],
+    capabilities=[MCP(url=MCP_URL)], # , allowed_tools=["get_current_time", "search_flights"])],
     instructions=(
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
@@ -149,7 +149,7 @@ book_agent = Agent(
     deps_type=tuple[FlightDetails, SeatPreference],
     output_type=str,
     capabilities=[
-        MCP(url=MCP_URL, allowed_tools=["book_flight"]),
+        MCP(url=MCP_URL), #, allowed_tools=["book_flight"]),
         # Resolve paths relative to the "hands-on" directory
         LocalWorkspace(Path(__file__).parent.parent),
         Skills("./agent-skills", include=["travel-policy"]),
