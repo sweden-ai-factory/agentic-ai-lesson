@@ -16,8 +16,8 @@ We cover:
 :::{prereq}
 - Prior Python programming experience. No machine learning background is needed.
 - Basic use of a terminal and a code editor.
-- A LUMI account, used to log in to Aitta. Course participants are added to a LUMI project for the
-  training.
+- A LUMI account that is a member of any LUMI project, used to log in to Aitta. Course participants
+  are added to the training project, but any other LUMI project works too.
 - For technical requirements follow the [setup instructions](setup.md) before the workshop.
 :::
 
@@ -102,7 +102,7 @@ The times of the episodes are approximate and include the exercises.
 :width: 100%
 :header: Time; Episode; Instructors
 
-50 min ; {doc}`evaluation` (in preparation) ; FF & AG
+50 min ; {doc}`eval` ; FF & AG
 10 min ; ☕ Break
 80 min ; {doc}`security` (in preparation)  ; AG & AM
 10 min ; ☕ Break
@@ -166,7 +166,7 @@ multi-agent.md
 :maxdepth: 1
 :hidden:
 
-evaluation.md
+eval.md
 security.md
 outlook.md
 ```

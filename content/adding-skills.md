@@ -142,7 +142,7 @@ from the previous lesson is still running, stop it first. Then start the model s
 separate terminal from the `hands-on` directory:
 
 ```bash
-uv run mcp run 03_mcp_server_solution.py --transport streamable-http
+uv run 03_mcp_server_solution.py
 ```
 
 Run the agent with the skill with the following command.
@@ -274,7 +274,7 @@ As we said earlier, skills guide the agent but do not enforce anything. A rule l
 in the context, and the LLM can ignore it or miscalculate, as you may have seen in Exercise 4.1. Hard
 rules belong in code, for example in a tool that rejects bookings that violate the policy. Skills are
 better suited for guidance, conventions and workflows. How to check whether an agent actually follows
-the rules is covered in the [evaluation section](evaluation.md).
+the rules is covered in the [evaluation section](eval.md).
 
 Finally, skills are instructions that go straight into the context of the LLM, so only use skills you
 trust. More on this in the [security section](security.md).

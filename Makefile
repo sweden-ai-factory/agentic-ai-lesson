@@ -21,7 +21,7 @@ help:
 
 lock:
 	uv export -qo pylock.toml
-	cd content && uv export -qo pylock.toml
+	cd content/hands-on && uv export -qo pylock.toml
 
 # Live reload site documents for local development
 livehtml:
