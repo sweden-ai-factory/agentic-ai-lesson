@@ -26,7 +26,7 @@ from .config import usage_limits
 QUIT_WORDS = {'quit', 'exit'}
 
 
-async def extract_trip(
+async def infer_trip_request_via_trip_extractor_agent(
     user_prompt: str,
     deps: Deps,
     message_history: list[ModelMessage] | None,
@@ -52,7 +52,7 @@ async def extract_trip(
         return trip, result.all_messages()
 
 
-async def find_flights(
+async def infer_flights_via_search_agent(
     trip: TripRequest, deps: Deps, usage: RunUsage
 ) -> list[FlightDetails] | NoFlightFound:
     """Find flights for the trip, or None when there are none."""
@@ -79,14 +79,14 @@ def display_flights(flights: list[FlightDetails]) -> None:
 def select_flight(flights: list[FlightDetails]) -> FlightDetails | None:
     """Let the user pick a flight, or None to change the trip instead."""
     answer = Prompt.ask(
-        '🤖 Enter the number of the flight to buy, or press Enter to change your trip',
+        '🤖 Enter the number of the flight to buy, or press Enter to change your trip\nYou:',
         choices=[str(i) for i in range(1, len(flights) + 1)] + [''],
         show_choices=False,
     )
     return flights[int(answer) - 1] if answer else None
 
 
-async def find_seat(usage: RunUsage) -> SeatPreference:
+async def infer_seat_via_seat_preference_agent(usage: RunUsage) -> SeatPreference:
     """Ask the user for a seat until the agent returns a valid one."""
     message_history: list[ModelMessage] | None = None
     while True:
@@ -105,7 +105,7 @@ async def find_seat(usage: RunUsage) -> SeatPreference:
             message_history = result.all_messages()
 
 
-async def book_tickets(
+async def infer_purchase_via_book_agent(
     usage: RunUsage, flight_details: FlightDetails, seat: SeatPreference
 ) -> None:
     """Purchase the flight and record the seat through the booking agent."""
@@ -131,10 +131,10 @@ async def main(test_prompt: str | None = None):
     usage: RunUsage = RunUsage()
 
     while user_prompt.strip().lower() not in QUIT_WORDS:
-        trip, conversation_history = await extract_trip(
+        trip, conversation_history = await infer_trip_request_via_trip_extractor_agent(
             user_prompt, deps, conversation_history, usage
         )
-        flights = await find_flights(trip, deps, usage)
+        flights = await infer_flights_via_search_agent(trip, deps, usage)
 
         if isinstance(flights, NoFlightFound):
             print(
@@ -145,8 +145,8 @@ async def main(test_prompt: str | None = None):
             display_flights(flights)
             flight = select_flight(flights)
             if flight is not None:
-                seat = await find_seat(usage)
-                await book_tickets(usage, flight, seat)
+                seat = await infer_seat_via_seat_preference_agent(usage)
+                await infer_purchase_via_book_agent(usage, flight, seat)
                 break
 
         # nothing bought yet: let the user change the date, destination, etc.

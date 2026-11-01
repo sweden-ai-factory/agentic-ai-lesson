@@ -13,8 +13,7 @@ load_dotenv()
 
 
 from flight_booking.config import MCP_URL  # noqa
-from flight_booking.main import main as main_handoff  # noqa
-from flight_booking.main_delegation import main as main_delegation  # noqa
+from flight_booking import main_handoff, main_delegation  # noqa
 
 
 def wait_for_mcp(url: str = MCP_URL, timeout: float = 30.0) -> subprocess.Popen | None:
@@ -84,7 +83,7 @@ with logfire.span("Wait for MCP"):
     mcp_process = wait_for_mcp()
 
 try:
-    main = main_delegation if args.pattern == 'delegation' else main_handoff
+    main = main_delegation.main if args.pattern == 'delegation' else main_handoff.main
     if args.test:
         user_prompt = random.choice(TEST_PROMPTS)
         print("You:", user_prompt)
