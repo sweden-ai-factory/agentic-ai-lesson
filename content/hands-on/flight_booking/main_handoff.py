@@ -7,7 +7,7 @@ main_delegation.py, where an orchestrator agent makes those decisions itself.
 """
 
 import logfire
-from pydantic_ai import ModelMessage, RunUsage
+from pydantic_ai import ModelMessage, ModelRetry, RunContext, RunUsage  # noqa: F401
 from rich.prompt import Prompt
 
 from .agents import (
@@ -79,7 +79,7 @@ def display_flights(flights: list[FlightDetails]) -> None:
 def select_flight(flights: list[FlightDetails]) -> FlightDetails | None:
     """Let the user pick a flight, or None to change the trip instead."""
     answer = Prompt.ask(
-        '🤖 Enter the number of the flight to buy, or press Enter to change your trip\nYou:',
+        '🤖 Enter the number of the flight to buy, or press Enter to change your trip\nYou',
         choices=[str(i) for i in range(1, len(flights) + 1)] + [''],
         show_choices=False,
     )
@@ -130,6 +130,9 @@ async def main(test_prompt: str | None = None):
     deps = Deps()
     usage: RunUsage = RunUsage()
 
+    # TODO: Add trip request tool and output validator
+
+    # Start agent loop
     while user_prompt.strip().lower() not in QUIT_WORDS:
         trip, conversation_history = await infer_trip_request_via_trip_extractor_agent(
             user_prompt, deps, conversation_history, usage

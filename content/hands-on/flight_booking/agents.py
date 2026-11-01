@@ -70,15 +70,17 @@ trip_extractor_agent = Agent[TripRequest](
         "'tomorrow' or 'next Friday') and do not resolve it yourself; use 'today' "
         "if the user did not specify a date."
     ),
+    retries=3,
 )
 
 @trip_extractor_agent.output_validator
-async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
-    """Validate origin and destination of the trip."""
+async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
+    """A 'fake' validator meant to intercept and log the trip request."""
     logfire.info(
-        'requested trip from {origin} to {destination}',
+        'Requested trip from {origin} to {destination} on {date}',
         origin=output.req_origin,
         destination=output.req_destination,
+        date=output.req_date
     )
     return output
 

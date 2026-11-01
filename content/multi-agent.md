@@ -15,15 +15,25 @@
 
 ## Why multi-agent workflows
 
-So far we have understood and played with single agent workflows. Often a single agent, with a precise role and a finite set of capabilities.
+So far we have understood and played with single agent workflows. Often a single agent,
+with:
+
+- a broad role,
+- several capabilities
+- unstructured outputs
+- data validation only within tools, and none before and after the agent responds.
 
 When the number of capabilities grows (various tools, skills, MCP servers,
-Memory etc.) in a single agent increases in number, the potential permutations
+Memory etc.) in a single agent, the potential permutations
 in which these will execute increases exponentially. This can make it difficult
 to reason about the trajectory of the agent's execution and the quality of the
 output. By breaking down the agent into multiple agents, each with a limited set
 of tools and capabilities, we can reduce the complexity of the agent's execution
 and improve the quality of the output.
+
+Also, with multi-agents, each with a specific role -- allows to generate structured
+output, with output validators. In other words, we could perform type validation and
+logic validation, thereby catching some set of known failures early.
 
 ### Potential benefits of multi-agent workflows
 
@@ -45,7 +55,6 @@ Depending on the constuction of the multi-agent workflow, there are some
 uncertainties with the following:
 
 - Cost: can result in fewer or more model calls, more handoffs, more places to fail.
-  
 - Better, similar or worse complexity when it comes to possible trajectories of
   tool-calls compared to single-agent workflows.
 
@@ -59,7 +68,7 @@ these 4 patterns are mentioned:
 
 1. Agent delegation — agents using another agent via tools, either wired up by
    hand or with the Harness’s `SubAgents` capability
-1. Programmatic agent hand-off — one agent runs, then application code calls
+1. Programmatic agent hand-off — one agent 3.runs, then application code calls
    another agent
 1. Graph based control flow — for the most complex cases, a graph-based state
    machine can be used to control the execution of multiple agents
@@ -68,9 +77,13 @@ these 4 patterns are mentioned:
 
 And before we get too excited, we also find this [gem of an advice](https://pydantic.dev/docs/ai/graph/graph/):
 
-> If Pydantic AI agents are a hammer, and multi-agent workflows are a sledgehammer, then graphs are a nail gun... graphs are a powerful tool, but they’re not the right tool for every job. Please consider other multi-agent approaches before proceeding.
+> If Pydantic AI agents are a hammer, and multi-agent workflows are a
+  sledgehammer, then graphs are a nail gun... graphs are a powerful tool, but
+  they’re not the right tool for every job. Please consider other multi-agent
+  approaches before proceeding.
 
-And therefore we will limit our attention to two patterns, namely
+And therefore we will limit our attention to two patterns, namely **agent delegation**
+and **programmatic agent hand-off**.
 
 ### Agent delegation a.k.a Subagents
 
@@ -93,9 +106,8 @@ graph TB
 ```
 
 Agent delegation is a design pattern where one "orchestrator" agent delegates a
-task to child agents or "sub-agents".
-
-The sub-agent runs with its own message history, so task must be self-contained.
+task to child agents or "sub-agents". The sub-agent runs with its own message
+history, so task must be self-contained.
 
 ### Programmatic hand-off
 
@@ -114,7 +126,7 @@ graph TB
     B --> |Failed| A
     B --> |Prepare question| F[Function 1]
     M --> |Read| B
-    U <-.->|Clarify details| F
+    U <-.->|Ask for details| F
     B --> |Validated input| C
     F --> C[Agent C]
     C <-.->|Read/Write| M[Capabilities: Database, MCP, Memory]
@@ -129,6 +141,11 @@ graph TB
     class U,F,G,H func
     class A,B,C,,E agent
 ```
+
+Notice that in this pattern, the hand-off can occur from agent to agent, or from
+agent to function and back to another agent. This allows the developer to
+implement the workflow in a way that is most natural for the problem domain and
+to add deterministic steps where needed.
 
 ## Breaking down the problem into different agents
 
@@ -146,9 +163,60 @@ TODO: describe the parts
 TODO: task control
 
 
-### Exercise 6.1
+### Exercise 6.1: Adding output validator to the hand-off workflow
 
-TODO: 
+::::{exercise}
+
+Run `uv run 06_multi_agent_flight_booking.py`.
+
+1. Try to prompt as follows, and notice how long it takes. In what step did the
+   multi-agent workflow realize that this is invalid?
+
+```text
+Flight from Singapore to Helsinki
+```
+
+2. Exit the workflow.
+
+3. Add a tool and output validator to the first agent inside `main_handoff.py`,
+   allowing the model to recover from a wrong input, early!
+
+```python
+@trip_extractor_agent.tool_plain
+def ask_user_for_clarification(question: str) -> str:
+    """Ask the user a question and return their answer."""
+    return input(f'🤖 {question}\nYou: ')
+
+@trip_extractor_agent.output_validator
+async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
+    """Validate origin and destination of the trip."""
+    VALID_CITIES = {'Amsterdam', 'Barcelona', 'Copenhagen', 'Dublin', 'Frankfurt', 'Helsinki', 'Istanbul', 'Lisbon', 'London', 'Madrid', 'Munich', 'Oslo', 'Paris', 'Rome', 'Stockholm', 'Vienna', 'Warsaw', 'Zurich' }
+
+    if (
+        output.req_origin not in VALID_CITIES
+        or output.req_destination not in VALID_CITIES
+    ):
+        raise ModelRetry(
+            f'Invalid origin or destination city. Valid cities are: {VALID_CITIES}'
+        )
+
+    return output
+
+```
+
+:::{tip}
+You can inject the above code in `main_handoff.py` at the highlighted section
+
+```{literalinclude} ./hands-on/flight_booking/main_handoff.py
+:language: python
+:start-at: TODO: Add trip request tool and output validator
+:end-at: Start agent loop
+:emphasize-lines: 1-2
+```
+:::
+
+4. Re-prompt the workflow, starting with an incorrect origin and/or destination.
+::::
 
 
 ### Using hand-off
@@ -174,17 +242,15 @@ graph TB
   seat_preference_agent --> END
 ```
 
-### Exercise 6.2
-
-
-
-### Discuss the differences
+### Exercise 6.2: Discuss the differences
 
 ::::{discussion}
-Which of the above multi-agent pattern was more flexible and less sticter to use?
+1. Which multi-agent pattern was more flexible and less sticter to use?
+2. Which multi-agent pattern had a more predictable behaviour?
 
 :::{solution}
-The agent-delegation pattern is more flexible and less strict to use.
+- The agent-delegation pattern is more flexible and less strict to use.
+- The programmatic hand-off pattern has a more predictable behaviour.
 :::
 
 ::::
