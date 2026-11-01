@@ -85,31 +85,7 @@ And before we get too excited, we also find this [gem of an advice](https://pyda
 And therefore we will limit our attention to two patterns, namely **agent delegation**
 and **programmatic agent hand-off**.
 
-### Agent delegation a.k.a Subagents
-
-```mermaid
-graph TB
-    A[User] --> B[Orchestrator agent]
-    B --> C[Sub-agent A]
-    B --> D[Sub-agent B]
-    B --> E[Sub-agent C]
-    C --> B
-    D --> B
-    E --> B
-    B --> F[User response]
-
-    classDef trigger fill:#F6FFDB,stroke:#6E8900,stroke-width:2px,color:#2E3900
-    classDef process fill:#E5F4FF,stroke:#006DDD,stroke-width:2px,color:#030710
-
-    class A,F trigger
-    class B,C,D,E process
-```
-
-Agent delegation is a design pattern where one "orchestrator" agent delegates a
-task to child agents or "sub-agents". The sub-agent runs with its own message
-history, so task must be self-contained.
-
-### Programmatic hand-off
+### Programmatic agent hand-off
 
 Programmatic hand-off is a design pattern where the output of one agent is used
 as the input to another agent. With the handoffs pattern, when you need to
@@ -146,6 +122,31 @@ Notice that in this pattern, the hand-off can occur from agent to agent, or from
 agent to function and back to another agent. This allows the developer to
 implement the workflow in a way that is most natural for the problem domain and
 to add deterministic steps where needed.
+
+
+### Agent delegation a.k.a Subagents
+
+```mermaid
+graph TB
+    A[User] --> B[Orchestrator agent]
+    B --> C[Sub-agent A]
+    B --> D[Sub-agent B]
+    B --> E[Sub-agent C]
+    C --> B
+    D --> B
+    E --> B
+    B --> F[User response]
+
+    classDef trigger fill:#F6FFDB,stroke:#6E8900,stroke-width:2px,color:#2E3900
+    classDef process fill:#E5F4FF,stroke:#006DDD,stroke-width:2px,color:#030710
+
+    class A,F trigger
+    class B,C,D,E process
+```
+
+Agent delegation is a design pattern where one "orchestrator" agent delegates a
+task to child agents or "sub-agents". The sub-agent runs with its own message
+history, so task must be self-contained.
 
 ## Breaking down the problem into different agents
 
