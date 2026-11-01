@@ -29,9 +29,11 @@ def wait_for_mcp(url: str = MCP_URL, timeout: float = 30.0) -> subprocess.Popen 
     """
     try:
         httpx2.get(url, timeout=1.0)
-        return None
     except httpx2.TransportError:
-        pass
+        print("No MCP server detected. Launching it ...")
+    else:
+        print("MCP server is already running.")
+        return None
 
     process = subprocess.Popen(
         [sys.executable, "03_mcp_server_solution.py"],
@@ -77,20 +79,23 @@ parser.add_argument(
         'through the SubAgents capability (flight_booking/main_delegation.py)'
     ),
 )
-args = parser.parse_args()
 
-with logfire.span("Wait for MCP"):
-    mcp_process = wait_for_mcp()
 
-try:
-    main = main_delegation.main if args.pattern == 'delegation' else main_handoff.main
-    if args.test:
-        user_prompt = random.choice(TEST_PROMPTS)
-        print("You:", user_prompt)
-    else:
-        user_prompt = None
+if __name__ == "__main__":
+    args = parser.parse_args()
 
-    asyncio.run(main(user_prompt))
-finally:
-    if mcp_process is not None:
-        mcp_process.terminate()
+    with logfire.span("Wait for MCP"):
+        mcp_process = wait_for_mcp()
+
+    try:
+        main = main_delegation.main if args.pattern == 'delegation' else main_handoff.main
+        if args.test:
+            user_prompt = random.choice(TEST_PROMPTS)
+            print("You:", user_prompt)
+        else:
+            user_prompt = None
+
+        asyncio.run(main(user_prompt))
+    finally:
+        if mcp_process is not None:
+            mcp_process.terminate()
