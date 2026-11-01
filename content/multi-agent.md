@@ -150,21 +150,139 @@ history, so task must be self-contained.
 
 ## Breaking down the problem into different agents
 
-TODO: show from flight_booking/agents.py
+The flight booking problem naturally splits into four steps: understand where
+and when the user wants to fly, search for flights, pick a seat, and book.
+Each step has a clear input and output, which makes it a good fit for the
+programmatic hand-off pattern. In `flight_booking/agents.py` each step becomes
+one agent with a narrow role, its own output type, and its own validation --
+together they play the role of agents A, B and C in the diagram above.
+
+The data models define the "contract" between the agents:
+
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:start-after: Data models for the agents
+:end-before: extracting trip request from user
+:emphasize-lines: 10-15, 35-36
+```
+
+`Deps` carries the requested origin and destination to tools and validators
+via the context object `ctx.deps`.
+
+`TripRequest`, `FlightDetails` and `SeatPreference` are the
+structured outputs of the first three agents. Note how the models themselves
+already encode data types and instructions: the `req_date` field description
+tells the model to keep the date exactly as the user phrased it, and
+`SeatPreference` restricts rows to 1-30 and seats to a valid letter, so
+nonsense values fail validation before they can reach the next agent.
+
+Finally, `NoFlightFound` and `Failed` are empty marker data models: "no flights"
+and "could not extract a seat" are valid outcomes, not errors, so downstream
+code can branch on the output type instead of parsing error strings.
+
+### The trip extractor agent
+
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:start-after: extracting trip request from user
+:end-before: @trip_extractor_agent.output_validator
+:emphasize-lines: 4, 12, 15
+```
+
+The first agent has a single job: turn the user's free-text prompt into a
+`TripRequest`, sometimes with small corrections if needed. For example, it
+transforms a prompt:
+
+```text
+Find me a flight from stockhom to helsinki next week
+```
+
+into
+
+```py
+TripRequest(req_origin='Stockholm', req_destination='Helsinki', req_date='next week')
+```
+
+
+It has no tools at all (for now) -- anything it cannot extract from the prompt
+is a job for a later agent. The `retries=3` setting gives the model three
+attempts to produce output that passes validation.
+
+### The search agent
+
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:start-after: The search agent finds flights
+:end-before: extracting the user's seat selection
+:emphasize-lines: 5, 8, 19, 41
+```
+
+The search agent resolves the relative date ("tomorrow", "next Friday") to a
+concrete date using the `get_current_datetime` tool, then calls
+`search_flights` and returns all matches sorted by price. Both tools come
+from the MCP server we built in episode 4, attached here as a single
+capability. The output type is a union: `list[FlightDetails] | NoFlightFound`
+-- an empty search result is a valid answer, not an error.
+
+The output validator performs procedural validation: every returned flight must
+match the origin and destination in `ctx.deps`, and any mismatch raises a
+`ModelRetry`, which sends the errors back to the model so it can correct itself
+within its `retries` budget.
+
+### The seat preference agent
+
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:start-after: extracting the user's seat selection
+:end-before: The book agent books the selected flight
+:emphasize-lines: 3
+```
+
+The simplest of the four: no tools, no deps, no validator -- just a mapping
+from the user's words onto the constrained `SeatPreference` model. The domain
+knowledge (which seats are window or aisle, which rows have extra legroom)
+lives in the instructions, so the model can for example infer a specific seat
+when the user asks for "a window seat with extra legroom". If it cannot
+extract a selection, it returns `Failed` rather than guessing.
+
+### The book agent
+
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:start-after: The book agent books the selected flight
+:emphasize-lines: 6, 9, 12, 14
+```
+
+The final agent performs the side-effectful step: booking the flight. It
+receives the chosen flight and seat as a tuple via `deps`, and its
+instructions tell it to not ask the user for further input. This is where the
+capabilities of the previous episodes come together in a single agent: the
+MCP server provides the `book_flight` tool, the `travel-policy` skill checks
+that the booking complies with the travel policy before the agent commits,
+and `Memory` persists the agent's notes to `MEMORY.md`, injecting them into
+every request.
 
 ## Wiring the agents together
 
-### Using agent-delegation
-
-In Pydantic AI an "orchestrator" agent is a regular agent with a `SubAgent`
-capability gets exposed a single `delegate_task(agent_name, task)` tool.
-
-TODO: describe the parts
-
-TODO: task control
+### Using hand-off
 
 
-### Exercise 6.1: Adding output validator to the hand-off workflow
+```mermaid
+graph TB
+  START --> ask_user_flight["ask user for flight"]
+
+  subgraph find_flight
+    flight_search_agent --> ask_user_flight
+    ask_user_flight --> flight_search_agent
+  end
+
+  flight_search_agent --> ask_user_seat["ask user for seat"]
+  flight_search_agent --> END
+
+  subgraph find_seat
+    seat_preference_agent --> ask_user_seat
+    ask_user_seat --> seat_preference_agent
+  end
+
+  seat_preference_agent --> END
+```
+
+#### Exercise 6.1: Adding output validator to the hand-off workflow
 
 ::::{exercise}
 
@@ -206,7 +324,7 @@ async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> T
 ```
 
 :::{tip}
-You can inject the above code in `main_handoff.py` at the highlighted section
+You can inject the above code in `flight_booking/main_handoff.py` at the highlighted section
 
 ```{literalinclude} ./hands-on/flight_booking/main_handoff.py
 :language: python
@@ -219,29 +337,59 @@ You can inject the above code in `main_handoff.py` at the highlighted section
 4. Re-prompt the workflow, starting with an incorrect origin and/or destination.
 ::::
 
+#### Exercise 6.2: Using a different model for seat preference
 
-### Using hand-off
+::::{exercise}
 
+Seat preference being the simplest of the agents, can be set to a smaller model.
 
-```mermaid
-graph TB
-  START --> ask_user_flight["ask user for flight"]
+- Replace the default `model` used for the [seat preference
+  agent](#the-seat-preference-agent) with a different one in
+  `flight_booking/agents.py`
 
-  subgraph find_flight
-    flight_search_agent --> ask_user_flight
-    ask_user_flight --> flight_search_agent
-  end
-
-  flight_search_agent --> ask_user_seat["ask user for seat"]
-  flight_search_agent --> END
-
-  subgraph find_seat
-    seat_preference_agent --> ask_user_seat
-    ask_user_seat --> seat_preference_agent
-  end
-
-  seat_preference_agent --> END
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:start-after: extracting the user's seat selection
+:end-before: The book agent books the selected flight
+:emphasize-lines: 2
 ```
+
+- Preferably use a smaller model, but anything running / available will do too. Run
+  ```sh
+  uv run 00_check_inference_server.py
+  ```
+  to find out what is running.
+
+:::{tip}
+
+In order to do so, copy the lines to define `model` and make a new `model_small`, in `flight_booking/config.py` with a different model name.
+
+```{literalinclude} ./hands-on/flight_booking/config.py
+:start-at: default model
+:end-at: model_small
+:emphasize-lines: 8-9
+```
+
+Import `model_small` into `flight_booking/agents.py` module and use it
+
+:::
+
+- Quickly test the change with one of the test prompts:
+
+```sh
+uv run 06_multi_agent_flight_booking.py --test
+```
+
+::::
+
+
+### Using agent-delegation
+
+In Pydantic AI an "orchestrator" agent is a regular agent with a `SubAgent`
+capability gets exposed a single `delegate_task(agent_name, task)` tool.
+
+TODO: describe the parts
+
+TODO: task control
 
 ### Exercise 6.2: Discuss the differences
 
