@@ -88,14 +88,14 @@ def select_flight(flights: list[FlightDetails]) -> FlightDetails | None:
 
 async def infer_seat_via_seat_preference_agent(usage: RunUsage) -> SeatPreference:
     """Ask the user for a seat until the agent returns a valid one."""
-    message_history: list[ModelMessage] | None = None
+    short_term_history: list[ModelMessage] | None = None
     while True:
         answer = input('🤖 What seat would you like?\nYou: ')
 
         with logfire.span('Seat Preference Agent: str -> SeatPreference'):
             result = await seat_preference_agent.run(
                 answer,
-                message_history=message_history,
+                message_history=short_term_history,
                 usage=usage,
                 usage_limits=usage_limits,
             )
@@ -103,6 +103,7 @@ async def infer_seat_via_seat_preference_agent(usage: RunUsage) -> SeatPreferenc
                 return result.output
 
             print('Could not understand seat preference. Please try again.')
+            short_term_history = result.all_messages()
 
 
 async def infer_purchase_via_book_agent(

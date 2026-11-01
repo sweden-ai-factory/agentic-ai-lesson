@@ -15,7 +15,6 @@ from pydantic_ai_harness.memory import FileStore
 from .config import MCP_URL, model
 
 # Data models for the agents.
-
 @dataclass
 class Deps:
     req_origin: str = ''
@@ -85,6 +84,7 @@ async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRe
     return output
 
 
+# The search agent finds flights for the requested trip.
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
 # MCP server (03_mcp_server.py), which must be running at MCP_URL (see config.py).
 search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
@@ -143,6 +143,7 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
     ),
 )
 
+# The book agent books the selected flight.
 # Memory files are stored in hands-on/agent-memory/main/
 MEMORY_DIR = "agent-memory"
 
