@@ -74,7 +74,7 @@ And therefore we will limit our attention to two patterns, namely
 ### Agent delegation a.k.a Subagents
 
 ```mermaid
-graph LR
+graph TB
     A[User] --> B[Orchestrator agent]
     B --> C[Sub-agent A]
     B --> D[Sub-agent B]
@@ -92,15 +92,64 @@ graph LR
 ```
 
 Agent delegation is a design pattern where one "orchestrator" agent delegates a
-task to child agents or "sub-agents". In Pydantic AI this means that the
-"orchestrator" agent via a `SubAgent` capability gets exposed a single
-`delegate_task(agent_name, task)` tool.
+task to child agents or "sub-agents".
 
 The sub-agent runs with its own message history, so task must be self-contained.
 
 ### Programmatic hand-off
 
-Programmatic hand-off is a design pattern where the output of one agent is used as the input to another agent. This is agent's behavior and the quality of the output.
+Programmatic hand-off is a design pattern where the output of one agent is used
+as the input to another agent. With the handoffs pattern, when you need to
+enforce sequential constraints (unlock capabilities only after preconditions are
+met), and allows interaction with the user at specific points of the workflow.
+
+Here is a typical hand-off multi-agent workflow.
+
+```mermaid
+graph TB
+    U[User] -->|Prompt| H[Function 0]
+    H --> A[Agent A] 
+    A --> |Parse and validate input| B[Agent B]
+    B --> |Failed| A
+    B --> |Prepare question| F[Function 1]
+    M --> |Read| B
+    U <-.->|Clarify details| F
+    B --> |Validated input| C
+    F --> C[Agent C]
+    C <-.->|Read/Write| M[Capabilities: Database, MCP, Memory]
+    C <-.->|Confirm| U
+    C --> G[Function 2]
+    G -->|Continue or exit| U
+    G --> Z[Exit]
+
+    classDef func fill:#F6FFDB,stroke:#6E8900,stroke-width:2px,color:#2E3900
+    classDef agent fill:#E5F4FF,stroke:#006DDD,stroke-width:2px,color:#030710
+
+    class U,F,G,H func
+    class A,B,C,,E agent
+```
+
+## Breaking down the problem into different agents
+
+TODO: show from flight_booking/agents.py
+
+## Wiring the agents together
+
+### Using agent-delegation
+
+In Pydantic AI an "orchestrator" agent is a regular agent with a `SubAgent`
+capability gets exposed a single `delegate_task(agent_name, task)` tool.
+
+TODO: describe the parts
+
+
+### Exercise 6.1
+
+TODO: 
+
+
+### Using hand-off
+
 
 ```mermaid
 graph TB
@@ -122,6 +171,17 @@ graph TB
   seat_preference_agent --> END
 ```
 
+### Exercise 6.2
+
 ## Tracing and visualizing agent trajectories
 
 Describe tracing with Jaeger.
+
+
+### Exercise 6.3
+
+
+:::{keypoints}
+- ..
+- ..
+:::
