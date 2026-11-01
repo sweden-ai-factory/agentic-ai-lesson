@@ -132,7 +132,6 @@ agent to function and back to another agent. This allows the developer to
 implement the workflow in a way that is most natural for the problem domain and
 to add deterministic steps where needed.
 
-
 ### Agent delegation a.k.a Subagents
 
 ```mermaid
@@ -210,7 +209,6 @@ into
 TripRequest(req_origin='Stockholm', req_destination='Helsinki', req_date='next week')
 ```
 
-
 It has no tools at all (for now) -- anything it cannot extract from the prompt
 is a job for a later agent. The `retries=3` setting gives the model three
 attempts to produce output that passes validation.
@@ -278,7 +276,6 @@ types `quit`. The loop is structured as a sequence of agents that are called
 in turn, and each agent can either return a value to the next agent, or raise
 an exception to signal that the user needs to change their trip request.
 
-
 ```mermaid
 graph TB
   prompt(("user prompt")) -->|"str"| extract["infer_trip_request_via_trip_extractor_agent"]
@@ -304,7 +301,9 @@ are helper functions that call the respective agents.
 ```
 
 (hand-off-demo)=
+
 ::::{demo}
+
 - Run `uv run 06_multi_agent_flight_booking.py` and try one of the following prompts.
 
 ```text
@@ -386,6 +385,7 @@ You can inject the above code in `flight_booking/main_handoff.py` at the highlig
 :end-at: Start agent loop
 :emphasize-lines: 1-2
 ```
+
 :::
 
 4. Re-prompt the workflow, starting with an incorrect origin and/or destination.
@@ -408,9 +408,11 @@ Seat preference being the simplest of the agents, can be set to a smaller model.
 ```
 
 - Preferably use a smaller model, but anything running / available will do too. Run
+
   ```sh
   uv run 00_check_inference_server.py
   ```
+
   to find out what is running.
 
 :::{tip}
@@ -434,7 +436,6 @@ uv run 06_multi_agent_flight_booking.py --test
 ```
 
 ::::
-
 
 ### Using agent-delegation
 
@@ -481,7 +482,7 @@ seat.
 Each delegation runs the sub-agent with its own message history, so a task
 must be self-contained -- this is why the instructions tell the orchestrator
 to spell out every field of the chosen flight and seat when delegating the
-purchase. 
+purchase.
 
 With the routing moved into the agent, `main` shrinks to a single
 `orchestrator.run` call per turn; the conversation history and the shared
@@ -496,7 +497,7 @@ to the orchestrator agent.
 ```
 
 ::::{demo}
-Run 
+Run
 
 ```sh
 uv run 06_multi_agent_flight_booking.py --pattern delegation
@@ -508,19 +509,19 @@ purchase.
 
 ::::
 
-
 ## Tracing and visualizing agent trajectories
 
 TODO: Describe tracing with Jaeger / MLflow
 
-
 ### Exercise 6.3: Discuss the differences
 
 ::::{discussion}
+
 1. Which multi-agent pattern was more flexible and less sticter to use?
 2. Which multi-agent pattern had a more predictable behaviour?
 
 :::{solution}
+
 - The agent-delegation pattern is more flexible and less strict to use.
 - The programmatic hand-off pattern has a more predictable behaviour.
 :::
@@ -529,8 +530,8 @@ TODO: Describe tracing with Jaeger / MLflow
 
 ## Summary
 
-
 :::{keypoints}
+
 - Multi-agent workflows split a complex task into agents with narrow roles, giving per-agent model selection, separation of concerns, smaller context per agent, and output validation after each step -- at the cost of more model calls and more places to fail.
 - The two patterns covered are programmatic hand-off, where application code chains agents in a fixed sequence, and agent delegation, where an orchestrator agent routes tasks to sub-agents via a `delegate_task` tool.
 - Hand-off is more predictable since the pipeline is hardcoded in `main`, while delegation is more flexible since the orchestrator decides which sub-agent to call,
