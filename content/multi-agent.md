@@ -35,7 +35,11 @@ Also, with multi-agents, each with a specific role -- allows to generate structu
 output, with output validators. In other words, we could perform type validation and
 logic validation, thereby catching some set of known failures early.
 
-### Potential benefits of multi-agent workflows
+There are more benefits and drawbacks when it comes to multi-agent workflows.
+It will become evident as we explore them. However here is a teaser:
+
+:::{admonition} Potential benefits of multi-agent workflows
+:class: note
 
 - Per-agent model selection: different models for different tasks, since some
   tasks might be simple.
@@ -49,7 +53,10 @@ logic validation, thereby catching some set of known failures early.
 The exact benefits can also vary depending on the architecture or design pattern
 one chooses to adopt.
 
-### Uncertainities of multi-agent workflows
+:::
+
+:::{admonition} Uncertainities of multi-agent workflows
+:class: warning
 
 Depending on the constuction of the multi-agent workflow, there are some
 uncertainties with the following:
@@ -58,12 +65,14 @@ uncertainties with the following:
 - Better, similar or worse complexity when it comes to possible trajectories of
   tool-calls compared to single-agent workflows.
 
+:::
+
 ## Design patterns of multi-agent workflows
 
 Since this is an emerging field the names and understanding of these "patterns"
 vary. In 2026, according to both
 [LangChain](https://docs.langchain.com/oss/python/langchain/multi-agent/index#patterns)
-and [Pydantic](https://pydantic.dev/docs/ai/guides/multi-agent-applications/),
+and [Pydantic AI](https://pydantic.dev/docs/ai/guides/multi-agent-applications/),
 these 4 patterns are mentioned:
 
 1. Agent delegation — agents using another agent via tools, either wired up by
@@ -77,8 +86,8 @@ these 4 patterns are mentioned:
 
 And before we get too excited, we also find this [gem of an advice](https://pydantic.dev/docs/ai/graph/graph/):
 
-> If Pydantic AI agents are a hammer, and multi-agent workflows are a
-  sledgehammer, then graphs are a nail gun... graphs are a powerful tool, but
+> If Pydantic AI **agents** are a hammer, and **multi-agent workflows** are a
+  sledgehammer, then **graphs** are a nail gun... graphs are a powerful tool, but
   they’re not the right tool for every job. Please consider other multi-agent
   approaches before proceeding.
 
@@ -294,6 +303,7 @@ are helper functions that call the respective agents.
 :emphasize-lines: 15, 18, 33, 35-36
 ```
 
+(hand-off-demo)=
 ::::{demo}
 - Run `uv run 06_multi_agent_flight_booking.py` and try one of the following prompts.
 
@@ -428,12 +438,83 @@ uv run 06_multi_agent_flight_booking.py --test
 
 ### Using agent-delegation
 
-In Pydantic AI an "orchestrator" agent is a regular agent with a `SubAgent`
-capability gets exposed a single `delegate_task(agent_name, task)` tool.
+In Pydantic AI an "orchestrator" agent is a regular agent whose `SubAgents`
+capability exposes the specialist agents to it as a single
+`delegate_task(agent_name, task)` tool. Where the hand-off pattern hardcodes
+the pipeline in `main`, here the orchestrator's instructions describe the
+booking workflow, and the model decides for itself which sub-agent to call at
+each step.
 
-TODO: describe the parts
+```mermaid
+graph LR
+  prompt(("user")) -->|"prompt"| orch["orchestrator"]
+  orch -->|"delegate_task(agent_name, task)"| subs
 
-### Exercise 6.2: Discuss the differences
+  subgraph subs["SubAgents capability"]
+    direction LR
+    extract["trip_extractor_agent"]
+    search["flight_searcher"]
+    seat["seat_extractor"]
+    book["flight_booker"]
+  end
+
+  subs -->|"task result"| orch
+  orch -->|"question"| ask_user["ask_user"]
+  ask_user -->|"answer"| orch
+  orch -->|"ask_user"| prompt
+  prompt -->|"quit"| END
+```
+
+The four specialists from `agents.py` are registered under a name and a
+description. The description is all the orchestrator sees when routing, so it
+doubles as the routing prompt. The `ask_user` tool lets the orchestrator talk
+to the user mid-run, for example to present the found flights or ask for a
+seat.
+
+```{literalinclude} ./hands-on/flight_booking/main_delegation.py
+:language: python
+:start-at: orchestrator = Agent
+:end-before: async def main
+:emphasize-lines: 7, 15, 24, 32, 43, 67
+```
+
+Each delegation runs the sub-agent with its own message history, so a task
+must be self-contained -- this is why the instructions tell the orchestrator
+to spell out every field of the chosen flight and seat when delegating the
+purchase. 
+
+With the routing moved into the agent, `main` shrinks to a single
+`orchestrator.run` call per turn; the conversation history and the shared
+usage limits are all the state the loop keeps, with the history only visible
+to the orchestrator agent.
+
+```{literalinclude} ./hands-on/flight_booking/main_delegation.py
+:language: python
+:start-at: async def main
+:end-before: if __name__
+:emphasize-lines: 15
+```
+
+::::{demo}
+Run 
+
+```sh
+uv run 06_multi_agent_flight_booking.py --pattern delegation
+```
+
+Try one of the prompt as in the [hand-off demo](#hand-off-demo), and watch the
+orchestrator present the flights and ask for your seat before delegating the
+purchase.
+
+::::
+
+
+## Tracing and visualizing agent trajectories
+
+TODO: Describe tracing with Jaeger / MLflow
+
+
+### Exercise 6.3: Discuss the differences
 
 ::::{discussion}
 1. Which multi-agent pattern was more flexible and less sticter to use?
@@ -446,17 +527,11 @@ TODO: describe the parts
 
 ::::
 
-
-
-## Tracing and visualizing agent trajectories
-
-Describe tracing with Jaeger.
-
-
-### Exercise 6.4
+## Summary
 
 
 :::{keypoints}
-- ..
-- ..
+- Multi-agent workflows split a complex task into agents with narrow roles, giving per-agent model selection, separation of concerns, smaller context per agent, and output validation after each step -- at the cost of more model calls and more places to fail.
+- The two patterns covered are programmatic hand-off, where application code chains agents in a fixed sequence, and agent delegation, where an orchestrator agent routes tasks to sub-agents via a `delegate_task` tool.
+- Hand-off is more predictable since the pipeline is hardcoded in `main`, while delegation is more flexible since the orchestrator decides which sub-agent to call,
 :::
