@@ -1,12 +1,12 @@
 # 0. Setup
 
 :::{objectives}
+
 - Get access to the Aitta inference service and an API token.
 - Install the course code and its Python dependencies with `uv`.
 - Configure the token and model settings in a `.env` file.
 - Check that you can reach the model before the first lesson.
 :::
-
 
 ## What you need
 
@@ -51,6 +51,7 @@ time you start the application, you get a fresh copy of the course material:
 - **Your own code is gone.** Before you stop, download the files you want to
   keep: right-click them in the file browser and choose **Download**.
 :::
+
 ::::
 
 ## 0. Get LUMI access
@@ -75,6 +76,7 @@ The project is managed with [uv](https://docs.astral.sh/uv/). Install uv if you
 don't have it:
 
 ::::{tabs}
+
 :::{group-tab} Linux / macOS
 
 ```bash
@@ -82,6 +84,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 :::
+
 :::{group-tab} Windows (PowerShell)
 
 ```powershell
@@ -89,6 +92,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 ```
 
 :::
+
 ::::
 
 If these don't work for you, the
@@ -211,10 +215,13 @@ If the answer is streamed to your terminal, you are ready for the course.
 
 ## Troubleshooting
 
-| Problem                                | Fix                                                                                                    |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `OPENAI_API_KEY is not set`            | The `.env` file is missing or not in `content/hands-on/`. Check step 4.                                |
-| `401 Unauthorized`                     | The token is wrong or has expired. Generate a new one (step 3).                                        |
-| `503 Service Unavailable`              | Your token is fine, but LUMI is down, so Aitta cannot serve models. Try again later.                   |
-| `uv: command not found`                | Open a new terminal after installing `uv`, or see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/). |
-| Connection errors in the MCP examples  | Start the MCP server in a **second terminal** (see {doc}`mcp`). If port 8000 is taken, set `MCP_PORT`. |
+| Problem                                          | Fix                                                                                                                       |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `OPENAI_API_KEY is not set`                      | The `.env` file is missing or not in `content/hands-on/`. Check step 4.                                                   |
+| `401 Unauthorized`                               | The token is wrong or has expired. Generate a new one (step 3).                                                           |
+| `503 Service Unavailable`                        | Your token is fine, but LUMI is down, so Aitta cannot serve models. Try again later.                                      |
+| `uv: command not found`                          | Open a new terminal after installing `uv`, or see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/). |
+| Connection errors in the MCP examples            | Start the MCP server in a **second terminal** (see {doc}`mcp`). If port 8000 is taken, set `MCP_PORT`.                    |
+| `pydantic_ai.exceptions.UnexpectedModelBehavior` or empty responses from agent [^1] | Run `uv run 00_check_inference_server.py` and change to a different model.                                               |
+
+[^1]: See [issue #43](https://github.com/sweden-ai-factory/agentic-ai-lesson/issues/43) for typical known models where this happens and how these output look like.
