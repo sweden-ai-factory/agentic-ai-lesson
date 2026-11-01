@@ -101,13 +101,13 @@ async def infer_seat_via_seat_preference_agent(usage: RunUsage) -> SeatPreferenc
             )
             if isinstance(result.output, SeatPreference):
                 return result.output
+
             print('Could not understand seat preference. Please try again.')
-            message_history = result.all_messages()
 
 
 async def infer_purchase_via_book_agent(
     usage: RunUsage, flight_details: FlightDetails, seat: SeatPreference
-) -> None:
+) -> list[ModelMessage]:
     """Purchase the flight and record the seat through the booking agent."""
     print(f'Purchasing flight {flight_details=!r} {seat=!r}...')
     with logfire.span('Book Agent: purchase a flight'):
@@ -118,7 +118,7 @@ async def infer_purchase_via_book_agent(
             usage_limits=usage_limits,
         )
         print(result.output)
-
+        return result.all_messages()
 
 async def main(test_prompt: str | None = None):
     user_prompt = test_prompt or input(
@@ -141,20 +141,27 @@ async def main(test_prompt: str | None = None):
                 f'No flights from {trip.req_origin} to {trip.req_destination} '
                 f'on {trip.req_date}.'
             )
+            # nothing bought yet: let the user change the date, destination, etc.
+            user_prompt = input(
+                '🤖 Tell me what to change (e.g. a different date or destination), '
+                f'or type {QUIT_WORDS} to stop\n'
+                'You: '
+            )
         else:
             display_flights(flights)
             flight = select_flight(flights)
             if flight is not None:
                 seat = await infer_seat_via_seat_preference_agent(usage)
-                await infer_purchase_via_book_agent(usage, flight, seat)
-                break
+                booking_history = await infer_purchase_via_book_agent(usage, flight, seat)
 
-        # nothing bought yet: let the user change the date, destination, etc.
-        user_prompt = input(
-            '🤖 Tell me what to change (e.g. a different date or destination), '
-            'or type "quit" to stop\n'
-            'You: '
-        )
+                conversation_history.extend(booking_history)
+
+            user_prompt = input(
+                '🤖 Tell me what to do next (e.g. change dates or book another flight), '
+                f'or type {QUIT_WORDS} to stop\n'
+                'You: '
+            )
+
 
 
 if __name__ == '__main__':

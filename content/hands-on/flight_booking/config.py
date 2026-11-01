@@ -39,4 +39,4 @@ model = OpenAIChatModel(
 )
 
 # restrict how many requests this app can make to the LLM
-usage_limits = UsageLimits(request_limit=15)
+usage_limits = UsageLimits(request_limit=60)
