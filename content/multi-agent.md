@@ -45,6 +45,7 @@ Depending on the constuction of the multi-agent workflow, there are some
 uncertainties with the following:
 
 - Cost: can result in fewer or more model calls, more handoffs, more places to fail.
+  
 - Better, similar or worse complexity when it comes to possible trajectories of
   tool-calls compared to single-agent workflows.
 
@@ -142,6 +143,8 @@ capability gets exposed a single `delegate_task(agent_name, task)` tool.
 
 TODO: describe the parts
 
+TODO: task control
+
 
 ### Exercise 6.1
 
@@ -173,12 +176,27 @@ graph TB
 
 ### Exercise 6.2
 
+
+
+### Discuss the differences
+
+::::{discussion}
+Which of the above multi-agent pattern was more flexible and less sticter to use?
+
+:::{solution}
+The agent-delegation pattern is more flexible and less strict to use.
+:::
+
+::::
+
+
+
 ## Tracing and visualizing agent trajectories
 
 Describe tracing with Jaeger.
 
 
-### Exercise 6.3
+### Exercise 6.4
 
 
 :::{keypoints}
