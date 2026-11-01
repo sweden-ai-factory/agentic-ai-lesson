@@ -253,34 +253,78 @@ receives the chosen flight and seat as a tuple via `deps`, and its
 instructions tell it to not ask the user for further input. This is where the
 capabilities of the previous episodes come together in a single agent: the
 MCP server provides the `book_flight` tool, the `travel-policy` skill checks
-that the booking complies with the travel policy before the agent commits,
-and `Memory` persists the agent's notes to `MEMORY.md`, injecting them into
-every request.
+that the booking complies with the travel policy before the agent commits.
+
+`Memory` persists data such as passenger name from `MEMORY.md`, injecting them
+into every request.
 
 ## Wiring the agents together
 
 ### Using hand-off
 
+The agents to use the programmatically hand-off pattern, are composed together in
+a single `main` function in `flight_booking/hand_off.py`. The function is
+structured as a loop that starts with the user prompt, and ends when the user
+types `quit`. The loop is structured as a sequence of agents that are called
+in turn, and each agent can either return a value to the next agent, or raise
+an exception to signal that the user needs to change their trip request.
+
 
 ```mermaid
 graph TB
-  START --> ask_user_flight["ask user for flight"]
-
-  subgraph find_flight
-    flight_search_agent --> ask_user_flight
-    ask_user_flight --> flight_search_agent
-  end
-
-  flight_search_agent --> ask_user_seat["ask user for seat"]
-  flight_search_agent --> END
-
-  subgraph find_seat
-    seat_preference_agent --> ask_user_seat
-    ask_user_seat --> seat_preference_agent
-  end
-
-  seat_preference_agent --> END
+  prompt(("user prompt")) -->|"str"| extract["infer_trip_request_via_trip_extractor_agent"]
+  extract -->|"TripRequest"| search["infer_flights_via_search_agent"]
+  search -->|"NoFlightFound: user changes trip"| prompt
+  search -->|"list[FlightDetails]"| select["select_flight"]
+  select -->|"None: change trip"| prompt
+  select --> seat["infer_seat_via_seat_preference_agent"]
+  select -->|"FlightDetails"| book
+  seat -->|"SeatPreference"| book["infer_purchase_via_book_agent"]
+  book -->|"next request"| prompt
+  prompt -->|"quit"| END
 ```
+
+The above flowchart is implemented as follows, where all the `infer_*` functions
+are helper functions that call the respective agents.
+
+```{literalinclude} ./hands-on/flight_booking/main_handoff.py
+:language: python
+:start-at: async def main
+:end-before: if __name__
+:emphasize-lines: 15, 18, 33, 35-36
+```
+
+::::{demo}
+- Run `uv run 06_multi_agent_flight_booking.py` and try one of the following prompts.
+
+```text
+Book me a flight from Frankfurt to Helsinki
+```
+
+```text
+I want to fly from Stockholm to Netherlands in 3 months
+```
+
+```text
+Flight to Amsterdam from Warsaw on Friday
+```
+
+- Pick a flight
+- For seat preference answer in one of the following:
+
+```text
+the best seat
+```
+
+```text
+22, aisle seat
+```
+
+```text
+7A
+```
+
+::::
 
 #### Exercise 6.1: Adding output validator to the hand-off workflow
 
@@ -388,8 +432,6 @@ In Pydantic AI an "orchestrator" agent is a regular agent with a `SubAgent`
 capability gets exposed a single `delegate_task(agent_name, task)` tool.
 
 TODO: describe the parts
-
-TODO: task control
 
 ### Exercise 6.2: Discuss the differences
 
