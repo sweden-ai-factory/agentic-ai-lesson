@@ -5,13 +5,11 @@ calls each specialist agent in turn -- trip extractor, flight search, seat
 preference, booking -- and decides in code what happens next. Compare with
 main_delegation.py, where an orchestrator agent makes those decisions itself.
 """
-
 import logfire
-from pydantic_ai import ModelMessage, ModelRetry, RunContext, RunUsage  # noqa: F401
+from pydantic_ai import ModelMessage, ModelResponse, ModelRetry, RunContext, RunUsage  # noqa: F401
 from rich.prompt import Prompt
 
 from .agents import (
-    Deps,
     FlightDetails,
     NoFlightFound,
     SeatPreference,
@@ -25,13 +23,14 @@ from .config import usage_limits
 
 QUIT_WORDS = {'quit', 'exit'}
 
+type MessageHistory = list[ModelMessage | ModelResponse]
+
 
 async def infer_trip_request_via_trip_extractor_agent(
     user_prompt: str,
-    deps: Deps,
     message_history: list[ModelMessage] | None,
     usage: RunUsage,
-) -> tuple[TripRequest, list[ModelMessage]]:
+) -> tuple[TripRequest, MessageHistory]:
     """Turn the user's prompt into a TripRequest.
 
     The message history is kept so follow-ups like "make it next Monday" or
@@ -40,15 +39,11 @@ async def infer_trip_request_via_trip_extractor_agent(
     with logfire.span('Trip Extractor Agent: str -> TripRequest'):
         result = await trip_extractor_agent.run(
             user_prompt,
-            deps=deps,
             message_history=message_history,
             usage=usage,
             usage_limits=usage_limits,
         )
         trip = result.output
-        # the search agent's output validator checks flights against these
-        deps.req_origin = trip.req_origin
-        deps.req_destination = trip.req_destination
         return trip, result.all_messages()
 
 
@@ -128,7 +123,6 @@ async def main(test_prompt: str | None = None):
         'You: '
     )
     conversation_history: list[ModelMessage] | None = None
-    deps = Deps()
     usage: RunUsage = RunUsage()
 
     # TODO: Add trip request tool and output validator
@@ -136,7 +130,7 @@ async def main(test_prompt: str | None = None):
     # Start agent loop
     while user_prompt.strip().lower() not in QUIT_WORDS:
         trip, conversation_history = await infer_trip_request_via_trip_extractor_agent(
-            user_prompt, deps, conversation_history, usage
+            user_prompt, conversation_history, usage
         )
         flights = await infer_flights_via_search_agent(trip, usage)
 

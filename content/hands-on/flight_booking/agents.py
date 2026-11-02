@@ -15,11 +15,6 @@ from pydantic_ai_harness.memory import FileStore
 from .config import MCP_URL, model
 
 # Data models for the agents.
-@dataclass
-class Deps:
-    req_origin: str = ''
-    req_destination: str = ''
-
 class TripRequest(BaseModel):
     """Details of the trip request by the user."""
     req_origin: str
@@ -34,7 +29,6 @@ class TripRequest(BaseModel):
 
 class FlightDetails(BaseModel):
     """Details of the most suitable flight."""
-
     flight_number: str
     price: int
     origin: str = Field(description='Departure city')
@@ -58,9 +52,8 @@ class Failed(BaseModel):
 
 
 # This agent is responsible for extracting trip request from user
-trip_extractor_agent = Agent[TripRequest](
+trip_extractor_agent = Agent(
     model,
-    deps_type=Deps,
     output_type=TripRequest,
     instructions=(
         "You are a helpful assistant that helps the user find a flight. "
@@ -73,7 +66,7 @@ trip_extractor_agent = Agent[TripRequest](
 )
 
 @trip_extractor_agent.output_validator
-async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
+async def log_trip_request(output: TripRequest) -> TripRequest:
     """A 'fake' validator meant to intercept and log the trip request."""
     logfire.info(
         'Requested trip from {origin} to {destination} on {date}',
@@ -105,7 +98,7 @@ search_agent = Agent[TripRequest, list[FlightDetails] | NoFlightFound](
 
 @search_agent.output_validator
 async def validate_flights(
-    ctx: RunContext[Deps], output: list[FlightDetails] | NoFlightFound
+    ctx: RunContext[TripRequest], output: list[FlightDetails] | NoFlightFound
 ) -> list[FlightDetails] | NoFlightFound:
     """Procedural validation that every returned flight meets the constraints."""
     if isinstance(output, NoFlightFound):
