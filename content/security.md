@@ -44,6 +44,8 @@ only after deployment. For agentic systems this matters more than for traditiona
 such as an over-scoped workspace or an unguarded memory write, is not just a code bug. It can be triggered by
 natural-language input from any user, and it can persist across sessions.
 
+![Secure Agentic Development Life Cycle](img/shift-left4agent.png)
+
 ### Three layers of risk
 
 The risks in an agentic ecosystem can be categorized into three groups, corresponding to the three layers of the system:
