@@ -87,10 +87,10 @@ async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRe
 # The search agent finds flights for the requested trip.
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
 # MCP server (03_mcp_server.py), which must be running at MCP_URL (see config.py).
-search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
+search_agent = Agent[TripRequest, list[FlightDetails] | NoFlightFound](
     model,
     output_type=list[FlightDetails] | NoFlightFound,
-    deps_type=Deps,
+    deps_type=TripRequest,
     retries=4,
     capabilities=[MCP(url=MCP_URL)], # , allowed_tools=["get_current_time", "search_flights"])],
     instructions=(

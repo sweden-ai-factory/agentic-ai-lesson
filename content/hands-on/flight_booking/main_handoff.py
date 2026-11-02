@@ -53,13 +53,13 @@ async def infer_trip_request_via_trip_extractor_agent(
 
 
 async def infer_flights_via_search_agent(
-    trip: TripRequest, deps: Deps, usage: RunUsage
+    trip: TripRequest, usage: RunUsage
 ) -> list[FlightDetails] | NoFlightFound:
     """Find flights for the trip, or None when there are none."""
     with logfire.span('Search Agent: TripRequest -> Flights'):
         result = await search_agent.run(
             f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
-            deps=deps,
+            deps=trip,
             usage=usage,
             usage_limits=usage_limits,
         )
@@ -138,7 +138,7 @@ async def main(test_prompt: str | None = None):
         trip, conversation_history = await infer_trip_request_via_trip_extractor_agent(
             user_prompt, deps, conversation_history, usage
         )
-        flights = await infer_flights_via_search_agent(trip, deps, usage)
+        flights = await infer_flights_via_search_agent(trip, usage)
 
         if isinstance(flights, NoFlightFound):
             print(
