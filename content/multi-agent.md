@@ -536,3 +536,15 @@ TODO: Describe tracing with Jaeger / MLflow
 - The two patterns covered are programmatic hand-off, where application code chains agents in a fixed sequence, and agent delegation, where an orchestrator agent routes tasks to sub-agents via a `delegate_task` tool.
 - Hand-off is more predictable since the pipeline is hardcoded in `main`, while delegation is more flexible since the orchestrator decides which sub-agent to call,
 :::
+
+Here are some of the pages for your reference and further reading.
+
+:::{seealso}
+- [Multi-Agent Applications | Pydantic Docs](https://pydantic.dev/docs/ai/guides/multi-agent-applications/)
+- [Why multi-agent - LangChain](https://docs.langchain.com/oss/python/langchain/multi-agent/index#why-multi-agent)
+- [Subagents | Pydantic Docs](https://pydantic.dev/docs/ai/harness/subagents/)
+- [Graphs | Pydantic Docs](https://pydantic.dev/docs/ai/graph/graph/)
+- [Planning | Pydantic Docs](https://pydantic.dev/docs/ai/harness/planning/)
+- [How we built our multi-agent research system \ Anthropic](https://www.anthropic.com/research/multi-agent-research-system)
+- 
+:::
