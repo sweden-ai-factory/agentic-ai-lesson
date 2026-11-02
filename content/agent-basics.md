@@ -18,8 +18,8 @@
 The term _agent_ is quite overloaded these days. It is often used to refer to any
 application using LLMs in some capacity, even one as simple as our "hello world" program
 from the previous section. In this course, we understand an AI agent to mean a computer
-program that leverages an LLM to interact with the program's environment (a _harness_ in
-AI jargon) in order to accomplish some task. This is enabled by outfitting the harness
+program (a _harness_ in AI jargon) that leverages an LLM to interact with the program's
+environment in order to accomplish some task. This is enabled by outfitting the harness
 with _capabilities_, which may be implemented as, e.g., Python functions.
 
 ```mermaid
@@ -159,10 +159,25 @@ What's the temperature in London?<turn|>
 
 When a user inputs a message to a harness with access to tools, a list of available
 tools is passed along with the message to the inference server running the model. If the
-LLM generates a response that includes a tool call, response generation is paused, and
-the inference server returns a tool call. The harness runs the tool and sends the result
-back to the inference server. The server then appends the result to the generated text
-and the model resumes generation.
+model ends its generated output with a tool call, the tool call is included as
+structured data in the returned response. The harness adds the response to the
+conversation history, executes the tool call and sends a new request to the inference
+server with the tool call result appended. The model then either answers or calls
+another tool.
+
+```mermaid
+sequenceDiagram
+    participant Harness
+    participant Inference as Inference server
+
+    Harness->>Inference: Request with tool list
+    Note over Inference: Generate output
+    Note over Inference: Parse tool call
+    Inference-->>Harness: Response with tool call
+    Note over Harness: Execute tool call
+    Harness->>Inference: Request with tool result
+    Note over Inference: Generate answer
+```
 
 Below you can see the tool `get_current_datetime` that returns the current time given a timezone. While the LLM has no access to the current time, your computer knows the time very well. This tool simply returns the time of your computer to the agent. Note that the tool's docstring tells the agent when to use it.
 
@@ -292,8 +307,8 @@ The agent should have returned a list of flights.
 
 ## Summary
 
-An AI agent is a program that uses an LLM to decide how to interact with its
-environment (the _harness_) through _tools_. In this episode we used Pydantic AI
+An AI agent is a program (a _harness_) that uses an LLM to decide how to interact with its
+environment through _tools_. In this episode we used Pydantic AI
 to wrap the model from the previous episode into an agent.
 
 Because an LLM only generates text, tools are necessary to do more useful things: the harness adds the available tools to the prompt, detects when the model's output is a tool call, runs the tool, and returns the result to the model. A tool's docstring
