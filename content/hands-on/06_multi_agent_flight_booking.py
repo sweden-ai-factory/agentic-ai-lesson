@@ -13,23 +13,40 @@ load_dotenv()
 
 
 from flight_booking.config import MCP_URL  # noqa
-from flight_booking.main import main  # noqa
+from flight_booking import main_handoff, main_delegation  # noqa
 
 
-def wait_for_mcp(process: subprocess.Popen, url: str = MCP_URL, timeout: float = 30.0):
-    """Block until an MCP server responds at `url`.
+def wait_for_mcp(url: str = MCP_URL, timeout: float = 30.0) -> subprocess.Popen | None:
+    """Ensure an MCP server responds at `url`, spawning one if needed.
+
+    If the port is already in use (e.g. by the MCP server from lesson 04),
+    no process is spawned and None is returned. Otherwise a new server is
+    started and the returned process should be terminated by the caller.
 
     Any HTTP response (even an error status) means the server is up; only
-    connection failures are retried. The URL is checked before the process
-    state, so an already-running MCP server (e.g. from lesson 04) on the same
-    port also counts. Raises if the process dies or the timeout expires.
+    connection failures are retried. Raises if the spawned process dies or
+    the timeout expires.
     """
+    try:
+        httpx2.get(url, timeout=1.0)
+    except httpx2.TransportError:
+        print("No MCP server detected. Launching it ...")
+    else:
+        print("MCP server is already running.")
+        return None
+
+    process = subprocess.Popen(
+        [sys.executable, "03_mcp_server_solution.py"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
     deadline = time.monotonic() + timeout
+
     while time.monotonic() < deadline:
         try:
             httpx2.get(url, timeout=1.0)
-            return
-        except httpx2.TransportError:
+            return process
+        except httpx2.TransportError as e:
             pass
         if process.poll() is not None:
             raise RuntimeError(
@@ -51,17 +68,34 @@ parser.add_argument(
     action='store_true',
     help='run with a random test prompt instead of asking the user',
 )
-args = parser.parse_args()
-
-mcp_process = subprocess.Popen(
-    [sys.executable, "03_mcp_server.py"],
-    stdout=subprocess.DEVNULL,
-    stderr=subprocess.DEVNULL,
+parser.add_argument(
+    '-p',
+    '--pattern',
+    choices=['handoff', 'delegation'],
+    default='handoff',
+    help=(
+        'multi-agent pattern to run: "handoff" is the programmatic agent '
+        'hand-off (flight_booking/main.py), "delegation" is agent delegation '
+        'through the SubAgents capability (flight_booking/main_delegation.py)'
+    ),
 )
-with logfire.span("Wait for MCP"):
-    wait_for_mcp(mcp_process)
 
-try:
-    asyncio.run(main(random.choice(TEST_PROMPTS) if args.test else None))
-finally:
-    mcp_process.terminate()
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+
+    with logfire.span("Wait for MCP"):
+        mcp_process = wait_for_mcp()
+
+    try:
+        main = main_delegation.main if args.pattern == 'delegation' else main_handoff.main
+        if args.test:
+            user_prompt = random.choice(TEST_PROMPTS)
+            print("You:", user_prompt)
+        else:
+            user_prompt = None
+
+        asyncio.run(main(user_prompt))
+    finally:
+        if mcp_process is not None:
+            mcp_process.terminate()
