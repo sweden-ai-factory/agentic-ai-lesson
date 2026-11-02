@@ -18,8 +18,8 @@
 The term _agent_ is quite overloaded these days. It is often used to refer to any
 application using LLMs in some capacity, even one as simple as our "hello world" program
 from the previous section. In this course, we understand an AI agent to mean a computer
-program that leverages an LLM to interact with the program's environment (a _harness_ in
-AI jargon) in order to accomplish some task. This is enabled by outfitting the harness
+program (a _harness_ in AI jargon) that leverages an LLM to interact with the program's
+environment in order to accomplish some task. This is enabled by outfitting the harness
 with _tools_, which may be implemented as, e.g., Python functions.
 
 At the time of writing these materials, there are many frameworks for building AI
@@ -265,8 +265,8 @@ The agent should have returned a list of flights.
 
 ## Summary
 
-An AI agent is a program that uses an LLM to decide how to interact with its
-environment (the _harness_) through _tools_. In this episode we used Pydantic AI
+An AI agent is a program (a _harness_) that uses an LLM to decide how to interact with its
+environment through _tools_. In this episode we used Pydantic AI
 to wrap the model from the previous episode into an agent.
 
 Because an LLM only generates text, tools are necessary to do more useful things: the harness adds the available tools to the prompt, detects when the model's output is a tool call, runs the tool, and returns the result to the model. A tool's docstring
