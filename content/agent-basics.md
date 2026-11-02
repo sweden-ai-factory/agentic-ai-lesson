@@ -23,7 +23,7 @@ AI jargon) in order to accomplish some task. This is enabled by outfitting the h
 with _capabilities_, which may be implemented as, e.g., Python functions.
 
 ```mermaid
-flowchart LR
+flowchart TB
     In([In])
     Out([Out])
     LLM[LLM]
@@ -32,21 +32,21 @@ flowchart LR
     LLM --> Out
 
     subgraph Capabilities["Capabilities"]
-        Retrieval[Retrieval]
-        Tools[Tools, MCP, Skills]
-        Memory[Memory]
+      direction LR
+      Planning[Planning]
+      Tools[Tools, MCP, Skills..]
+      Memory[Memory]
     end
 
-    LLM <-.->|Query/Results| Retrieval
+    LLM <-.->|TODO lists| Planning
     LLM <-.->|Action/Feedback| Tools
     LLM <-.->|Read/Write| Memory
 
-    style In fill:#f5a623
-    style Out fill:#f5a623
-    style LLM fill:#4caf50
-    style Retrieval fill:#9c27b0
-    style Tools fill:#9c27b0
-    style Memory fill:#9c27b0
+    style In fill:#ffdac1
+    style Out fill:#ffdac1
+    style LLM fill:#e2f0cb
+    style Tools fill:#f0c9e8
+    style Memory fill:#ffe6cc
 ```
 
 At the time of writing these materials, there are many frameworks for building AI
