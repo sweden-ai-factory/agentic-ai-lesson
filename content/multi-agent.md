@@ -77,8 +77,8 @@ these 4 patterns are mentioned:
 
 1. Agent delegation — agents using another agent via tools, either wired up by
    hand or with the Harness’s `SubAgents` capability
-1. Programmatic agent hand-off — one agent 3.runs, then application code calls
-   another agent
+1. Programmatic agent hand-off — one agent runs, then application code calls
+   another agent (or a deterministic function) and so on
 1. Graph based control flow — for the most complex cases, a graph-based state
    machine can be used to control the execution of multiple agents
 1. Deep Agents — autonomous agents with planning, file operations, task
