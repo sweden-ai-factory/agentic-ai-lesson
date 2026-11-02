@@ -132,10 +132,25 @@ What's the temperature in London?<turn|>
 
 When a user inputs a message to a harness with access to tools, a list of available
 tools is passed along with the message to the inference server running the model. If the
-LLM generates a response that includes a tool call, response generation is paused, and
-the inference server returns a tool call. The harness runs the tool and sends the result
-back to the inference server. The server then appends the result to the generated text
-and the model resumes generation.
+model ends its generated output with a tool call, the tool call is included as
+structured data in the returned response. The harness adds the response to the
+conversation history, executes the tool call and sends a new request to the inference
+server with the tool call result appended. The model then either answers or calls
+another tool.
+
+```mermaid
+sequenceDiagram
+    participant Harness
+    participant Inference as Inference server
+
+    Harness->>Inference: Request with tool list
+    Note over Inference: Generate output
+    Note over Inference: Parse tool call
+    Inference-->>Harness: Response with tool call
+    Note over Harness: Execute tool call
+    Harness->>Inference: Request with tool result
+    Note over Inference: Generate answer
+```
 
 Below you can see the tool `get_current_datetime` that returns the current time given a timezone. While the LLM has no access to the current time, your computer knows the time very well. This tool simply returns the time of your computer to the agent. Note that the tool's docstring tells the agent when to use it.
 
