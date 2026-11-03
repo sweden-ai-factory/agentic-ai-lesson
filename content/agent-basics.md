@@ -152,6 +152,15 @@ sequenceDiagram
     Note over Inference: Generate answer
 ```
 
+:::{note}
+Just like the parsed response example shown at the start of [the current section](#tools),
+the request sent by the harness is structured data rather than raw text. The raw-text
+prompt used for generation is rendered from a chat template by filling in the request
+data. For an example, we suggest looking at the
+[Gemma 4 chat template](https://huggingface.co/google/gemma-4-31B-it/raw/main/chat_template.jinja),
+which was used to render the example text.
+:::
+
 Below you can see the tool `get_current_datetime` that returns the current time given a timezone. While the LLM has no access to the current time, your computer knows the time very well. This tool simply returns the time of your computer to the agent. Note that the tool's docstring tells the agent when to use it.
 
 ```{literalinclude} hands-on/02a_time.py
