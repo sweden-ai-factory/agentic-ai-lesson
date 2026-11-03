@@ -218,7 +218,7 @@ attempts to produce output that passes validation.
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :start-after: The search agent finds flights
 :end-before: extracting the user's seat selection
-:emphasize-lines: 5, 8, 19, 41
+:emphasize-lines: 5, 8, 20, 42
 ```
 
 The search agent resolves the relative date ("tomorrow", "next Friday") to a

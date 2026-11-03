@@ -37,15 +37,15 @@ def get_current_datetime(timezone: str | None = None) -> str:
 
 @mcp.tool()
 def search_flights(
-    origin: str | None = None,
-    destination: str | None = None,
+    origin: str,
+    destination: str,
     date: str | None = None,
 ) -> str:
     """Search the weekly flight schedule. Flights recur on fixed weekdays.
 
     Args:
-        origin: departure city, e.g. 'Helsinki'. Omit to match any.
-        destination: arrival city, e.g. 'Stockholm'. Omit to match any.
+        origin: departure city, e.g. 'Helsinki'.
+        destination: arrival city, e.g. 'Stockholm'.
         date: travel date 'YYYY-MM-DD'; returns flights on that weekday. Resolve
             relative dates like 'tomorrow' with get_current_datetime first.
     """

@@ -9,7 +9,6 @@ from zoneinfo import ZoneInfo
 
 from mcp.server import MCPServer
 
-
 load_dotenv()
 
 logfire.configure(service_name="mcp-server", send_to_logfire=False)
@@ -37,20 +36,22 @@ def get_current_datetime(timezone: str | None = None) -> str:
 
 @mcp.tool()
 def search_flights(
-    origin: str | None = None,
-    destination: str | None = None,
+    origin: str,
+    destination: str,
     date: str | None = None,
 ) -> str:
     """Search the weekly flight schedule. Flights recur on fixed weekdays.
+    The list of flights are limited to the top 20 matches.
 
     Args:
-        origin: departure city, e.g. 'Helsinki'. Omit to match any.
-        destination: arrival city, e.g. 'Stockholm'. Omit to match any.
+        origin: departure city, e.g. 'Helsinki'.
+        destination: arrival city, e.g. 'Stockholm'.
         date: travel date 'YYYY-MM-DD'; returns flights on that weekday. Resolve
             relative dates like 'tomorrow' with get_current_datetime first.
     """
     logfire.info("tool called with {origin=} {destination=} {date=}", origin=origin, destination=destination, date=date)
     flights = pd.read_csv(Path(__file__).parent / "data" / "flights.csv")
+
     if origin:
         flights = flights[flights["origin"].str.lower() == origin.lower()]
     if destination:

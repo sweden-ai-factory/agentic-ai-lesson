@@ -97,9 +97,10 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
         'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '
-        'Then use search_flights to look up matching flights and return all of them '
-        'sorted by price (cheapest first), each with its date set to the resolved '
-        'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
+        'Then call search_flights with the origin, destination and the resolved date, '
+        'and return all matching flights sorted by price (cheapest first), each with '
+        'its date set to the resolved travel date. Add the arrival and departure '
+        'time as well. Return NoFlightFound only if there are no matching flights.'
     ),
 )
 
