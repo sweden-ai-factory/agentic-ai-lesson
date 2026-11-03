@@ -2,13 +2,16 @@
 
 import datetime
 from dataclasses import dataclass
+from io import StringIO
 from pathlib import Path
 from typing import Literal
 
 import logfire
+import pandas as pd
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelRetry, RunContext
 from pydantic_ai.capabilities import MCP, LocalWorkspace
+from pydantic_ai.messages import ToolCallPart, ToolReturnPart
 from pydantic_ai_harness import Memory, Skills
 from pydantic_ai_harness.memory import FileStore
 
@@ -44,8 +47,10 @@ class FlightDetails(BaseModel):
     arrival_time: datetime.time
 
 
-class NoFlightFound(BaseModel):
-    """When no valid flight is found."""
+class FlightSearchResult(BaseModel):
+    """All flights returned by the search tool; an empty list means no matches."""
+
+    flights: list[FlightDetails]
 
 
 class SeatPreference(BaseModel):
@@ -87,32 +92,118 @@ async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRe
 # The search agent finds flights for the requested trip.
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
 # MCP server (03_mcp_server.py), which must be running at MCP_URL (see config.py).
-search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
+search_agent = Agent[Deps, FlightSearchResult](
     model,
-    output_type=list[FlightDetails] | NoFlightFound,
+    output_type=FlightSearchResult,
     deps_type=Deps,
     retries=4,
-    capabilities=[MCP(url=MCP_URL)], # , allowed_tools=["get_current_time", "search_flights"])],
+    capabilities=[MCP(url=MCP_URL, allowed_tools=["get_current_datetime", "search_flights"])],
     instructions=(
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
         'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '
-        'Then use search_flights to look up matching flights and return all of them '
-        'sorted by price (cheapest first), each with its date set to the resolved '
-        'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
+        'Then call search_flights exactly once, always passing origin, destination, '
+        'and the resolved date. Return every row from its result in the flights list, '
+        'sorted by price, with flight_no mapped to flight_number, price_eur mapped to '
+        'price, and date set to the resolved travel date. Do not add or omit flights, '
+        'and do not search again after receiving the result. An empty flights list '
+        'means that no matching flights were found.'
     ),
 )
 
+
+def _latest_route_search(ctx: RunContext[Deps]) -> tuple[dict[str, object], str] | None:
+    """Find the latest successful search whose route matches the requested trip."""
+    calls = {
+        part.tool_call_id: part
+        for message in ctx.messages
+        for part in message.parts
+        if isinstance(part, ToolCallPart) and part.tool_name == 'search_flights'
+    }
+    for message in reversed(ctx.messages):
+        for part in reversed(message.parts):
+            if not (
+                isinstance(part, ToolReturnPart)
+                and part.tool_name == 'search_flights'
+                and part.outcome == 'success'
+                and isinstance(part.content, str)
+            ):
+                continue
+            call = calls.get(part.tool_call_id)
+            if call is None:
+                continue
+            args = call.args_as_dict()
+            origin = args.get('origin')
+            destination = args.get('destination')
+            if (
+                isinstance(origin, str)
+                and origin.lower() == ctx.deps.req_origin.lower()
+                and isinstance(destination, str)
+                and destination.lower() == ctx.deps.req_destination.lower()
+            ):
+                return args, part.content
+    return None
+
+
+def _parse_search_result(args: dict[str, object], content: str) -> FlightSearchResult:
+    """Convert the MCP server's fixed-width table into the agent output model."""
+    raw_date = args.get('date')
+    if not isinstance(raw_date, str):
+        raise ModelRetry('Call search_flights with a concrete YYYY-MM-DD date.')
+    try:
+        travel_date = datetime.date.fromisoformat(raw_date)
+    except ValueError as error:
+        raise ModelRetry('Call search_flights with a concrete YYYY-MM-DD date.') from error
+
+    if content == 'No matching flights found.':
+        return FlightSearchResult(flights=[])
+
+    try:
+        table = pd.read_fwf(StringIO(content))
+    except ValueError as error:
+        raise ModelRetry('The flight search result could not be parsed; try searching again.') from error
+    required_columns = {
+        'flight_no', 'origin', 'destination', 'departure_time', 'arrival_time', 'price_eur'
+    }
+    if not required_columns.issubset(table.columns):
+        raise ModelRetry('The flight search result could not be parsed; try searching again.')
+
+    flights = [
+        FlightDetails(
+            flight_number=row.flight_no,
+            price=int(row.price_eur),
+            origin=row.origin,
+            destination=row.destination,
+            date=travel_date,
+            departure_time=row.departure_time,
+            arrival_time=row.arrival_time,
+        )
+        for row in table.itertuples()
+    ]
+    flights.sort(key=lambda flight: flight.price)
+    return FlightSearchResult(flights=flights)
+
+
 @search_agent.output_validator
 async def validate_flights(
-    ctx: RunContext[Deps], output: list[FlightDetails] | NoFlightFound
-) -> list[FlightDetails] | NoFlightFound:
-    """Procedural validation that every returned flight meets the constraints."""
-    if isinstance(output, NoFlightFound):
-        return output
+    ctx: RunContext[Deps], output: FlightSearchResult
+) -> FlightSearchResult:
+    """Require a real search and use its result as the source of truth."""
+    search = _latest_route_search(ctx)
+    if search is None:
+        raise ModelRetry(
+            f'Call search_flights with origin {ctx.deps.req_origin}, '
+            f'destination {ctx.deps.req_destination}, and a concrete date before returning.'
+        )
+
+    # The model still produces the structured output, but it cannot invent or omit
+    # flights while formatting it: the tool response contains the canonical result.
+    tool_output = _parse_search_result(*search)
+    if output != tool_output:
+        logfire.info('Replacing flight output that differs from the search tool result')
 
     errors: list[str] = []
-    for flight in output:
+    for flight in tool_output.flights:
         if flight.origin.lower() != ctx.deps.req_origin.lower():
             errors.append(
                 f'Flight {flight.flight_number} should have origin '
@@ -126,8 +217,7 @@ async def validate_flights(
 
     if errors:
         raise ModelRetry('\n'.join(errors))
-    else:
-        return output
+    return tool_output
 
 
 # This agent is responsible for extracting the user's seat selection

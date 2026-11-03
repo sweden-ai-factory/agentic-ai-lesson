@@ -81,7 +81,7 @@ orchestrator = Agent(
         'origin, destination and travel date.\n'
         "2. Delegate to `flight_searcher` with a task like 'Find me a flight "
         'from <origin> to <destination> on <date>.\'\n'
-        '3. If it reports NoFlightFound, tell the user and ask what to change.\n'
+        '3. If it returns an empty flights list, tell the user and ask what to change.\n'
         '4. Otherwise present the flights to the user and use ask_user to ask '
         'which one to buy. If the user wants to change the trip instead, start '
         'again from step 1 with their new request.\n'
