@@ -170,11 +170,8 @@ The data models define the "contract" between the agents:
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :start-after: Data models for the agents
 :end-before: extracting trip request from user
-:emphasize-lines: 10-15, 35-36
+:emphasize-lines: 5-9, 29-30
 ```
-
-`Deps` carries the requested origin and destination to tools and validators
-via the context object `ctx.deps`.
 
 `TripRequest`, `FlightDetails` and `SeatPreference` are the
 structured outputs of the first three agents. Note how the models themselves

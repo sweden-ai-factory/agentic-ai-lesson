@@ -15,13 +15,13 @@ The booking agent's `deps_type` declares a (flight, seat) tuple for the
 hand-off flow in main.py; the forwarded Deps go unused by it here, so the
 booking task itself must spell out the chosen flight and seat.
 """
-
+from dataclasses import dataclass
 import logfire
 from pydantic_ai import Agent, ModelMessage, RunContext
 from pydantic_ai_harness import SubAgent, SubAgents
 
 from .agents import (
-    Deps,
+    TripRequest,
     book_agent,
     search_agent,
     seat_preference_agent,
@@ -30,6 +30,15 @@ from .agents import (
 from .config import model, usage_limits
 
 QUIT_WORDS = {'quit', 'exit'}
+
+@dataclass
+class Deps:
+    """Simple data container which gets forwarded across subagents.
+    Mirrors TripRequest
+    """
+    req_origin: str = ''
+    req_destination: str = ''
+    req_date: str = ''
 
 orchestrator = Agent(
     model,
