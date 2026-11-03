@@ -5,6 +5,7 @@ from pathlib import Path
 import logfire
 import pandas as pd
 from dotenv import load_dotenv
+from pydantic import BaseModel, Field
 from zoneinfo import ZoneInfo
 
 from mcp.server import MCPServer
@@ -15,6 +16,27 @@ logfire.configure(service_name="mcp-server", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
 
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+
+class Flight(BaseModel):
+    """A flight in the weekly flight schedule."""
+
+    flight_no: str = Field(description="Flight number, e.g. 'AY100'.")
+    origin: str = Field(description="Departure city.")
+    destination: str = Field(description="Arrival city.")
+    weekdays: str = Field(description="Weekdays the flight operates, e.g. 'Mon Wed Fri Sun'.")
+    departure_time: str = Field(description="Departure time 'HH:MM', local time.")
+    arrival_time: str = Field(description="Arrival time 'HH:MM', local time.")
+    price_eur: float = Field(description="Ticket price in euros.")
+    distance_km: int = Field(description="Flight distance in kilometers.")
+    aircraft_type: str = Field(description="Aircraft category, e.g. 'narrow', 'wide'.")
+
+
+class FlightSearchResult(BaseModel):
+    """Result of a flight schedule search."""
+
+    flights: list[Flight] = Field(description="Matching flights, limited to the top 20 matches.")
+
 
 mcp = MCPServer("Demo")
 
@@ -39,7 +61,7 @@ def search_flights(
     origin: str,
     destination: str,
     date: str | None = None,
-) -> str:
+) -> FlightSearchResult:
     """Search the weekly flight schedule. Flights recur on fixed weekdays.
     The list of flights are limited to the top 20 matches.
 
@@ -60,13 +82,10 @@ def search_flights(
         try:
             weekday = WEEKDAYS[datetime.date.fromisoformat(date).weekday()]
         except ValueError:
-            return f"Invalid date {date!r}, expected 'YYYY-MM-DD'."
+            raise ValueError(f"Invalid date {date!r}, expected 'YYYY-MM-DD'.")
         flights = flights[flights["weekdays"].str.contains(weekday)]
 
-    if flights.empty:
-        result = "No matching flights found."
-    else:
-        result = flights.head(20).to_string(index=False)
+    result = FlightSearchResult(flights=[Flight(**flight) for flight in flights.head(20).to_dict(orient="records")])
     logfire.info("tool result: {result}", result=result)
     return result
 
