@@ -77,7 +77,8 @@ def log_jaeger():
     # Jaeger only supports traces, not metrics, so only set the traces endpoint
     # to avoid errors about failing to export metrics.
     # Use port 4318 for HTTP, not 4317 for gRPC.
-    traces_endpoint = 'http://localhost:4318/v1/traces'
+    # traces_endpoint = 'http://localhost:4318/v1/traces'
+    traces_endpoint = 'http://localhost:5000/v1/traces'
     os.environ['OTEL_EXPORTER_OTLP_TRACES_ENDPOINT'] = traces_endpoint
     logfire.configure(
         # Setting a service name is good practice in general, but especially
@@ -92,6 +93,77 @@ def log_jaeger():
     )
     logfire.instrument_pydantic_ai()
     logfire.instrument_httpx(capture_request_body=True, capture_response_body=True)
+
+
+def log_mlflow_old():
+    """Configure MLFLOW"""
+    # https://mlflow.org/docs/latest/genai/tracing/opentelemetry/genai-semconv/
+    traces_endpoint = 'http://localhost:5000/v1/traces'
+
+    # # Enable GenAI Semantic Convention format for OTLP export
+    # os.environ["MLFLOW_ENABLE_OTEL_GENAI_SEMCONV"] = "true"
+    # os.environ['OTEL_EXPORTER_OTLP_TRACES_ENDPOINT'] = traces_endpoint
+    # os.environ['OTEL_EXPORTER_OTLP_TRACES_HEADERS'] = "flight_booking"
+
+    # Enable both GenAI semconv format and dual export
+    os.environ["MLFLOW_ENABLE_OTEL_GENAI_SEMCONV"] = "true"
+    os.environ["MLFLOW_TRACE_ENABLE_OTLP_DUAL_EXPORT"] = "true"
+
+    # Configure the MLflow tracking server URI and experiment ID
+    os.environ["MLFLOW_TRACKING_URI"] = "http://localhost:5000"
+    os.environ["MLFLOW_EXPERIMENT_ID"] = "flight_booking"
+
+    import mlflow
+
+    logfire.configure(send_to_logfire=False)
+
+    mlflow.pydantic_ai.autolog()
+
+    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_experiment("flight_booking")
+
+    # logfire.instrument_pydantic_ai()
+    # logfire.instrument_httpx(capture_request_body=True, capture_response_body=True)
+
+
+def log_mlflow():
+    import os
+
+    traces_endpoint = 'http://localhost:5000/v1/traces'
+    os.environ['OTEL_EXPORTER_OTLP_TRACES_ENDPOINT'] = traces_endpoint
+
+    # 1. Build your own OTel provider with an OTLP exporter to MLflow
+    from opentelemetry import trace
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor
+    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+
+    import mlflow
+    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_experiment("flight_booking")
+
+    provider = TracerProvider()
+    provider.add_span_processor(
+        BatchSpanProcessor(
+            OTLPSpanExporter(
+                endpoint="http://localhost:5000/v1/traces",
+                headers={"x-mlflow-experiment-id": "flight_booking"}
+            )
+        )
+    )
+    trace.set_tracer_provider(provider)
+
+    # 2. Configure logfire to NOT send to Logfire — it will use your provider
+    import logfire
+    logfire.configure(send_to_logfire=False)
+
+    # 3. For Pydantic AI agent-level traces, add MLflow's native autolog
+    # mlflow.pydantic_ai.autolog()
+    #
+    # or
+    logfire.instrument_pydantic_ai()
+    logfire.instrument_httpx(capture_request_body=True, capture_response_body=True)
+
 
 def log_default():
     # 'if-token-present' means nothing will be sent (and the example will work) if you don't have logfire configured
