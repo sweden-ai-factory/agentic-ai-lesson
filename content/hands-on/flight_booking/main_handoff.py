@@ -13,7 +13,7 @@ from rich.prompt import Prompt
 from .agents import (
     Deps,
     FlightDetails,
-    NoFlightFound,
+    FlightSearchResult,
     SeatPreference,
     TripRequest,
     book_agent,
@@ -54,8 +54,8 @@ async def infer_trip_request_via_trip_extractor_agent(
 
 async def infer_flights_via_search_agent(
     trip: TripRequest, deps: Deps, usage: RunUsage
-) -> list[FlightDetails] | NoFlightFound:
-    """Find flights for the trip, or None when there are none."""
+) -> FlightSearchResult:
+    """Find flights for the trip, with an empty list when there are none."""
     with logfire.span('Search Agent: TripRequest -> Flights'):
         result = await search_agent.run(
             f'Find me a flight from {trip.req_origin} to {trip.req_destination} on {trip.req_date}',
@@ -140,7 +140,7 @@ async def main(test_prompt: str | None = None):
         )
         flights = await infer_flights_via_search_agent(trip, deps, usage)
 
-        if isinstance(flights, NoFlightFound):
+        if not flights.flights:
             print(
                 f'No flights from {trip.req_origin} to {trip.req_destination} '
                 f'on {trip.req_date}.'
@@ -152,8 +152,8 @@ async def main(test_prompt: str | None = None):
                 'You: '
             )
         else:
-            display_flights(flights)
-            flight = select_flight(flights)
+            display_flights(flights.flights)
+            flight = select_flight(flights.flights)
             if flight is not None:
                 seat = await infer_seat_via_seat_preference_agent(usage)
                 booking_history = await infer_purchase_via_book_agent(usage, flight, seat)
