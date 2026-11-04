@@ -2,18 +2,18 @@
 
 import datetime
 from dataclasses import dataclass
-from pathlib import Path
+
+# from pathlib import Path
 from typing import Literal
 
 import logfire
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, RunContext
-from pydantic_ai.capabilities import MCP, LocalWorkspace
-from pydantic_ai.exceptions import ModelRetry, ToolRetryError
-from pydantic_ai.messages import ToolReturnPart
-from pydantic_ai_harness import Memory, Skills
-from pydantic_ai_harness.memory import FileStore
+from pydantic_ai.capabilities import MCP  # , LocalWorkspace
+from pydantic_ai.exceptions import ModelRetry
 
+# from pydantic_ai_harness import Memory, Skills
+# from pydantic_ai_harness.memory import FileStore
 from .config import MCP_URL, model
 
 
@@ -45,10 +45,6 @@ class FlightDetails(BaseModel):
     date: datetime.date
     departure_time: datetime.time
     arrival_time: datetime.time
-
-
-# class NoFlightFound(BaseModel):
-#     """When no valid flight is found."""
 
 
 class SeatPreference(BaseModel):
@@ -100,9 +96,6 @@ search_agent = Agent[Deps, list[FlightDetails]](
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
         'get_current_datetime tool ONCE for relative dates like "tomorrow" or "next Friday". '
-        # 'Then use search_flights to look up matching flights and return all of them '
-        # 'sorted by price (cheapest first), each with its date set to the resolved '
-        # 'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
         'Then call search_flights exactly ONCE, always passing origin, destination, '
         'and the resolved date. Return every row from its result in the flights list, '
         'sorted by price, with flight_no mapped to flight_number, price_eur mapped to '
@@ -118,16 +111,6 @@ async def validate_flights(
 ) -> list[FlightDetails]:
     """Procedural validation that every returned flight meets the constraints."""
     if not output:
-        # for message in ctx.messages:
-        #     for part in message.parts:
-        #         if (
-        #             isinstance(part, ToolReturnPart)
-        #             and part.tool_name == 'search_flights'
-        #             and part.outcome == 'success'
-        #             and isinstance(part.content, str)
-        #         ):
-        #             raise ToolRetryError(part)
-
         raise ModelRetry("No flights found.")
 
     errors: list[str] = []
@@ -183,9 +166,12 @@ book_agent = Agent[tuple[FlightDetails, SeatPreference], str](
     ],
     instructions=(
         'You are a flight booking agent. '
+        # FIXME: uncomment, if Skills and Memory are enabled
         # 'Do not request the user for further input and use deps and memory to fill in missing information. '
-        'Do not request the user for further input and use deps for missing information OR write PLACEHOLDER. '
         # 'Before booking ensure with the skill that it complies with travel policy. '
+        #
+        # NOTE: the instructions below are a workaround
+        'Do not request the user for further input and use deps for missing information OR write PLACEHOLDER. '
         'If all checks pass, book the flight for the user and return the booking confirmation in plain text. '
     )
 )

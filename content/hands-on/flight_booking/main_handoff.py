@@ -13,7 +13,6 @@ from rich.prompt import Prompt
 from .agents import (
     Deps,
     FlightDetails,
-    # NoFlightFound,
     SeatPreference,
     TripRequest,
     book_agent,
