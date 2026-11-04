@@ -1,0 +1,66 @@
+From 304b67e232e9606d44043da41f4751f28d48c112 Mon Sep 17 00:00:00 2001
+From: "Ashwin V. Mohanan" <ashwin.mohanan@enccs.se>
+Date: Wed, 4 Nov 2026 16:15:08 +0100
+Subject: [PATCH 2/2] Solution to Exercise 6.2
+
+Using a different model for seat preference
+---
+ content/hands-on/flight_booking/agents.py |  4 ++--
+ content/hands-on/flight_booking/config.py | 12 ++++++++++--
+ 2 files changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/content/hands-on/flight_booking/agents.py b/content/hands-on/flight_booking/agents.py
+index 272af42..beefe61 100644
+--- a/content/hands-on/flight_booking/agents.py
++++ b/content/hands-on/flight_booking/agents.py
+@@ -14,7 +14,7 @@ from pydantic_ai.exceptions import ModelRetry
+ 
+ # from pydantic_ai_harness import Memory, Skills
+ # from pydantic_ai_harness.memory import FileStore
+-from .config import MCP_URL, model
++from .config import MCP_URL, model, model_small
+ 
+ 
+ # Data models for the agents.
+@@ -134,7 +134,7 @@ async def validate_flights(
+ 
+ # This agent is responsible for extracting the user's seat selection
+ seat_preference_agent = Agent[object, SeatPreference | SeatPreferenceFailed](
+-    model,
++    model_small,
+     output_type=SeatPreference | SeatPreferenceFailed,
+     instructions=(
+         "Extract the user's seat preference. "
+diff --git a/content/hands-on/flight_booking/config.py b/content/hands-on/flight_booking/config.py
+index 85ee55e..f921d97 100644
+--- a/content/hands-on/flight_booking/config.py
++++ b/content/hands-on/flight_booking/config.py
+@@ -11,7 +11,7 @@ from pydantic_ai.settings import ModelSettings
+ # Configures logfire / OpenTelemetry / Jaeger on import.
+ from . import config_logging
+ 
+-config_logging.log_default()
++config_logging.log_jaeger()
+ 
+ os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
+ 
+@@ -44,7 +44,15 @@ model = OpenAIChatModel(
+ )
+ 
+ # TODO: make a small model
+-# model_small =
++model_small = OpenAIChatModel(
++    "google/gemma-4-31b-it",
++    provider=OpenAIProvider(openai_client=client),
++    settings=model_settings,
++    # some vLLM chat templates (e.g. Qwen) reject more than one system message,
++    # which capabilities like SubAgents add on top of the agent's instructions;
++    # this merges them into one
++    profile={'openai_chat_supports_multiple_system_messages': False},
++)
+ 
+ # restrict how many requests this app can make to the LLM
+ usage_limits = UsageLimits(request_limit=60)
+-- 
+2.55.0
+
