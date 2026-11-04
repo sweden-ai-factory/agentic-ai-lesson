@@ -37,6 +37,10 @@ model = OpenAIChatModel(
     os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
+    # some vLLM chat templates (e.g. Qwen) reject more than one system message,
+    # which capabilities like SubAgents add on top of the agent's instructions;
+    # this merges them into one
+    profile={'openai_chat_supports_multiple_system_messages': False},
 )
 
 # TODO: make a small model
