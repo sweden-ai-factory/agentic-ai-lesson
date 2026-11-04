@@ -9,9 +9,9 @@ from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.settings import ModelSettings
 
 # Configures logfire / OpenTelemetry / Jaeger on import.
-from . import config_logging  # noqa: F401
+from . import config_logging
 
-config_logging.log_default()  # noqa
+config_logging.log_default()
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 
@@ -32,11 +32,15 @@ model_settings = ModelSettings(
     # temperature=0.0,
     timeout=30,
 )
+# default model
 model = OpenAIChatModel(
     os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
 )
 
+# TODO: make a small model
+# model_small =
+
 # restrict how many requests this app can make to the LLM
-usage_limits = UsageLimits(request_limit=15)
+usage_limits = UsageLimits(request_limit=60)

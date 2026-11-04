@@ -61,7 +61,7 @@ async def main():
 
 if __name__ == "__main__":
     # Start the MCP server with the book_flight tool first:
-    #   uv run mcp run 03_mcp_server_solution.py --transport streamable-http
+    #   uv run 03_mcp_server_solution.py
     #
     # As in 02b_flight_search.py: search_flights takes a concrete date, so a relative
     # date forces the agent to CHAIN the tools -- first get_current_datetime, then

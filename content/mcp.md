@@ -39,11 +39,12 @@ case) and to change the decorator to `@mcp.tool()`.
 ::::
 
 As the name says, the MCP server is a server that needs to be started before we can use
-it. You will do this in Exercise 3.1 with the following command. The `streamable-http`
-transport runs the server as an HTTP service that clients connect to over the network.
+it. You will do this in Exercise 3.1 with the following command. The server uses the
+`streamable-http` transport, which runs it as an HTTP service that clients connect to
+over the network.
 
 ```bash
-uv run mcp run 03_mcp_server.py --transport streamable-http
+uv run 03_mcp_server.py
 ```
 
 This will start the MCP server locally at the address `http://127.0.0.1:8000/mcp`.
@@ -65,7 +66,7 @@ Before modifying the MCP server, let's see how the existing `get_current_datetim
 works. Start the MCP server in a new terminal from the `hands-on` directory:
 
 ```bash
-uv run mcp run 03_mcp_server.py --transport streamable-http
+uv run 03_mcp_server.py
 ```
 
 You can try opening `http://127.0.0.1:8000/mcp` in your browser. Do not worry if it
@@ -117,7 +118,8 @@ add your own tool.
 
 Add a tool `book_flight` to `03_mcp_server.py` that takes a flight number (`flight_no`,
 as in `data/flights.csv`), a passenger name and a date, and appends the booking as a new
-row to `data/bookings.csv` using pandas.
+row to `data/bookings.csv` using pandas. Add it above the `if __name__ == "__main__":`
+block at the end of the file, which starts the server.
 
 Some hints to help you get started:
 
@@ -146,13 +148,14 @@ Think about the following:
 :::{solution}
 ```{literalinclude} hands-on/03_mcp_server_solution.py
 :start-after: model solution
+:end-before: if __name__ == "__main__":
 ```
 
 You can also try out an MCP server with the model solution by stopping the old MCP
 server and starting a new one with the following command:
 
 ```bash
-uv run mcp run 03_mcp_server_solution.py --transport streamable-http
+uv run 03_mcp_server_solution.py
 ```
 :::
 

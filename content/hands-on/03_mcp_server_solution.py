@@ -1,11 +1,16 @@
 import datetime
+import os
 from pathlib import Path
 
 import logfire
 import pandas as pd
+from dotenv import load_dotenv
 from zoneinfo import ZoneInfo
 
 from mcp.server import MCPServer
+
+
+load_dotenv()
 
 logfire.configure(service_name="mcp-server", send_to_logfire=False)
 logfire.instrument_pydantic_ai()
@@ -67,15 +72,22 @@ def search_flights(
 
 # model solution
 @mcp.tool()
-def book_flight(flight_no: str, passenger_name: str, date: str) -> str:
+def book_flight(flight_no: str, passenger_name: str, date: str, seat_pref: str = "ANY") -> str:
     """Book a flight for a passenger.
 
     Args:
         flight_no: flight number from search_flights, e.g. 'AY100'.
         passenger_name: full name of the passenger.
         date: travel date 'YYYY-MM-DD'.
+        seat_pref: seat preference, for e.g. '4F'.
     """
     bookings_csv = Path(__file__).parent / "data" / "bookings.csv"
-    booking = pd.DataFrame([{"flight_no": flight_no, "passenger_name": passenger_name, "date": date}])
+    booking = pd.DataFrame(
+        [{"flight_no": flight_no, "passenger_name": passenger_name, "date": date, "seat_pref": seat_pref}]
+    )
     booking.to_csv(bookings_csv, mode="a", header=not bookings_csv.exists(), index=False)
     return f"Booked flight {flight_no} on {date} for {passenger_name}."
+
+
+if __name__ == "__main__":
+    mcp.run("streamable-http", port=int(os.getenv("MCP_PORT", "8000")))

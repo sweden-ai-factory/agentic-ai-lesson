@@ -2,17 +2,19 @@
 
 import datetime
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Literal
 
 import logfire
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, ModelRetry, RunContext
-from pydantic_ai.capabilities import MCP
+from pydantic_ai.capabilities import MCP, LocalWorkspace
+from pydantic_ai_harness import Memory, Skills
+from pydantic_ai_harness.memory import FileStore
 
 from .config import MCP_URL, model
 
 # Data models for the agents.
-
 @dataclass
 class Deps:
     req_origin: str = ''
@@ -56,8 +58,7 @@ class Failed(BaseModel):
 
 
 # This agent is responsible for extracting trip request from user
-# TODO: add date into request and in search age
-conversational_agent = Agent[TripRequest](
+trip_extractor_agent = Agent[TripRequest](
     model,
     deps_type=Deps,
     output_type=TripRequest,
@@ -68,19 +69,22 @@ conversational_agent = Agent[TripRequest](
         "'tomorrow' or 'next Friday') and do not resolve it yourself; use 'today' "
         "if the user did not specify a date."
     ),
+    retries=3,
 )
 
-@conversational_agent.output_validator
-async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
-    """Validate origin and destination of the trip."""
+@trip_extractor_agent.output_validator
+async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
+    """A 'fake' validator meant to intercept and log the trip request."""
     logfire.info(
-        'requested trip from {origin} to {destination}',
+        'Requested trip from {origin} to {destination} on {date}',
         origin=output.req_origin,
         destination=output.req_destination,
+        date=output.req_date
     )
     return output
 
 
+# The search agent finds flights for the requested trip.
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
 # MCP server (03_mcp_server.py), which must be running at MCP_URL (see config.py).
 search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
@@ -88,7 +92,7 @@ search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
     output_type=list[FlightDetails] | NoFlightFound,
     deps_type=Deps,
     retries=4,
-    capabilities=[MCP(url=MCP_URL)],
+    capabilities=[MCP(url=MCP_URL)], # , allowed_tools=["get_current_time", "search_flights"])],
     instructions=(
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
@@ -137,4 +141,28 @@ seat_preference_agent = Agent[object, SeatPreference | Failed](
         'Row 1 is the front row and has extra leg room. '
         'Rows 14, and 20 also have extra leg room. '
     ),
+)
+
+# The book agent books the selected flight.
+# Memory files are stored in hands-on/agent-memory/main/
+MEMORY_DIR = "agent-memory"
+
+book_agent = Agent[tuple[FlightDetails, SeatPreference], str](
+    model,
+    deps_type=tuple[FlightDetails, SeatPreference],
+    output_type=str,
+    capabilities=[
+        MCP(url=MCP_URL), #, allowed_tools=["book_flight"]),
+        # Resolve paths relative to the "hands-on" directory
+        LocalWorkspace(Path(__file__).parent.parent),
+        Skills("./agent-skills", include=["travel-policy"]),
+        # The agent writes notes to MEMORY.md, which is injected into every request
+        Memory(FileStore(MEMORY_DIR)),
+    ],
+    instructions=(
+        'You are a flight booking agent. '
+        'Do not request the user for further input and use deps and memory to fill in missing information. '
+        'Before booking ensure with the skill that it complies with travel policy. '
+        'If all checks pass, book the flight for the user and return the booking confirmation in plain text. '
+    )
 )

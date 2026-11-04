@@ -102,6 +102,7 @@ exclude_patterns = [
     "*venv*",
     "hands-on/README.md",
     "hands-on/**/*.md",
+    "hands-on/.venv",
 ]
 
 # -- Options for HTML output -------------------------------------------------
