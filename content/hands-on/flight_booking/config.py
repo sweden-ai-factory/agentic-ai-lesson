@@ -34,7 +34,7 @@ model_settings = ModelSettings(
 )
 # default model
 model = OpenAIChatModel(
-    os.getenv("MODEL_NAME", "google/gemma-4-31b-it"),
+    os.getenv("MODEL_NAME", "Qwen/Qwen3.8-27B"),
     provider=OpenAIProvider(openai_client=client),
     settings=model_settings,
     # some vLLM chat templates (e.g. Qwen) reject more than one system message,
