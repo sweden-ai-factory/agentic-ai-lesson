@@ -539,8 +539,9 @@ named attributes
 
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :language: python
-:start-at: logfire.info(
-:end-at: )
+:start-at: @trip_extractor_agent.output_validator
+:end-at: return output
+:emphasize-lines: 4-9
 ```
 
 So how do Logfire, OpenTelemetry and Jaeger play together? **OpenTelemetry**
