@@ -11,7 +11,8 @@ from pydantic_ai.settings import ModelSettings
 # Configures logfire / OpenTelemetry / Jaeger on import.
 from . import config_logging
 
-config_logging.log_default()
+# config_logging.log_mlflow()
+config_logging.log_jaeger()
 
 os.environ['PYDANTIC_AI_NO_BANNER'] = "1"
 

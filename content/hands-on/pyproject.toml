@@ -9,6 +9,7 @@ dependencies = [
     "clai>=2.52.0",
     "httpx2>=2.16.0",
     "mcp[cli]>=2.2.0",
+    "mlflow>=3.17.2",
     "openai>=3.20.0",
     "pandas>=3.0.6",
     "pydantic-ai>=2.55.0",

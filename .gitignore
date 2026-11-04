@@ -26,3 +26,8 @@ bookings.csv
 .env.*
 !.env.example
 content/hands-on/data/bookings.csv
+
+# MLflow
+**/mlflow.db
+mlruns/
+mlartifacts/
