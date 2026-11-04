@@ -13,7 +13,6 @@ from rich.prompt import Prompt
 from .agents import (
     Deps,
     FlightDetails,
-    NoFlightFound,
     SeatPreference,
     TripRequest,
     book_agent,
@@ -54,7 +53,7 @@ async def infer_trip_request_via_trip_extractor_agent(
 
 async def infer_flights_via_search_agent(
     trip: TripRequest, deps: Deps, usage: RunUsage
-) -> list[FlightDetails] | NoFlightFound:
+) -> list[FlightDetails]:
     """Find flights for the trip, or None when there are none."""
     with logfire.span('Search Agent: TripRequest -> Flights'):
         result = await search_agent.run(
@@ -140,7 +139,7 @@ async def main(test_prompt: str | None = None):
         )
         flights = await infer_flights_via_search_agent(trip, deps, usage)
 
-        if isinstance(flights, NoFlightFound):
+        if not flights:
             print(
                 f'No flights from {trip.req_origin} to {trip.req_destination} '
                 f'on {trip.req_date}.'

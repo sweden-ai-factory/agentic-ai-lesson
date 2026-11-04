@@ -2,17 +2,20 @@
 
 import datetime
 from dataclasses import dataclass
-from pathlib import Path
+
+# from pathlib import Path
 from typing import Literal
 
 import logfire
 from pydantic import BaseModel, Field
-from pydantic_ai import Agent, ModelRetry, RunContext
-from pydantic_ai.capabilities import MCP, LocalWorkspace
-from pydantic_ai_harness import Memory, Skills
-from pydantic_ai_harness.memory import FileStore
+from pydantic_ai import Agent, RunContext
+from pydantic_ai.capabilities import MCP  # , LocalWorkspace
+from pydantic_ai.exceptions import ModelRetry
 
+# from pydantic_ai_harness import Memory, Skills
+# from pydantic_ai_harness.memory import FileStore
 from .config import MCP_URL, model
+
 
 # Data models for the agents.
 @dataclass
@@ -44,21 +47,17 @@ class FlightDetails(BaseModel):
     arrival_time: datetime.time
 
 
-class NoFlightFound(BaseModel):
-    """When no valid flight is found."""
-
-
 class SeatPreference(BaseModel):
     row: int = Field(ge=1, le=30)
     seat: Literal['A', 'B', 'C', 'D', 'E', 'F']
 
 
-class Failed(BaseModel):
+class SeatPreferenceFailed(BaseModel):
     """Unable to extract a seat selection."""
 
 
 # This agent is responsible for extracting trip request from user
-trip_extractor_agent = Agent[TripRequest](
+trip_extractor_agent = Agent[Deps, TripRequest](
     model,
     deps_type=Deps,
     output_type=TripRequest,
@@ -87,29 +86,32 @@ async def log_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRe
 # The search agent finds flights for the requested trip.
 # Its tools (get_current_datetime and search_flights) come from the lesson 04
 # MCP server (03_mcp_server.py), which must be running at MCP_URL (see config.py).
-search_agent = Agent[Deps, list[FlightDetails] | NoFlightFound](
+search_agent = Agent[Deps, list[FlightDetails]](
     model,
-    output_type=list[FlightDetails] | NoFlightFound,
+    output_type=list[FlightDetails],
     deps_type=Deps,
     retries=4,
     capabilities=[MCP(url=MCP_URL)], # , allowed_tools=["get_current_time", "search_flights"])],
     instructions=(
         'Your job is to find flights for the user on the requested date. '
         'First resolve the travel date to a concrete YYYY-MM-DD date, using the '
-        'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '
-        'Then use search_flights to look up matching flights and return all of them '
-        'sorted by price (cheapest first), each with its date set to the resolved '
-        'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'
+        'get_current_datetime tool ONCE for relative dates like "tomorrow" or "next Friday". '
+        'Then call search_flights exactly ONCE, always passing origin, destination, '
+        'and the resolved date. Return every row from its result in the flights list, '
+        'sorted by price, with flight_no mapped to flight_number, price_eur mapped to '
+        'price, and date set to the resolved travel date. Do not add or omit flights, '
+        'and do not search again after receiving the result. An empty flights list '
+        'means that no matching flights were found.'
     ),
 )
 
 @search_agent.output_validator
 async def validate_flights(
-    ctx: RunContext[Deps], output: list[FlightDetails] | NoFlightFound
-) -> list[FlightDetails] | NoFlightFound:
+    ctx: RunContext[Deps], output: list[FlightDetails]
+) -> list[FlightDetails]:
     """Procedural validation that every returned flight meets the constraints."""
-    if isinstance(output, NoFlightFound):
-        return output
+    if not output:
+        raise ModelRetry("No flights found.")
 
     errors: list[str] = []
     for flight in output:
@@ -131,9 +133,9 @@ async def validate_flights(
 
 
 # This agent is responsible for extracting the user's seat selection
-seat_preference_agent = Agent[object, SeatPreference | Failed](
+seat_preference_agent = Agent[object, SeatPreference | SeatPreferenceFailed](
     model,
-    output_type=SeatPreference | Failed,
+    output_type=SeatPreference | SeatPreferenceFailed,
     instructions=(
         "Extract the user's seat preference. "
         'Seats A and F are window seats. '
@@ -152,17 +154,24 @@ book_agent = Agent[tuple[FlightDetails, SeatPreference], str](
     deps_type=tuple[FlightDetails, SeatPreference],
     output_type=str,
     capabilities=[
-        MCP(url=MCP_URL), #, allowed_tools=["book_flight"]),
+        MCP(url=MCP_URL, allowed_tools=["book_flight"]),
+        # FIXME: Find a model which is not perplexed by this setup,
+        #        but still allows the use of skills and Memory
+        #
         # Resolve paths relative to the "hands-on" directory
-        LocalWorkspace(Path(__file__).parent.parent),
-        Skills("./agent-skills", include=["travel-policy"]),
+        # LocalWorkspace(Path(__file__).parent.parent),
+        # Skills("./agent-skills", include=["travel-policy"]),
         # The agent writes notes to MEMORY.md, which is injected into every request
-        Memory(FileStore(MEMORY_DIR)),
+        # Memory(FileStore(MEMORY_DIR)),
     ],
     instructions=(
         'You are a flight booking agent. '
-        'Do not request the user for further input and use deps and memory to fill in missing information. '
-        'Before booking ensure with the skill that it complies with travel policy. '
+        # FIXME: uncomment, if Skills and Memory are enabled
+        # 'Do not request the user for further input and use deps and memory to fill in missing information. '
+        # 'Before booking ensure with the skill that it complies with travel policy. '
+        #
+        # NOTE: the instructions below are a workaround
+        'Do not request the user for further input and use deps for missing information OR write PLACEHOLDER. '
         'If all checks pass, book the flight for the user and return the booking confirmation in plain text. '
     )
 )

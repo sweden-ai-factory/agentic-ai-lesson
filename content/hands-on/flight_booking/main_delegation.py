@@ -17,7 +17,7 @@ booking task itself must spell out the chosen flight and seat.
 """
 
 import logfire
-from pydantic_ai import Agent, ModelMessage, RunContext
+from pydantic_ai import Agent, ModelMessage
 from pydantic_ai_harness import SubAgent, SubAgents
 
 from .agents import (
@@ -81,8 +81,8 @@ orchestrator = Agent(
         'origin, destination and travel date.\n'
         "2. Delegate to `flight_searcher` with a task like 'Find me a flight "
         'from <origin> to <destination> on <date>.\'\n'
-        '3. If it reports NoFlightFound, tell the user and ask what to change.\n'
-        '4. Otherwise present the flights to the user and use ask_user to ask '
+        '3. If it reports an empty list, tell the user and ask what to change.\n'
+        '4. Otherwise present the list of flights to the user and use ask_user to ask '
         'which one to buy. If the user wants to change the trip instead, start '
         'again from step 1 with their new request.\n'
         '5. Use ask_user to ask for their seat preference, then delegate their '
