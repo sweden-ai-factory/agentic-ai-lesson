@@ -193,7 +193,7 @@ code can branch on the output type as an alternative to parsing errors.
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :start-after: extracting trip request from user
 :end-before: @trip_extractor_agent.output_validator
-:emphasize-lines: 4, 12, 15
+:emphasize-lines: 4, 12
 ```
 
 The first agent has a single job: turn the user's free-text prompt into a
@@ -219,17 +219,19 @@ attempts to produce output that passes validation.
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :start-after: The search agent finds flights
 :end-before: extracting the user's seat selection
-:emphasize-lines: 5, 8, 19, 41
+:emphasize-lines: 5, 8, 22, 28, 44
 ```
 
 The search agent resolves the relative date ("tomorrow", "next Friday") to a
 concrete date using the `get_current_datetime` tool, then calls
 `search_flights` and returns all matches sorted by price. Both tools come
 from the MCP server we built in episode 4, attached here as a single
-capability. The output type is a union: `list[FlightDetails] | NoFlightFound`
--- an empty search result is a valid answer, not an error.
+capability.
 
-The output validator performs procedural validation: every returned flight must
+The output type is a list: `list[FlightDetails]`,
+and an empty list is a valid answer, but in this case it gets validated and
+triggers a `ModelRetry`.
+The output validator also performs procedural validation: every returned flight must
 match the origin and destination in `ctx.deps`, and any mismatch raises a
 `ModelRetry`, which sends the errors back to the model so it can correct itself
 within its `retries` budget.
@@ -248,13 +250,13 @@ from the user's words onto the constrained `SeatPreference` model. The domain
 knowledge (which seats are window or aisle, which rows have extra legroom)
 lives in the instructions, so the model can for example infer a specific seat
 when the user asks for "a window seat with extra legroom". If it cannot
-extract a selection, it returns `Failed` rather than guessing.
+extract a selection, it returns `SeatPreferenceFailed` rather than guessing.
 
 ### The book agent
 
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :start-after: The book agent books the selected flight
-:emphasize-lines: 6, 9, 12, 14
+:emphasize-lines: 6, 9, 15, 17
 ```
 
 The final agent performs the side-effectful step: booking the flight. It
@@ -266,6 +268,11 @@ that the booking complies with the travel policy before the agent commits.
 
 `Memory` persists data such as passenger name from `MEMORY.md`, injecting them
 into every request.
+
+:::{warning}
+Skills and Memory are temporarily disabled for reasons explained later
+:::
+
 
 ## Wiring the agents together
 
@@ -282,7 +289,7 @@ an exception to signal that the user needs to change their trip request.
 graph TB
   prompt(("user prompt")) -->|"str"| extract["infer_trip_request_via_trip_extractor_agent"]
   extract -->|"TripRequest"| search["infer_flights_via_search_agent"]
-  search -->|"NoFlightFound: user changes trip"| prompt
+  search -->|"No flights: user changes trip"| prompt
   search -->|"list[FlightDetails]"| select["select_flight"]
   select -->|"None: change trip"| prompt
   select --> seat["infer_seat_via_seat_preference_agent"]
@@ -467,7 +474,7 @@ In order to do so, copy the lines to define `model` and make a new `model_small`
 ```{literalinclude} ./hands-on/flight_booking/config.py
 :start-at: default model
 :end-at: model_small
-:emphasize-lines: 8-9
+:emphasize-lines: 12-13
 ```
 
 Import `model_small` into `flight_booking/agents.py` module and use it
