@@ -556,7 +556,91 @@ purchase.
 
 ## Tracing and visualizing agent trajectories
 
-TODO: Describe tracing with Jaeger / MLflow
+Hitherto, we have been staring at a lot of logs. It becomes complex to
+understand what happened when, particularly when multiple agents are involved.
+This is were collecting **traces** in graphical tool becomes useful.
+
+Think of a trace as a diary of everything your program did in one run. Every
+model call, tool invocation, and agent hand-off is recorded as a *span*: what
+went in, what came out, and how long it took. One agent run produces a tree
+of these spans -- the *trace*. So when your agent, say books seat 7A on the wrong
+flight, you do not have to guess why: the trace shows the whole journey, which
+agents ran, what they asked the model, and what the tools answered.
+
+Each `logfire.span` block becomes one span in the trace, and each `logfire.info`
+call records a log event with structured, searchable attributes. We have been
+writing trace data all along: every hand-off in the multi-agent pipeline is
+wrapped in a named span
+
+```{literalinclude} ./hands-on/flight_booking/main_handoff.py
+:language: python
+:start-at: with logfire.span('Search Agent
+:end-at: return result.output
+:emphasize-lines: 1
+```
+
+and the trip-extractor agent logs the extracted trip request as an event with
+named attributes
+
+```{literalinclude} ./hands-on/flight_booking/agents.py
+:language: python
+:start-at: @trip_extractor_agent.output_validator
+:end-at: return output
+:emphasize-lines: 4-9
+```
+
+So how do Logfire, OpenTelemetry and Jaeger play together? **OpenTelemetry**
+is the open standard that defines what spans look like and how they travel
+between systems (via the OTLP protocol). **Logfire** is what creates the
+spans in our example: its SDK instruments Pydantic AI and httpx, and exports
+the resulting traces either to Logfire's own backend or to any
+OpenTelemetry-compatible endpoint. **Jaeger** is one such endpoint: an
+open-source tracing backend with a web UI for browsing traces. Because
+everything speaks OpenTelemetry, you can swap Jaeger for Logfire (the web frontend) or any of
+the [vendors supporting OpenTelemetry](https://opentelemetry.io/ecosystem/vendors/)
+without touching the instrumentation code. For LLM and agent spans, the
+community is standardizing the attribute names (`gen_ai.*`) in the
+[OpenTelemetry GenAI semantic conventions](https://github.com/open-telemetry/semantic-conventions-genai);
+[MLflow's take on them](https://mlflow.org/docs/latest/genai/tracing/opentelemetry/genai-semconv/)
+is a good overview of how a backend consumes these attributes.
+
+Other popular tools for visualizing agent trajectories include:
+
+- **MLflow**: the classic experiment tracker, with GenAI tracing that follows
+  the OpenTelemetry semantic conventions linked above.
+- **Langfuse**: open-source LLM engineering platform, with tracing, prompt
+  management and evaluations; can ingest traces over OTLP.
+- **Phoenix by Arize**: commercial observability and evaluation platform for
+  LLM applications (its tracing library itself is open source).
+
+::::{demo}
+
+- In `flight_booking/config.py`, change the logging configuration from
+  `log_default` to `log_jaeger`:
+
+```python
+config_logging.log_jaeger()
+```
+
+- In a **new terminal**, start Jaeger (if in Windows, look at the contents of the script to understand how to run it):
+
+```sh
+bash 06_run_jaeger.sh
+```
+
+- Run the multi-agent demo in test mode:
+
+```sh
+uv run 06_multi_agent_flight_booking.py --test
+```
+
+- Open the Jaeger UI at <http://localhost:16686>, select the `flight_booking`
+  service and open the latest trace. Inspect the waterfall of spans: the
+  orchestrator run, the model requests, the tool calls to the MCP server, and
+  the hand-off to the booking agent. The *GenAI* tab shows the captured
+  request and response bodies rendered as a conversation.
+
+::::
 
 ### Exercise 6.3: Discuss the differences
 
