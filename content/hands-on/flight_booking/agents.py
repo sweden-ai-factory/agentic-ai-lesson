@@ -118,15 +118,15 @@ async def validate_flights(
 ) -> list[FlightDetails]:
     """Procedural validation that every returned flight meets the constraints."""
     if not output:
-        for message in ctx.messages:
-            for part in message.parts:
-                if (
-                    isinstance(part, ToolReturnPart)
-                    and part.tool_name == 'search_flights'
-                    and part.outcome == 'success'
-                    and isinstance(part.content, str)
-                ):
-                    raise ToolRetryError(part)
+        # for message in ctx.messages:
+        #     for part in message.parts:
+        #         if (
+        #             isinstance(part, ToolReturnPart)
+        #             and part.tool_name == 'search_flights'
+        #             and part.outcome == 'success'
+        #             and isinstance(part.content, str)
+        #         ):
+        #             raise ToolRetryError(part)
 
         raise ModelRetry("No flights found.")
 
@@ -171,7 +171,10 @@ book_agent = Agent[tuple[FlightDetails, SeatPreference], str](
     deps_type=tuple[FlightDetails, SeatPreference],
     output_type=str,
     capabilities=[
-        MCP(url=MCP_URL), #, allowed_tools=["book_flight"]),
+        MCP(url=MCP_URL, allowed_tools=["book_flight"]),
+        # FIXME: Find a model which is not perplexed by this setup,
+        #        but still allows the use of skills and Memory
+        #
         # Resolve paths relative to the "hands-on" directory
         # LocalWorkspace(Path(__file__).parent.parent),
         # Skills("./agent-skills", include=["travel-policy"]),
