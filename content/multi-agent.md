@@ -170,11 +170,12 @@ The data models define the "contract" between the agents:
 ```{literalinclude} ./hands-on/flight_booking/agents.py
 :start-after: Data models for the agents
 :end-before: extracting trip request from user
-:emphasize-lines: 10-15, 35-36
+:emphasize-lines: 10-15, 31-32
 ```
 
-`Deps` carries the requested origin and destination to tools and validators
-via the context object `ctx.deps`.
+`Deps` carries the requested origin and destination to tools and validators via
+the context object `ctx.deps`. This is a _dependency injection_ mechanism is used
+by Pydantic AI to transfer states.
 
 `TripRequest`, `FlightDetails` and `SeatPreference` are the
 structured outputs of the first three agents. Note how the models themselves
@@ -183,9 +184,9 @@ tells the model to keep the date exactly as the user phrased it, and
 `SeatPreference` restricts rows to 1-30 and seats to a valid letter, so
 nonsense values fail validation before they can reach the next agent.
 
-Finally, `NoFlightFound` and `Failed` are empty marker data models: "no flights"
-and "could not extract a seat" are valid outcomes, not errors, so downstream
-code can branch on the output type instead of parsing error strings.
+Finally, `SeatPreferenceFailed` is an empty marker data model:
+and "could not extract a seat" is a possible outcome, so downstream
+code can branch on the output type as an alternative to parsing errors.
 
 ### The trip extractor agent
 
@@ -233,6 +234,7 @@ match the origin and destination in `ctx.deps`, and any mismatch raises a
 `ModelRetry`, which sends the errors back to the model so it can correct itself
 within its `retries` budget.
 
+(the-seat-preference-agent)=
 ### The seat preference agent
 
 ```{literalinclude} ./hands-on/flight_booking/agents.py
@@ -300,6 +302,36 @@ are helper functions that call the respective agents.
 :emphasize-lines: 15, 18, 33, 35-36
 ```
 
+:::{danger}
+
+Until now, we have been relying of `google/gemma-4-31b-it` as the
+default model. Now we will have to change the `MODEL_NAME` in `.env` file, since
+it has a tendency to get "perplexed" at the `search_agent` run. At least for the
+"hand-off" example, you will be able to complete with one of the following
+models:
+
+```text
+MODEL_NAME=Qwen/Qwen3.6-27B
+MODEL_NAME=Qwen/Qwen3.8-27B
+```
+
+Some capabilities like memory and skill, unfortunately does not work with
+Qwen3.x-27B models, so they have been disabled in the `book_agent` instance.
+
+Potentially the following models may work too, but are untested at the moment.
+
+```text
+MODEL_NAME=google/gemma-4-26B-A4B-it
+MODEL_NAME=openai/gpt-oss-120b
+MODEL_NAME=Qwen/Qwen3-Coder-Next
+```
+
+Another model works with full capabilities is `zai-org/GLM-5.3-Flash`, and we will
+demo it via another provider.
+
+:::
+
+
 (hand-off-demo)=
 
 ::::{demo}
@@ -311,27 +343,40 @@ Book me a flight from Frankfurt to Helsinki
 ```
 
 ```text
-I want to fly from Stockholm to Netherlands in 3 months
-```
-
-```text
 Flight to Amsterdam from Warsaw on Friday
 ```
+
+:::{warning}
+
+You can also try something ambiguous like this, but it can fail particularly with
+"smaller" language models without instructions on how to translate country name to
+probable cities.
+
+```text
+I want to fly from Stockholm to Netherlands in 3 months
+```
+:::
+
 
 - Pick a flight
 - For seat preference answer in one of the following:
 
 ```text
-the best seat
+7A
 ```
 
 ```text
 22, aisle seat
 ```
 
+:::{warning}
+
+Another ambiguous prompt for seat selection
+
 ```text
-7A
+window seat with extra leg room
 ```
+:::
 
 ::::
 
