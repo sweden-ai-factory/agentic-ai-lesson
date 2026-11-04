@@ -66,7 +66,7 @@ The times of the episodes are approximate and include the exercises.
 15 min ; Welcome and practicalities
 45 min ; {doc}`large-language-model` ; AM & MT
 10 min ; ☕ Break
-60 min ; {doc}`agent-basics` ; MT & MS
+60 min ; {doc}`agent-basics` ; MS & MT
 10 min ; ☕ Break
 40 min ; {doc}`mcp` ; MT & MS
 ```
@@ -87,7 +87,7 @@ The times of the episodes are approximate and include the exercises.
 10 min ; ☕ Break
 45 min ; {doc}`adding-memory` ; AM & MT
 10 min ; ☕ Break
-70 min ; {doc}`multi-agent` (in preparation); AM & FF
+70 min ; {doc}`multi-agent`; AM & FF
 ```
 
 ### Day 3 · Thursday 5 November
@@ -104,7 +104,7 @@ The times of the episodes are approximate and include the exercises.
 
 50 min ; {doc}`eval` ; FF & AG
 10 min ; ☕ Break
-80 min ; {doc}`security` (in preparation)  ; AG & AM
+80 min ; {doc}`security`  ; AG & AM
 10 min ; ☕ Break
 30 min ; {doc}`outlook` (in preparation) ; MT & AM
 ```
