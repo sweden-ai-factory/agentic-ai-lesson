@@ -106,7 +106,7 @@ The times of the episodes are approximate and include the exercises.
 10 min ; ☕ Break
 80 min ; {doc}`security`  ; AG & AM
 10 min ; ☕ Break
-30 min ; {doc}`outlook` (in preparation) ; MT & AM
+30 min ; {doc}`outlook` ; MT & AM
 ```
 
 ## Credits
