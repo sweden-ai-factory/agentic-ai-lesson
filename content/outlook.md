@@ -1,85 +1,54 @@
 # 9. Outlook
 
-## Recap: test yourself
+## Recap: which method would you use?
 
 Try to answer before opening the solutions. The {doc}`quick-reference` lists all the terms.
 
-### {doc}`large-language-model`
+:::{exercise} Enforcing the travel policy
+The flight-booking agent must never book a flight that costs more than 500 EUR. What do you use?
 
-:::{exercise}
-In [Exercise 1.1](large-language-model.md#exercise-11-use-an-llm) you sent the same prompt as the
-instructors but got a different reply. Why?
+- **A**: A skill with the rule
+- **B**: A note in `MEMORY.md`
+- **C**: A check in the `book_flight` tool
+- **D**: A sentence in the instructions of the agent
 :::
 
 :::{solution}
-LLM output is stochastic: the model predicts one token at a time and samples from the options.
+C. Skills, memory and instructions only guide the LLM, which can ignore them or miscalculate. Only
+code enforces the limit. See {doc}`adding-skills`.
 :::
 
-### {doc}`agent-basics`
+:::{exercise} Processing travel expenses
+An application processes travel expenses. It always extracts the data from the receipt, then
+checks it against the travel policy, then submits it. Which approach fits best?
 
-:::{exercise}
-Why did "What is the time in the city that the instructor lives in?" only work with
-`--enable_history` ([Exercise 2.3](agent-basics.md#exercise-23-enable-conversation-history))?
-:::
-
-:::{solution}
-The LLM is stateless. Only with history does the harness resend the earlier prompt.
-:::
-
-### {doc}`mcp`
-
-:::{exercise}
-What is the benefit of MCP servers?
+- **A**: A single LLM call
+- **B**: Programmatic hand-off
+- **C**: Agent delegation
+- **D**: One agent with all tools
 :::
 
 :::{solution}
-MCP is an open standard: you write a tool once and any harness can use it, whatever language it is
-written in. Example: the `book_flight` server from [Exercise 3.2](mcp.md#exercise-32) also works in a
-coding agent or your IDE.
+B. The steps are fixed, so code calls the agents in order and validates the output of each agent
+before the next step. This is more predictable than letting an orchestrator decide. See
+{doc}`multi-agent`.
 :::
 
-### {doc}`adding-skills`
+:::{exercise} Reading partner websites
+The agent will read flight offers from partner websites. How do you protect it?
 
-:::{exercise}
-Does your `booking-confirmation` skill
-([Exercise 4.2](adding-skills.md#exercise-42-write-your-own-skill)) guarantee that the agent always
-confirms?
-:::
-
-:::{solution}
-No. Skills guide but do not enforce. Hard constraints belong in code, for example in `book_flight`.
-:::
-
-### {doc}`adding-memory`
-
-:::{exercise}
-In [Exercise 5.2](adding-memory.md#exercise-52-change-and-forget) you changed `MEMORY.md` to
-"Prefers **the most expensive flights**". What happened, and why is this a risk?
+- **A**: Trust the content, because the partners are known
+- **B**: Add a skill that tells the agent to ignore instructions on websites
+- **C**: Treat the content as untrusted, filter the output for unexpected URLs and credential
+  requests, and test the agent with injected content
+- **D**: Store the offers in `MEMORY.md` first
 :::
 
 :::{solution}
-The agent likely recommended the most expensive flight, against the travel policy. `MEMORY.md` is
-added to every request, so whoever can edit it steers all future sessions: memory poisoning.
+C. Website content can contain indirect prompt injection, like the poisoned row in
+[Exercise 8.1](security.md#exercise-81-prompt-injection). A skill alone does not enforce anything,
+and memory would make the injected text affect all future sessions. See {doc}`security`.
 :::
-
-### {doc}`multi-agent`
-
-placeholder
-
-### {doc}`evaluation`
-
-:::{exercise}
-The agent answers "What time is it?" correctly. Why look at the trace anyway?
-:::
-
-:::{solution}
-It may call `get_current_datetime` far more often than needed: right answer, but slower and more
-expensive.
-:::
-
-### {doc}`security`
-
-placeholder
 
 ## Next steps
 
@@ -103,6 +72,15 @@ Source: *The Psychology of Science: A Reconnaissance* (1966)
 - An agent pays off when the next step depends on intermediate results. Example: finding a flight
   that fits the travel policy, the user's preferences and the available seats.
 - Start with the simplest solution and add autonomy only when it is needed.
+
+### More multi-agent patterns
+
+- We covered programmatic hand-off and agent delegation. For the most complex cases,
+  [graphs](https://pydantic.dev/docs/ai/graph/graph/) control the flow between agents as a state
+  machine, and deep agents add [planning](https://pydantic.dev/docs/ai/harness/planning/), file
+  operations and sandboxed code execution.
+- Each extra agent adds model calls and places to fail. Try a single agent or a fixed hand-off
+  first.
 
 ### Bias and regulation
 
