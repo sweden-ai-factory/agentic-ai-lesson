@@ -1,0 +1,1620 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex/"><link rel="search" title="Search" href="../search/"><link rel="next" title="7. Evaluating an agent" href="../eval/"><link rel="prev" title="5. Memory" href="../adding-memory/">
+        <link rel="prefetch" href="../_static/LAIF_SEAIF_stacked_black.png" as="image">
+        <link rel="prefetch" href="../_static/LAIF_SEAIF_stacked_white.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>6. Multiple agents - Agentic AI Lesson</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+    <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="../_static/furo_ext_lesson.css?v=6c0cde2e" />
+    <link rel="stylesheet" type="text/css" href="../_static/EN_Co-funded.css?v=bf081b0b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=1c72d2de" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">Agentic AI Lesson</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/LAIF_SEAIF_stacked_black.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/LAIF_SEAIF_stacked_white.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Agentic AI Lesson</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup/">0. Setup</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Day 1: LLMs, agents and MCP</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../large-language-model/">1. Large Language Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agent-basics/">2. Basics of AI agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcp/">3. Model Context Protocol</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Day 2: Skills, memory and multiple agents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../adding-skills/">4. Skills</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding-memory/">5. Memory</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">6. Multiple agents</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Day 3: Evaluation and security</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../eval/">7. Evaluating an agent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security/">8. Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outlook/">9. Outlook</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/sweden-ai-factory/agentic-ai-lesson/blob/main//content/multi-agent.md?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/sweden-ai-factory/agentic-ai-lesson/edit/main//content/multi-agent.md" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="multiple-agents">
+<h1>6. Multiple agents<a class="headerlink" href="#multiple-agents" title="Link to this heading">¶</a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What are multi-agent workflows?</p></li>
+<li><p>When does it make sense to use multi-agent workflows and when does it not?</p></li>
+<li><p>How do we connect multiple agents together, and are there different design patterns for doing so?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand how to design a multi-agent workflow.</p></li>
+<li><p>Analyze the pros and cons for using them.</p></li>
+</ul>
+</div>
+<section id="why-multi-agent-workflows">
+<h2>Why multi-agent workflows<a class="headerlink" href="#why-multi-agent-workflows" title="Link to this heading">¶</a></h2>
+<p>So far we have understood and played with single agent workflows. Often a single agent,
+with:</p>
+<ul class="simple">
+<li><p>a broad role,</p></li>
+<li><p>several capabilities</p></li>
+<li><p>unstructured outputs</p></li>
+<li><p>data validation only within tools, and none before and after the agent responds.</p></li>
+</ul>
+<p>When the number of capabilities grows (various tools, skills, MCP servers,
+Memory etc.) in a single agent, the potential permutations
+in which these will execute increases exponentially. This can make it difficult
+to reason about the trajectory of the agent’s execution and the quality of the
+output. By breaking down the agent into multiple agents, each with a limited set
+of tools and capabilities, we can reduce the complexity of the agent’s execution
+and improve the quality of the output.</p>
+<p>Also, with multi-agents, each with a specific role – allows to generate structured
+output, with output validators. In other words, we could perform type validation and
+logic validation, thereby catching some set of known failures early.</p>
+<p>There are more benefits and drawbacks when it comes to multi-agent workflows.
+It will become evident as we explore them. However here is a teaser:</p>
+<div class="note admonition">
+<p class="admonition-title">Potential benefits of multi-agent workflows</p>
+<ul class="simple">
+<li><p>Per-agent model selection: different models for different tasks, since some
+tasks might be simple.</p></li>
+<li><p>Separation of concerns: limited set of tools per agent, similar to
+encapsulation in Object-oriented programming.</p></li>
+<li><p>Saving context size: ability to (somewhat) stateless, and separate message history
+per agent.</p></li>
+<li><p>Adding output type validation and data validators after each agent.</p></li>
+<li><p>Ability for the developer to split tasks into logical chunks and assign role.</p></li>
+</ul>
+<p>The exact benefits can also vary depending on the architecture or design pattern
+one chooses to adopt.</p>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">Uncertainities of multi-agent workflows</p>
+<p>Depending on the constuction of the multi-agent workflow, there are some
+uncertainties with the following:</p>
+<ul class="simple">
+<li><p>Cost: can result in fewer or more model calls, more handoffs, more places to fail.</p></li>
+<li><p>Better, similar or worse complexity when it comes to possible trajectories of
+tool-calls compared to single-agent workflows.</p></li>
+</ul>
+</div>
+</section>
+<section id="design-patterns-of-multi-agent-workflows">
+<h2>Design patterns of multi-agent workflows<a class="headerlink" href="#design-patterns-of-multi-agent-workflows" title="Link to this heading">¶</a></h2>
+<p>Since this is an emerging field the names and understanding of these “patterns”
+vary. In 2026, according to both
+<a class="reference external" href="https://docs.langchain.com/oss/python/langchain/multi-agent/index#patterns">LangChain</a>
+and <a class="reference external" href="https://pydantic.dev/docs/ai/guides/multi-agent-applications/">Pydantic AI</a>,
+these 4 patterns are mentioned:</p>
+<ol class="arabic simple">
+<li><p>Agent delegation — agents using another agent via tools, either wired up by
+hand or with the Harness’s <code class="docutils literal notranslate"><span class="pre">SubAgents</span></code> capability</p></li>
+<li><p>Programmatic agent hand-off — one agent runs, then application code calls
+another agent (or a deterministic function) and so on</p></li>
+<li><p>Graph based control flow — for the most complex cases, a graph-based state
+machine can be used to control the execution of multiple agents</p></li>
+<li><p>Deep Agents — autonomous agents with planning, file operations, task
+delegation, and sandboxed code execution</p></li>
+</ol>
+<p>And before we get too excited, we also find this <a class="reference external" href="https://pydantic.dev/docs/ai/graph/graph/">gem of an advice</a>:</p>
+<blockquote>
+<div><p>If Pydantic AI <strong>agents</strong> are a hammer, and <strong>multi-agent workflows</strong> are a
+sledgehammer, then <strong>graphs</strong> are a nail gun… graphs are a powerful tool, but
+they’re not the right tool for every job. Please consider other multi-agent
+approaches before proceeding.</p>
+</div></blockquote>
+<p>And therefore we will limit our attention to two patterns, namely <strong>agent delegation</strong>
+and <strong>programmatic agent hand-off</strong>.</p>
+<section id="programmatic-agent-hand-off">
+<h3>Programmatic agent hand-off<a class="headerlink" href="#programmatic-agent-hand-off" title="Link to this heading">¶</a></h3>
+<p>Programmatic hand-off is a design pattern where the output of one agent is used
+as the input to another agent. With the handoffs pattern, when you need to
+enforce sequential constraints (unlock capabilities only after preconditions are
+met), and allows interaction with the user at specific points of the workflow.</p>
+<p>Here is a typical hand-off multi-agent workflow.</p>
+<pre  class="mermaid">
+        graph TB
+    U[User] --&gt;|Prompt| H[Function 0]
+    H --&gt; A[Agent A] 
+    A --&gt; |Parse and validate input| B[Agent B]
+    B --&gt; |Failed| A
+    B --&gt; |Prepare question| F[Function 1]
+    M --&gt; |Read| B
+    U &lt;-.-&gt;|Ask for details| F
+    B --&gt; |Validated input| C
+    F --&gt; C[Agent C]
+    C &lt;-.-&gt;|Read/Write| M[Capabilities: Database, MCP, Memory]
+    C &lt;-.-&gt;|Confirm| U
+    C --&gt; G[Function 2]
+    G --&gt;|Continue or exit| U
+    G --&gt; Z[Exit]
+
+    classDef func fill:#F6FFDB,stroke:#6E8900,stroke-width:2px,color:#2E3900
+    classDef agent fill:#E5F4FF,stroke:#006DDD,stroke-width:2px,color:#030710
+
+    class U,F,G,H func
+    class A,B,C,,E agent
+    </pre><p>Notice that in this pattern, the hand-off can occur from agent to agent, or from
+agent to function and back to another agent. This allows the developer to
+implement the workflow in a way that is most natural for the problem domain and
+to add deterministic steps where needed.</p>
+</section>
+<section id="agent-delegation-a-k-a-subagents">
+<h3>Agent delegation a.k.a Subagents<a class="headerlink" href="#agent-delegation-a-k-a-subagents" title="Link to this heading">¶</a></h3>
+<pre  class="mermaid">
+        graph TB
+    A[User] --&gt; B[Orchestrator agent]
+    B --&gt; C[Sub-agent A]
+    B --&gt; D[Sub-agent B]
+    B --&gt; E[Sub-agent C]
+    C --&gt; B
+    D --&gt; B
+    E --&gt; B
+    B --&gt; F[User response]
+
+    classDef trigger fill:#F6FFDB,stroke:#6E8900,stroke-width:2px,color:#2E3900
+    classDef process fill:#E5F4FF,stroke:#006DDD,stroke-width:2px,color:#030710
+
+    class A,F trigger
+    class B,C,D,E process
+    </pre><p>Agent delegation is a design pattern where one “orchestrator” agent delegates a
+task to child agents or “sub-agents”. The sub-agent runs with its own message
+history, so task must be self-contained.</p>
+</section>
+</section>
+<section id="breaking-down-the-problem-into-different-agents">
+<h2>Breaking down the problem into different agents<a class="headerlink" href="#breaking-down-the-problem-into-different-agents" title="Link to this heading">¶</a></h2>
+<p>The flight booking problem naturally splits into four steps: understand where
+and when the user wants to fly, search for flights, pick a seat, and book.
+Each step has a clear input and output, which makes it a good fit for the
+programmatic hand-off pattern. In <code class="docutils literal notranslate"><span class="pre">flight_booking/agents.py</span></code> each step becomes
+one agent with a narrow role, its own output type, and its own validation –
+together they play the role of agents A, B and C in the diagram above.</p>
+<p>The data models define the “contract” between the agents:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Deps</span><span class="p">:</span>
+    <span class="n">req_origin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span>
+    <span class="n">req_destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TripRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Details of the trip request by the user."""</span>
+    <span class="n">req_origin</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">req_destination</span><span class="p">:</span> <span class="nb">str</span>
+<span class="hll">    <span class="n">req_date</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+</span><span class="hll">        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+</span><span class="hll">            <span class="s1">'Travel date exactly as the user phrased it, e.g. "tomorrow", '</span>
+</span><span class="hll">            <span class="s1">'"next Friday", or "2025-01-15". Use "today" if unspecified.'</span>
+</span><span class="hll">        <span class="p">)</span>
+</span><span class="hll">    <span class="p">)</span>
+</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FlightDetails</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Details of the most suitable flight."""</span>
+
+    <span class="n">flight_number</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">origin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">'Departure city'</span><span class="p">)</span>
+    <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">'Arrival city'</span><span class="p">)</span>
+    <span class="n">date</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span>
+    <span class="n">departure_time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span>
+    <span class="n">arrival_time</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NoFlightFound</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""When no valid flight is found."""</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SeatPreference</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="hll">    <span class="n">row</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">seat</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">]</span>
+</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Failed</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Unable to extract a seat selection."""</span>
+
+
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Deps</span></code> carries the requested origin and destination to tools and validators
+via the context object <code class="docutils literal notranslate"><span class="pre">ctx.deps</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TripRequest</span></code>, <code class="docutils literal notranslate"><span class="pre">FlightDetails</span></code> and <code class="docutils literal notranslate"><span class="pre">SeatPreference</span></code> are the
+structured outputs of the first three agents. Note how the models themselves
+already encode data types and instructions: the <code class="docutils literal notranslate"><span class="pre">req_date</span></code> field description
+tells the model to keep the date exactly as the user phrased it, and
+<code class="docutils literal notranslate"><span class="pre">SeatPreference</span></code> restricts rows to 1-30 and seats to a valid letter, so
+nonsense values fail validation before they can reach the next agent.</p>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">NoFlightFound</span></code> and <code class="docutils literal notranslate"><span class="pre">Failed</span></code> are empty marker data models: “no flights”
+and “could not extract a seat” are valid outcomes, not errors, so downstream
+code can branch on the output type instead of parsing error strings.</p>
+<section id="the-trip-extractor-agent">
+<h3>The trip extractor agent<a class="headerlink" href="#the-trip-extractor-agent" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trip_extractor_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">[</span><span class="n">TripRequest</span><span class="p">](</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">deps_type</span><span class="o">=</span><span class="n">Deps</span><span class="p">,</span>
+<span class="hll">    <span class="n">output_type</span><span class="o">=</span><span class="n">TripRequest</span><span class="p">,</span>
+</span>    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">"You are a helpful assistant that helps the user find a flight. "</span>
+        <span class="s2">"Extract the origin, destination, and travel date of the trip the user "</span>
+        <span class="s2">"is looking for. Keep the date exactly as the user phrased it (e.g. "</span>
+        <span class="s2">"'tomorrow' or 'next Friday') and do not resolve it yourself; use 'today' "</span>
+        <span class="s2">"if the user did not specify a date."</span>
+    <span class="p">),</span>
+<span class="hll">    <span class="n">retries</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p>The first agent has a single job: turn the user’s free-text prompt into a
+<code class="docutils literal notranslate"><span class="pre">TripRequest</span></code>, sometimes with small corrections if needed. For example, it
+transforms a prompt:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Find me a flight from stockhom to helsinki next week
+</pre></div>
+</div>
+<p>into</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">TripRequest</span><span class="p">(</span><span class="n">req_origin</span><span class="o">=</span><span class="s1">'Stockholm'</span><span class="p">,</span> <span class="n">req_destination</span><span class="o">=</span><span class="s1">'Helsinki'</span><span class="p">,</span> <span class="n">req_date</span><span class="o">=</span><span class="s1">'next week'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It has no tools at all (for now) – anything it cannot extract from the prompt
+is a job for a later agent. The <code class="docutils literal notranslate"><span class="pre">retries=3</span></code> setting gives the model three
+attempts to produce output that passes validation.</p>
+</section>
+<section id="the-search-agent">
+<h3>The search agent<a class="headerlink" href="#the-search-agent" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Its tools (get_current_datetime and search_flights) come from the lesson 04</span>
+<span class="c1"># MCP server (03_mcp_server.py), which must be running at MCP_URL (see config.py).</span>
+<span class="n">search_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">[</span><span class="n">Deps</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">FlightDetails</span><span class="p">]</span> <span class="o">|</span> <span class="n">NoFlightFound</span><span class="p">](</span>
+    <span class="n">model</span><span class="p">,</span>
+<span class="hll">    <span class="n">output_type</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">FlightDetails</span><span class="p">]</span> <span class="o">|</span> <span class="n">NoFlightFound</span><span class="p">,</span>
+</span>    <span class="n">deps_type</span><span class="o">=</span><span class="n">Deps</span><span class="p">,</span>
+    <span class="n">retries</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="hll">    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span><span class="n">MCP</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">MCP_URL</span><span class="p">)],</span> <span class="c1"># , allowed_tools=["get_current_time", "search_flights"])],</span>
+</span>    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s1">'Your job is to find flights for the user on the requested date. '</span>
+        <span class="s1">'First resolve the travel date to a concrete YYYY-MM-DD date, using the '</span>
+        <span class="s1">'get_current_datetime tool for relative dates like "tomorrow" or "next Friday". '</span>
+        <span class="s1">'Then use search_flights to look up matching flights and return all of them '</span>
+        <span class="s1">'sorted by price (cheapest first), each with its date set to the resolved '</span>
+        <span class="s1">'travel date. Add the arrival and departure time as well. Return NoFlightFound only if there are no matching flights.'</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="hll"><span class="nd">@search_agent</span><span class="o">.</span><span class="n">output_validator</span>
+</span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">validate_flights</span><span class="p">(</span>
+    <span class="n">ctx</span><span class="p">:</span> <span class="n">RunContext</span><span class="p">[</span><span class="n">Deps</span><span class="p">],</span> <span class="n">output</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FlightDetails</span><span class="p">]</span> <span class="o">|</span> <span class="n">NoFlightFound</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FlightDetails</span><span class="p">]</span> <span class="o">|</span> <span class="n">NoFlightFound</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Procedural validation that every returned flight meets the constraints."""</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">NoFlightFound</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="n">errors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">flight</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">flight</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">deps</span><span class="o">.</span><span class="n">req_origin</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Flight </span><span class="si">{</span><span class="n">flight</span><span class="o">.</span><span class="n">flight_number</span><span class="si">}</span><span class="s1"> should have origin '</span>
+                <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">deps</span><span class="o">.</span><span class="n">req_origin</span><span class="si">}</span><span class="s1">, not </span><span class="si">{</span><span class="n">flight</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s1">'</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">flight</span><span class="o">.</span><span class="n">destination</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">deps</span><span class="o">.</span><span class="n">req_destination</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Flight </span><span class="si">{</span><span class="n">flight</span><span class="o">.</span><span class="n">flight_number</span><span class="si">}</span><span class="s1"> should have destination '</span>
+                <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">deps</span><span class="o">.</span><span class="n">req_destination</span><span class="si">}</span><span class="s1">, not </span><span class="si">{</span><span class="n">flight</span><span class="o">.</span><span class="n">destination</span><span class="si">}</span><span class="s1">'</span>
+            <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+<span class="hll">        <span class="k">raise</span> <span class="n">ModelRetry</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span>
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+
+</pre></div>
+</div>
+<p>The search agent resolves the relative date (“tomorrow”, “next Friday”) to a
+concrete date using the <code class="docutils literal notranslate"><span class="pre">get_current_datetime</span></code> tool, then calls
+<code class="docutils literal notranslate"><span class="pre">search_flights</span></code> and returns all matches sorted by price. Both tools come
+from the MCP server we built in episode 4, attached here as a single
+capability. The output type is a union: <code class="docutils literal notranslate"><span class="pre">list[FlightDetails]</span> <span class="pre">|</span> <span class="pre">NoFlightFound</span></code>
+– an empty search result is a valid answer, not an error.</p>
+<p>The output validator performs procedural validation: every returned flight must
+match the origin and destination in <code class="docutils literal notranslate"><span class="pre">ctx.deps</span></code>, and any mismatch raises a
+<code class="docutils literal notranslate"><span class="pre">ModelRetry</span></code>, which sends the errors back to the model so it can correct itself
+within its <code class="docutils literal notranslate"><span class="pre">retries</span></code> budget.</p>
+</section>
+<section id="the-seat-preference-agent">
+<h3>The seat preference agent<a class="headerlink" href="#the-seat-preference-agent" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seat_preference_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="n">SeatPreference</span> <span class="o">|</span> <span class="n">Failed</span><span class="p">](</span>
+    <span class="n">model</span><span class="p">,</span>
+<span class="hll">    <span class="n">output_type</span><span class="o">=</span><span class="n">SeatPreference</span> <span class="o">|</span> <span class="n">Failed</span><span class="p">,</span>
+</span>    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">"Extract the user's seat preference. "</span>
+        <span class="s1">'Seats A and F are window seats. '</span>
+        <span class="s1">'Seats B and E are middle seats and C and D are aisle seats'</span>
+        <span class="s1">'Row 1 is the front row and has extra leg room. '</span>
+        <span class="s1">'Rows 14, and 20 also have extra leg room. '</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+</pre></div>
+</div>
+<p>The simplest of the four: no tools, no deps, no validator – just a mapping
+from the user’s words onto the constrained <code class="docutils literal notranslate"><span class="pre">SeatPreference</span></code> model. The domain
+knowledge (which seats are window or aisle, which rows have extra legroom)
+lives in the instructions, so the model can for example infer a specific seat
+when the user asks for “a window seat with extra legroom”. If it cannot
+extract a selection, it returns <code class="docutils literal notranslate"><span class="pre">Failed</span></code> rather than guessing.</p>
+</section>
+<section id="the-book-agent">
+<h3>The book agent<a class="headerlink" href="#the-book-agent" title="Link to this heading">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memory files are stored in hands-on/agent-memory/main/</span>
+<span class="n">MEMORY_DIR</span> <span class="o">=</span> <span class="s2">"agent-memory"</span>
+
+<span class="n">book_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">FlightDetails</span><span class="p">,</span> <span class="n">SeatPreference</span><span class="p">],</span> <span class="nb">str</span><span class="p">](</span>
+    <span class="n">model</span><span class="p">,</span>
+<span class="hll">    <span class="n">deps_type</span><span class="o">=</span><span class="nb">tuple</span><span class="p">[</span><span class="n">FlightDetails</span><span class="p">,</span> <span class="n">SeatPreference</span><span class="p">],</span>
+</span>    <span class="n">output_type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span>
+<span class="hll">        <span class="n">MCP</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">MCP_URL</span><span class="p">),</span> <span class="c1">#, allowed_tools=["book_flight"]),</span>
+</span>        <span class="c1"># Resolve paths relative to the "hands-on" directory</span>
+        <span class="n">LocalWorkspace</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="p">),</span>
+<span class="hll">        <span class="n">Skills</span><span class="p">(</span><span class="s2">"./agent-skills"</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">"travel-policy"</span><span class="p">]),</span>
+</span>        <span class="c1"># The agent writes notes to MEMORY.md, which is injected into every request</span>
+<span class="hll">        <span class="n">Memory</span><span class="p">(</span><span class="n">FileStore</span><span class="p">(</span><span class="n">MEMORY_DIR</span><span class="p">)),</span>
+</span>    <span class="p">],</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s1">'You are a flight booking agent. '</span>
+        <span class="s1">'Do not request the user for further input and use deps and memory to fill in missing information. '</span>
+        <span class="s1">'Before booking ensure with the skill that it complies with travel policy. '</span>
+        <span class="s1">'If all checks pass, book the flight for the user and return the booking confirmation in plain text. '</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The final agent performs the side-effectful step: booking the flight. It
+receives the chosen flight and seat as a tuple via <code class="docutils literal notranslate"><span class="pre">deps</span></code>, and its
+instructions tell it to not ask the user for further input. This is where the
+capabilities of the previous episodes come together in a single agent: the
+MCP server provides the <code class="docutils literal notranslate"><span class="pre">book_flight</span></code> tool, the <code class="docutils literal notranslate"><span class="pre">travel-policy</span></code> skill checks
+that the booking complies with the travel policy before the agent commits.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Memory</span></code> persists data such as passenger name from <code class="docutils literal notranslate"><span class="pre">MEMORY.md</span></code>, injecting them
+into every request.</p>
+</section>
+</section>
+<section id="wiring-the-agents-together">
+<h2>Wiring the agents together<a class="headerlink" href="#wiring-the-agents-together" title="Link to this heading">¶</a></h2>
+<section id="using-hand-off">
+<h3>Using hand-off<a class="headerlink" href="#using-hand-off" title="Link to this heading">¶</a></h3>
+<p>The agents to use the programmatically hand-off pattern, are composed together in
+a single <code class="docutils literal notranslate"><span class="pre">main</span></code> function in <code class="docutils literal notranslate"><span class="pre">flight_booking/hand_off.py</span></code>. The function is
+structured as a loop that starts with the user prompt, and ends when the user
+types <code class="docutils literal notranslate"><span class="pre">quit</span></code>. The loop is structured as a sequence of agents that are called
+in turn, and each agent can either return a value to the next agent, or raise
+an exception to signal that the user needs to change their trip request.</p>
+<pre  class="mermaid">
+        graph TB
+  prompt((&quot;user prompt&quot;)) --&gt;|&quot;str&quot;| extract[&quot;infer_trip_request_via_trip_extractor_agent&quot;]
+  extract --&gt;|&quot;TripRequest&quot;| search[&quot;infer_flights_via_search_agent&quot;]
+  search --&gt;|&quot;NoFlightFound: user changes trip&quot;| prompt
+  search --&gt;|&quot;list[FlightDetails]&quot;| select[&quot;select_flight&quot;]
+  select --&gt;|&quot;None: change trip&quot;| prompt
+  select --&gt; seat[&quot;infer_seat_via_seat_preference_agent&quot;]
+  select --&gt;|&quot;FlightDetails&quot;| book
+  seat --&gt;|&quot;SeatPreference&quot;| book[&quot;infer_purchase_via_book_agent&quot;]
+  book --&gt;|&quot;next request&quot;| prompt
+  prompt --&gt;|&quot;quit&quot;| END
+    </pre><p>The above flowchart is implemented as follows, where all the <code class="docutils literal notranslate"><span class="pre">infer_*</span></code> functions
+are helper functions that call the respective agents.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">test_prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">user_prompt</span> <span class="o">=</span> <span class="n">test_prompt</span> <span class="ow">or</span> <span class="nb">input</span><span class="p">(</span>
+        <span class="s1">'🤖 Hi! I am a flight search assistant. '</span>
+        <span class="s1">'You can tell me the locations and dates of your trip and I will find the best flight for you</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'You: '</span>
+    <span class="p">)</span>
+    <span class="n">conversation_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ModelMessage</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="n">Deps</span><span class="p">()</span>
+    <span class="n">usage</span><span class="p">:</span> <span class="n">RunUsage</span> <span class="o">=</span> <span class="n">RunUsage</span><span class="p">()</span>
+
+    <span class="c1"># TODO: Add trip request tool and output validator</span>
+
+    <span class="c1"># Start agent loop</span>
+    <span class="k">while</span> <span class="n">user_prompt</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">QUIT_WORDS</span><span class="p">:</span>
+<span class="hll">        <span class="n">trip</span><span class="p">,</span> <span class="n">conversation_history</span> <span class="o">=</span> <span class="k">await</span> <span class="n">infer_trip_request_via_trip_extractor_agent</span><span class="p">(</span>
+</span>            <span class="n">user_prompt</span><span class="p">,</span> <span class="n">deps</span><span class="p">,</span> <span class="n">conversation_history</span><span class="p">,</span> <span class="n">usage</span>
+        <span class="p">)</span>
+<span class="hll">        <span class="n">flights</span> <span class="o">=</span> <span class="k">await</span> <span class="n">infer_flights_via_search_agent</span><span class="p">(</span><span class="n">trip</span><span class="p">,</span> <span class="n">deps</span><span class="p">,</span> <span class="n">usage</span><span class="p">)</span>
+</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">flights</span><span class="p">,</span> <span class="n">NoFlightFound</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'No flights from </span><span class="si">{</span><span class="n">trip</span><span class="o">.</span><span class="n">req_origin</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">trip</span><span class="o">.</span><span class="n">req_destination</span><span class="si">}</span><span class="s1"> '</span>
+                <span class="sa">f</span><span class="s1">'on </span><span class="si">{</span><span class="n">trip</span><span class="o">.</span><span class="n">req_date</span><span class="si">}</span><span class="s1">.'</span>
+            <span class="p">)</span>
+            <span class="c1"># nothing bought yet: let the user change the date, destination, etc.</span>
+            <span class="n">user_prompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                <span class="s1">'🤖 Tell me what to change (e.g. a different date or destination), '</span>
+                <span class="sa">f</span><span class="s1">'or type </span><span class="si">{</span><span class="n">QUIT_WORDS</span><span class="si">}</span><span class="s1"> to stop</span><span class="se">\n</span><span class="s1">'</span>
+                <span class="s1">'You: '</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">display_flights</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span>
+<span class="hll">            <span class="n">flight</span> <span class="o">=</span> <span class="n">select_flight</span><span class="p">(</span><span class="n">flights</span><span class="p">)</span>
+</span>            <span class="k">if</span> <span class="n">flight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="hll">                <span class="n">seat</span> <span class="o">=</span> <span class="k">await</span> <span class="n">infer_seat_via_seat_preference_agent</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span>
+</span><span class="hll">                <span class="n">booking_history</span> <span class="o">=</span> <span class="k">await</span> <span class="n">infer_purchase_via_book_agent</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="n">flight</span><span class="p">,</span> <span class="n">seat</span><span class="p">)</span>
+</span>
+                <span class="n">conversation_history</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">booking_history</span><span class="p">)</span>
+
+            <span class="n">user_prompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                <span class="s1">'🤖 Tell me what to do next (e.g. change dates or book another flight), '</span>
+                <span class="sa">f</span><span class="s1">'or type </span><span class="si">{</span><span class="n">QUIT_WORDS</span><span class="si">}</span><span class="s1"> to stop</span><span class="se">\n</span><span class="s1">'</span>
+                <span class="s1">'You: '</span>
+            <span class="p">)</span>
+
+
+
+</pre></div>
+</div>
+<div class="admonition-demo demo admonition" id="demo-0">
+<span id="hand-off-demo"></span><p class="admonition-title">Demo</p>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">06_multi_agent_flight_booking.py</span></code> and try one of the following prompts.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Book me a flight from Frankfurt to Helsinki
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>I want to fly from Stockholm to Netherlands in 3 months
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Flight to Amsterdam from Warsaw on Friday
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Pick a flight</p></li>
+<li><p>For seat preference answer in one of the following:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>the best seat
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>22, aisle seat
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>7A
+</pre></div>
+</div>
+</div>
+<section id="exercise-6-1-adding-output-validator-to-the-hand-off-workflow">
+<h4>Exercise 6.1: Adding output validator to the hand-off workflow<a class="headerlink" href="#exercise-6-1-adding-output-validator-to-the-hand-off-workflow" title="Link to this heading">¶</a></h4>
+<div class="admonition-exercise exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">06_multi_agent_flight_booking.py</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Try to prompt as follows, and notice how long it takes. In what step did the
+multi-agent workflow realize that this is invalid?</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Flight from Singapore to Helsinki
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Exit the workflow.</p></li>
+<li><p>Add a tool and output validator to the first agent inside <code class="docutils literal notranslate"><span class="pre">main_handoff.py</span></code>,
+allowing the model to recover from a wrong input, early!</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@trip_extractor_agent</span><span class="o">.</span><span class="n">tool_plain</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ask_user_for_clarification</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Ask the user a question and return their answer."""</span>
+    <span class="k">return</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">'🤖 </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="se">\n</span><span class="s1">You: '</span><span class="p">)</span>
+
+<span class="nd">@trip_extractor_agent</span><span class="o">.</span><span class="n">output_validator</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">validate_trip_request</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">RunContext</span><span class="p">[</span><span class="n">Deps</span><span class="p">],</span> <span class="n">output</span><span class="p">:</span> <span class="n">TripRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TripRequest</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Validate origin and destination of the trip."""</span>
+    <span class="n">VALID_CITIES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Amsterdam'</span><span class="p">,</span> <span class="s1">'Barcelona'</span><span class="p">,</span> <span class="s1">'Copenhagen'</span><span class="p">,</span> <span class="s1">'Dublin'</span><span class="p">,</span> <span class="s1">'Frankfurt'</span><span class="p">,</span> <span class="s1">'Helsinki'</span><span class="p">,</span> <span class="s1">'Istanbul'</span><span class="p">,</span> <span class="s1">'Lisbon'</span><span class="p">,</span> <span class="s1">'London'</span><span class="p">,</span> <span class="s1">'Madrid'</span><span class="p">,</span> <span class="s1">'Munich'</span><span class="p">,</span> <span class="s1">'Oslo'</span><span class="p">,</span> <span class="s1">'Paris'</span><span class="p">,</span> <span class="s1">'Rome'</span><span class="p">,</span> <span class="s1">'Stockholm'</span><span class="p">,</span> <span class="s1">'Vienna'</span><span class="p">,</span> <span class="s1">'Warsaw'</span><span class="p">,</span> <span class="s1">'Zurich'</span> <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">req_origin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_CITIES</span>
+        <span class="ow">or</span> <span class="n">output</span><span class="o">.</span><span class="n">req_destination</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_CITIES</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ModelRetry</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'Invalid origin or destination city. Valid cities are: </span><span class="si">{</span><span class="n">VALID_CITIES</span><span class="si">}</span><span class="s1">'</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">output</span>
+
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can inject the above code in <code class="docutils literal notranslate"><span class="pre">flight_booking/main_handoff.py</span></code> at the highlighted section</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll">    <span class="c1"># TODO: Add trip request tool and output validator</span>
+</span><span class="hll">
+</span>    <span class="c1"># Start agent loop</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Re-prompt the workflow, starting with an incorrect origin and/or destination.</p></li>
+</ol>
+</div>
+</section>
+<section id="exercise-6-2-using-a-different-model-for-seat-preference">
+<h4>Exercise 6.2: Using a different model for seat preference<a class="headerlink" href="#exercise-6-2-using-a-different-model-for-seat-preference" title="Link to this heading">¶</a></h4>
+<div class="admonition-exercise exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise</p>
+<p>Seat preference being the simplest of the agents, can be set to a smaller model.</p>
+<ul class="simple">
+<li><p>Replace the default <code class="docutils literal notranslate"><span class="pre">model</span></code> used for the <a class="reference internal" href="#the-seat-preference-agent"><span class="xref myst">seat preference
+agent</span></a> with a different one in
+<code class="docutils literal notranslate"><span class="pre">flight_booking/agents.py</span></code></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seat_preference_agent</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="n">SeatPreference</span> <span class="o">|</span> <span class="n">Failed</span><span class="p">](</span>
+<span class="hll">    <span class="n">model</span><span class="p">,</span>
+</span>    <span class="n">output_type</span><span class="o">=</span><span class="n">SeatPreference</span> <span class="o">|</span> <span class="n">Failed</span><span class="p">,</span>
+    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+        <span class="s2">"Extract the user's seat preference. "</span>
+        <span class="s1">'Seats A and F are window seats. '</span>
+        <span class="s1">'Seats B and E are middle seats and C and D are aisle seats'</span>
+        <span class="s1">'Row 1 is the front row and has extra leg room. '</span>
+        <span class="s1">'Rows 14, and 20 also have extra leg room. '</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+</pre></div>
+</div>
+<ul>
+<li><p>Preferably use a smaller model, but anything running / available will do too. Run</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>00_check_inference_server.py
+</pre></div>
+</div>
+<p>to find out what is running.</p>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In order to do so, copy the lines to define <code class="docutils literal notranslate"><span class="pre">model</span></code> and make a new <code class="docutils literal notranslate"><span class="pre">model_small</span></code>, in <code class="docutils literal notranslate"><span class="pre">flight_booking/config.py</span></code> with a different model name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># default model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">OpenAIChatModel</span><span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"MODEL_NAME"</span><span class="p">,</span> <span class="s2">"google/gemma-4-31b-it"</span><span class="p">),</span>
+    <span class="n">provider</span><span class="o">=</span><span class="n">OpenAIProvider</span><span class="p">(</span><span class="n">openai_client</span><span class="o">=</span><span class="n">client</span><span class="p">),</span>
+    <span class="n">settings</span><span class="o">=</span><span class="n">model_settings</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="hll"><span class="c1"># TODO: make a small model</span>
+</span><span class="hll"><span class="c1"># model_small =</span>
+</span></pre></div>
+</div>
+<p>Import <code class="docutils literal notranslate"><span class="pre">model_small</span></code> into <code class="docutils literal notranslate"><span class="pre">flight_booking/agents.py</span></code> module and use it</p>
+</div>
+<ul class="simple">
+<li><p>Quickly test the change with one of the test prompts:</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>06_multi_agent_flight_booking.py<span class="w"> </span>--test
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="using-agent-delegation">
+<h3>Using agent-delegation<a class="headerlink" href="#using-agent-delegation" title="Link to this heading">¶</a></h3>
+<p>In Pydantic AI an “orchestrator” agent is a regular agent whose <code class="docutils literal notranslate"><span class="pre">SubAgents</span></code>
+capability exposes the specialist agents to it as a single
+<code class="docutils literal notranslate"><span class="pre">delegate_task(agent_name,</span> <span class="pre">task)</span></code> tool. Where the hand-off pattern hardcodes
+the pipeline in <code class="docutils literal notranslate"><span class="pre">main</span></code>, here the orchestrator’s instructions describe the
+booking workflow, and the model decides for itself which sub-agent to call at
+each step.</p>
+<pre  class="mermaid">
+        graph LR
+  prompt((&quot;user&quot;)) --&gt;|&quot;prompt&quot;| orch[&quot;orchestrator&quot;]
+  orch --&gt;|&quot;delegate_task(agent_name, task)&quot;| subs
+
+  subgraph subs[&quot;SubAgents capability&quot;]
+    direction LR
+    extract[&quot;trip_extractor_agent&quot;]
+    search[&quot;flight_searcher&quot;]
+    seat[&quot;seat_extractor&quot;]
+    book[&quot;flight_booker&quot;]
+  end
+
+  subs --&gt;|&quot;task result&quot;| orch
+  orch --&gt;|&quot;question&quot;| ask_user[&quot;ask_user&quot;]
+  ask_user --&gt;|&quot;answer&quot;| orch
+  orch --&gt;|&quot;ask_user&quot;| prompt
+  prompt --&gt;|&quot;quit&quot;| END
+    </pre><p>The four specialists from <code class="docutils literal notranslate"><span class="pre">agents.py</span></code> are registered under a name and a
+description. The description is all the orchestrator sees when routing, so it
+doubles as the routing prompt. The <code class="docutils literal notranslate"><span class="pre">ask_user</span></code> tool lets the orchestrator talk
+to the user mid-run, for example to present the found flights or ask for a
+seat.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">orchestrator</span> <span class="o">=</span> <span class="n">Agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">deps_type</span><span class="o">=</span><span class="n">Deps</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">SubAgents</span><span class="p">(</span>
+            <span class="n">agents</span><span class="o">=</span><span class="p">[</span>
+<span class="hll">                <span class="n">SubAgent</span><span class="p">(</span>
+</span>                    <span class="n">trip_extractor_agent</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">'trip_extractor'</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s1">'Extracts the origin, destination and travel date '</span>
+                        <span class="s1">'from a user request'</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+<span class="hll">                <span class="n">SubAgent</span><span class="p">(</span>
+</span>                    <span class="n">search_agent</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">'flight_searcher'</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s1">'Resolves the current date and time. '</span>
+                        <span class="s1">'Then based on the travel date, origin and destination '</span>
+                        <span class="s1">'of the trip requested, search flights.'</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+<span class="hll">                <span class="n">SubAgent</span><span class="p">(</span>
+</span>                    <span class="n">seat_preference_agent</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">'seat_extractor'</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">"Extracts a seat preference (row number and seat "</span>
+                        <span class="s2">"letter) from the user's answer"</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+<span class="hll">                <span class="n">SubAgent</span><span class="p">(</span>
+</span>                    <span class="n">book_agent</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="s1">'flight_booker'</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s1">'Books a chosen flight and seat, checking the travel '</span>
+                        <span class="s1">'policy first, and finally purchasing a ticket.'</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">],</span>
+<span class="hll">    <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
+</span>        <span class="s1">'You are the orchestrator of a flight booking system. The user talks '</span>
+        <span class="s1">'to you, and you delegate the specialist work to sub-agents with the '</span>
+        <span class="s1">'delegate_task tool. Follow this workflow for a booking request:</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'1. Delegate the user request verbatim to `trip_extractor` to get the '</span>
+        <span class="s1">'origin, destination and travel date.</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s2">"2. Delegate to `flight_searcher` with a task like 'Find me a flight "</span>
+        <span class="s1">'from &lt;origin&gt; to &lt;destination&gt; on &lt;date&gt;.</span><span class="se">\'\n</span><span class="s1">'</span>
+        <span class="s1">'3. If it reports NoFlightFound, tell the user and ask what to change.</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'4. Otherwise present the flights to the user and use ask_user to ask '</span>
+        <span class="s1">'which one to buy. If the user wants to change the trip instead, start '</span>
+        <span class="s1">'again from step 1 with their new request.</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'5. Use ask_user to ask for their seat preference, then delegate their '</span>
+        <span class="s1">'answer to `seat_extractor`. If it cannot extract a valid seat, ask '</span>
+        <span class="s1">'the user to phrase it differently and delegate the new answer.</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'6. Delegate the purchase to `flight_booker` with a self-contained task '</span>
+        <span class="s1">'that includes every field of the chosen flight (flight number, '</span>
+        <span class="s1">'origin, destination, date, departure and arrival times, price) and '</span>
+        <span class="s1">'the chosen seat (row and seat letter), then confirm the purchase to '</span>
+        <span class="s1">'the user.'</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+
+<span class="hll"><span class="nd">@orchestrator</span><span class="o">.</span><span class="n">tool_plain</span>
+</span><span class="k">def</span><span class="w"> </span><span class="nf">ask_user</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Ask the user a question and return their answer."""</span>
+    <span class="k">return</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">'🤖 </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s1"> '</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+<p>Each delegation runs the sub-agent with its own message history, so a task
+must be self-contained – this is why the instructions tell the orchestrator
+to spell out every field of the chosen flight and seat when delegating the
+purchase.</p>
+<p>With the routing moved into the agent, <code class="docutils literal notranslate"><span class="pre">main</span></code> shrinks to a single
+<code class="docutils literal notranslate"><span class="pre">orchestrator.run</span></code> call per turn; the conversation history and the shared
+usage limits are all the state the loop keeps, with the history only visible
+to the orchestrator agent.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">test_prompt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">user_prompt</span> <span class="o">=</span> <span class="n">test_prompt</span> <span class="ow">or</span> <span class="nb">input</span><span class="p">(</span>
+        <span class="s1">'🤖 Hi! I am a flight search assistant. '</span>
+        <span class="s1">'You can tell me the locations and dates of your trip and I will find the best flight for you</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="s1">'You: '</span>
+    <span class="p">)</span>
+    <span class="n">conversation_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ModelMessage</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="n">Deps</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="n">user_prompt</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">QUIT_WORDS</span><span class="p">:</span>
+        <span class="c1"># the orchestrator keeps the conversation history and decides itself</span>
+        <span class="c1"># which sub-agent to delegate to at each step; the shared usage limits</span>
+        <span class="c1"># apply across the whole agent tree</span>
+        <span class="k">with</span> <span class="n">logfire</span><span class="o">.</span><span class="n">span</span><span class="p">(</span><span class="s1">'Orchestrator: delegate to sub-agents'</span><span class="p">):</span>
+<span class="hll">            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">orchestrator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span>                <span class="n">user_prompt</span><span class="p">,</span>
+                <span class="n">deps</span><span class="o">=</span><span class="n">deps</span><span class="p">,</span>
+                <span class="n">message_history</span><span class="o">=</span><span class="n">conversation_history</span><span class="p">,</span>
+                <span class="n">usage_limits</span><span class="o">=</span><span class="n">usage_limits</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">conversation_history</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">all_messages</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'🤖 </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+        <span class="n">user_prompt</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+            <span class="s1">'🤖 Tell me what to do next (e.g. book another trip), '</span>
+            <span class="s1">'or type "quit" to stop</span><span class="se">\n</span><span class="s1">You: '</span>
+        <span class="p">)</span>
+
+
+</pre></div>
+</div>
+<div class="admonition-demo demo admonition" id="demo-1">
+<p class="admonition-title">Demo</p>
+<p>Run</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>06_multi_agent_flight_booking.py<span class="w"> </span>--pattern<span class="w"> </span>delegation
+</pre></div>
+</div>
+<p>Try one of the prompt as in the <a class="reference internal" href="#hand-off-demo">hand-off demo</a>, and watch the
+orchestrator present the flights and ask for your seat before delegating the
+purchase.</p>
+</div>
+</section>
+</section>
+<section id="tracing-and-visualizing-agent-trajectories">
+<h2>Tracing and visualizing agent trajectories<a class="headerlink" href="#tracing-and-visualizing-agent-trajectories" title="Link to this heading">¶</a></h2>
+<p>Hitherto, we have been staring at a lot of logs. It becomes complex to
+understand what happened when, particularly when multiple agents are involved.
+This is were collecting <strong>traces</strong> in graphical tool becomes useful.</p>
+<p>Think of a trace as a diary of everything your program did in one run. Every
+model call, tool invocation, and agent hand-off is recorded as a <em>span</em>: what
+went in, what came out, and how long it took. One agent run produces a tree
+of these spans – the <em>trace</em>. So when your agent, say books seat 7A on the wrong
+flight, you do not have to guess why: the trace shows the whole journey, which
+agents ran, what they asked the model, and what the tools answered.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">logfire.span</span></code> block becomes one span in the trace, and each <code class="docutils literal notranslate"><span class="pre">logfire.info</span></code>
+call records a log event with structured, searchable attributes. We have been
+writing trace data all along: every hand-off in the multi-agent pipeline is
+wrapped in a named span</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll">    <span class="k">with</span> <span class="n">logfire</span><span class="o">.</span><span class="n">span</span><span class="p">(</span><span class="s1">'Search Agent: TripRequest -&gt; Flights'</span><span class="p">):</span>
+</span>        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">search_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'Find me a flight from </span><span class="si">{</span><span class="n">trip</span><span class="o">.</span><span class="n">req_origin</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">trip</span><span class="o">.</span><span class="n">req_destination</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">trip</span><span class="o">.</span><span class="n">req_date</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span>
+            <span class="n">deps</span><span class="o">=</span><span class="n">deps</span><span class="p">,</span>
+            <span class="n">usage</span><span class="o">=</span><span class="n">usage</span><span class="p">,</span>
+            <span class="n">usage_limits</span><span class="o">=</span><span class="n">usage_limits</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">output</span>
+</pre></div>
+</div>
+<p>and the trip-extractor agent logs the extracted trip request as an event with
+named attributes</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@trip_extractor_agent</span><span class="o">.</span><span class="n">output_validator</span>
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">log_trip_request</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">RunContext</span><span class="p">[</span><span class="n">Deps</span><span class="p">],</span> <span class="n">output</span><span class="p">:</span> <span class="n">TripRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TripRequest</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A 'fake' validator meant to intercept and log the trip request."""</span>
+<span class="hll">    <span class="n">logfire</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+</span><span class="hll">        <span class="s1">'Requested trip from </span><span class="si">{origin}</span><span class="s1"> to </span><span class="si">{destination}</span><span class="s1"> on </span><span class="si">{date}</span><span class="s1">'</span><span class="p">,</span>
+</span><span class="hll">        <span class="n">origin</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">req_origin</span><span class="p">,</span>
+</span><span class="hll">        <span class="n">destination</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">req_destination</span><span class="p">,</span>
+</span><span class="hll">        <span class="n">date</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">req_date</span>
+</span><span class="hll">    <span class="p">)</span>
+</span>    <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+</div>
+<p>So how do Logfire, OpenTelemetry and Jaeger play together? <strong>OpenTelemetry</strong>
+is the open standard that defines what spans look like and how they travel
+between systems (via the OTLP protocol). <strong>Logfire</strong> is what creates the
+spans in our example: its SDK instruments Pydantic AI and httpx, and exports
+the resulting traces either to Logfire’s own backend or to any
+OpenTelemetry-compatible endpoint. <strong>Jaeger</strong> is one such endpoint: an
+open-source tracing backend with a web UI for browsing traces. Because
+everything speaks OpenTelemetry, you can swap Jaeger for Logfire (the web frontend) or any of
+the <a class="reference external" href="https://opentelemetry.io/ecosystem/vendors/">vendors supporting OpenTelemetry</a>
+without touching the instrumentation code. For LLM and agent spans, the
+community is standardizing the attribute names (<code class="docutils literal notranslate"><span class="pre">gen_ai.*</span></code>) in the
+<a class="reference external" href="https://github.com/open-telemetry/semantic-conventions-genai">OpenTelemetry GenAI semantic conventions</a>;
+<a class="reference external" href="https://mlflow.org/docs/latest/genai/tracing/opentelemetry/genai-semconv/">MLflow’s take on them</a>
+is a good overview of how a backend consumes these attributes.</p>
+<p>Other popular tools for visualizing agent trajectories include:</p>
+<ul class="simple">
+<li><p><strong>MLflow</strong>: the classic experiment tracker, with GenAI tracing that follows
+the OpenTelemetry semantic conventions linked above.</p></li>
+<li><p><strong>Langfuse</strong>: open-source LLM engineering platform, with tracing, prompt
+management and evaluations; can ingest traces over OTLP.</p></li>
+<li><p><strong>Phoenix by Arize</strong>: commercial observability and evaluation platform for
+LLM applications (its tracing library itself is open source).</p></li>
+</ul>
+<div class="admonition-demo demo admonition" id="demo-2">
+<p class="admonition-title">Demo</p>
+<ul class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">flight_booking/config.py</span></code>, change the logging configuration from
+<code class="docutils literal notranslate"><span class="pre">log_default</span></code> to <code class="docutils literal notranslate"><span class="pre">log_jaeger</span></code>:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config_logging</span><span class="o">.</span><span class="n">log_jaeger</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In a <strong>new terminal</strong>, start Jaeger (if in Windows, look at the contents of the script to understand how to run it):</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>06_run_jaeger.sh
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Run the multi-agent demo in test mode:</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>06_multi_agent_flight_booking.py<span class="w"> </span>--test
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Open the Jaeger UI at <a class="reference external" href="http://localhost:16686">http://localhost:16686</a>, select the <code class="docutils literal notranslate"><span class="pre">flight_booking</span></code>
+service and open the latest trace. Inspect the waterfall of spans: the
+orchestrator run, the model requests, the tool calls to the MCP server, and
+the hand-off to the booking agent. The <em>GenAI</em> tab shows the captured
+request and response bodies rendered as a conversation.</p></li>
+</ul>
+</div>
+<section id="exercise-6-3-discuss-the-differences">
+<h3>Exercise 6.3: Discuss the differences<a class="headerlink" href="#exercise-6-3-discuss-the-differences" title="Link to this heading">¶</a></h3>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<ol class="arabic simple">
+<li><p>Which multi-agent pattern was more flexible and less sticter to use?</p></li>
+<li><p>Which multi-agent pattern had a more predictable behaviour?</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<ul class="simple">
+<li><p>The agent-delegation pattern is more flexible and less strict to use.</p></li>
+<li><p>The programmatic hand-off pattern has a more predictable behaviour.</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Multi-agent workflows split a complex task into agents with narrow roles, giving per-agent model selection, separation of concerns, smaller context per agent, and output validation after each step – at the cost of more model calls and more places to fail.</p></li>
+<li><p>The two patterns covered are programmatic hand-off, where application code chains agents in a fixed sequence, and agent delegation, where an orchestrator agent routes tasks to sub-agents via a <code class="docutils literal notranslate"><span class="pre">delegate_task</span></code> tool.</p></li>
+<li><p>Hand-off is more predictable since the pipeline is hardcoded in <code class="docutils literal notranslate"><span class="pre">main</span></code>, while delegation is more flexible since the orchestrator decides which sub-agent to call,</p></li>
+</ul>
+</div>
+<p>Here are some of the pages for your reference and further reading.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pydantic.dev/docs/ai/guides/multi-agent-applications/">Multi-Agent Applications | Pydantic Docs</a></p></li>
+<li><p><a class="reference external" href="https://docs.langchain.com/oss/python/langchain/multi-agent/index#why-multi-agent">Why multi-agent - LangChain</a></p></li>
+<li><p><a class="reference external" href="https://pydantic.dev/docs/ai/harness/subagents/">Subagents | Pydantic Docs</a></p></li>
+<li><p><a class="reference external" href="https://pydantic.dev/docs/ai/graph/graph/">Graphs | Pydantic Docs</a></p></li>
+<li><p><a class="reference external" href="https://pydantic.dev/docs/ai/harness/planning/">Planning | Pydantic Docs</a></p></li>
+<li><p><a class="reference external" href="https://www.anthropic.com/research/multi-agent-research-system">How we built our multi-agent research system \ Anthropic</a></p></li>
+<li></li>
+</ul>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../eval/">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">7. Evaluating an agent</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../adding-memory/">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">5. Memory</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, LUMI AI Factory, Sweden AI Factory, Abdul Ghafoor, Ashwin Mohanan, Daniel Medeiros, Francesco Fiusco, Marlon Tobaben, Mitja Sainio, Vijeta Sharma
+The LUMI AI Factory Service Center is funded jointly by the
+EuroHPC Joint Undertaking and the participating states FI, CZ, DK, EE, NO, PL.
+Sweden AI Factory is hosted by NAISS (the National Academic Infrastructure for
+Supercomputing in Sweden) in partnership with RISE Research Institutes of
+Sweden. Funding is shared between Sweden (through the Swedish Research Council
+and Vinnova, Sweden’s Innovation Agency) and the EuroHPC Joint Undertaking,
+which is the EU’s supercomputer organisation.
+
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/sweden-ai-factory/agentic-ai-lesson" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">6. Multiple agents</a><ul>
+<li><a class="reference internal" href="#why-multi-agent-workflows">Why multi-agent workflows</a></li>
+<li><a class="reference internal" href="#design-patterns-of-multi-agent-workflows">Design patterns of multi-agent workflows</a><ul>
+<li><a class="reference internal" href="#programmatic-agent-hand-off">Programmatic agent hand-off</a></li>
+<li><a class="reference internal" href="#agent-delegation-a-k-a-subagents">Agent delegation a.k.a Subagents</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#breaking-down-the-problem-into-different-agents">Breaking down the problem into different agents</a><ul>
+<li><a class="reference internal" href="#the-trip-extractor-agent">The trip extractor agent</a></li>
+<li><a class="reference internal" href="#the-search-agent">The search agent</a></li>
+<li><a class="reference internal" href="#the-seat-preference-agent">The seat preference agent</a></li>
+<li><a class="reference internal" href="#the-book-agent">The book agent</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wiring-the-agents-together">Wiring the agents together</a><ul>
+<li><a class="reference internal" href="#using-hand-off">Using hand-off</a><ul>
+<li><a class="reference internal" href="#exercise-6-1-adding-output-validator-to-the-hand-off-workflow">Exercise 6.1: Adding output validator to the hand-off workflow</a></li>
+<li><a class="reference internal" href="#exercise-6-2-using-a-different-model-for-seat-preference">Exercise 6.2: Using a different model for seat preference</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-agent-delegation">Using agent-delegation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tracing-and-visualizing-agent-trajectories">Tracing and visualizing agent trajectories</a><ul>
+<li><a class="reference internal" href="#exercise-6-3-discuss-the-differences">Exercise 6.3: Discuss the differences</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=35a8b989"></script>
+    <script src="../_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    </body>
+</html>
