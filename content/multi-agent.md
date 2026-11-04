@@ -389,7 +389,7 @@ window seat with extra leg room
 
 #### Exercise 6.1: Adding output validator to the hand-off workflow
 
-::::{exercise}
+:::::{exercise}
 
 Run `uv run 06_multi_agent_flight_booking.py`.
 
@@ -428,7 +428,7 @@ async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> T
 
 ```
 
-:::{tip}
+:::{hint}
 You can inject the above code in `flight_booking/main_handoff.py` at the highlighted section
 
 ```{literalinclude} ./hands-on/flight_booking/main_handoff.py
@@ -441,11 +441,37 @@ You can inject the above code in `flight_booking/main_handoff.py` at the highlig
 :::
 
 4. Re-prompt the workflow, starting with an incorrect origin and/or destination.
+
+::::{solution}
+
+The solution is available as a patch. Apply it from the root of the repository:
+
+```sh
+patch -p1 --input content/hands-on/flight_booking/0001-Solution-to-Exercise-6.1.patch
+```
+
+:::{instructor-note}
+:class: dropdown
+
+The patch is based on this [commit]. If your checkout
+is different or has local changes to the same files, the patch may not apply
+cleanly.
+
+```{literalinclude} ./hands-on/flight_booking/0001-Solution-to-Exercise-6.1.patch
+:language: diff
+```
+
+:::
+
 ::::
+
+:::::
+
+[commit]: https://github.com/sweden-ai-factory/agentic-ai-lesson/tree/7d223cf9adde95ea771aaf86271ca9463678ba00
 
 #### Exercise 6.2: Using a different model for seat preference
 
-::::{exercise}
+:::::{exercise}
 
 Seat preference being the simplest of the agents, can be set to a smaller model.
 
@@ -467,7 +493,7 @@ Seat preference being the simplest of the agents, can be set to a smaller model.
 
   to find out what is running.
 
-:::{tip}
+:::{hint}
 
 In order to do so, copy the lines to define `model` and make a new `model_small`, in `flight_booking/config.py` with a different model name.
 
@@ -487,7 +513,34 @@ Import `model_small` into `flight_booking/agents.py` module and use it
 uv run 06_multi_agent_flight_booking.py --test
 ```
 
+::::{solution}
+
+The solution is available as a patch. Apply it from the root of the repository:
+
+```sh
+patch -p1 --input content/hands-on/flight_booking/0002-Solution-to-Exercise-6.2.patch
+```
+
+:::{instructor-note}
+:class: dropdown
+
+The patch is based on this [commit]. If your checkout
+is different or has local changes to the same files, the patch may not apply
+cleanly.
+
+```{literalinclude} ./hands-on/flight_booking/0002-Solution-to-Exercise-6.2.patch
+:language: diff
+```
+
+:::
+
+Note that the patch also switches the logging configuration from
+`log_default` to `log_jaeger`, which is needed for the
+[tracing section](#tracing-and-visualizing-agent-trajectories) below.
+
 ::::
+
+:::::
 
 ### Using agent-delegation
 
