@@ -1,0 +1,43 @@
+From 64d85a0e3fa28afcbbb32e484e6727882a422ccf Mon Sep 17 00:00:00 2001
+From: "Ashwin V. Mohanan" <ashwin.mohanan@enccs.se>
+Date: Wed, 4 Nov 2026 16:13:40 +0100
+Subject: [PATCH 1/2] Solution to Exercise 6.1
+
+Adding output validator to the hand-off workflow
+---
+ .../hands-on/flight_booking/main_handoff.py   | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/content/hands-on/flight_booking/main_handoff.py b/content/hands-on/flight_booking/main_handoff.py
+index dd70a63..0469a93 100644
+--- a/content/hands-on/flight_booking/main_handoff.py
++++ b/content/hands-on/flight_booking/main_handoff.py
+@@ -131,6 +131,25 @@ async def main(test_prompt: str | None = None):
+     usage: RunUsage = RunUsage()
+ 
+     # TODO: Add trip request tool and output validator
++    @trip_extractor_agent.tool_plain
++    def ask_user_for_clarification(question: str) -> str:
++        """Ask the user a question and return their answer."""
++        return input(f'🤖 {question}\nYou: ')
++
++    @trip_extractor_agent.output_validator
++    async def validate_trip_request(ctx: RunContext[Deps], output: TripRequest) -> TripRequest:
++        """Validate origin and destination of the trip."""
++        VALID_CITIES = {'Amsterdam', 'Barcelona', 'Copenhagen', 'Dublin', 'Frankfurt', 'Helsinki', 'Istanbul', 'Lisbon', 'London', 'Madrid', 'Munich', 'Oslo', 'Paris', 'Rome', 'Stockholm', 'Vienna', 'Warsaw', 'Zurich' }
++
++        if (
++            output.req_origin not in VALID_CITIES
++            or output.req_destination not in VALID_CITIES
++        ):
++            raise ModelRetry(
++                f'Invalid origin or destination city. Valid cities are: {VALID_CITIES}'
++            )
++
++        return output
+ 
+     # Start agent loop
+     while user_prompt.strip().lower() not in QUIT_WORDS:
+-- 
+2.55.0
+
