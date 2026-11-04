@@ -1,5 +1,8 @@
 # 9. Outlook
 
+In this last section we first recap the workshop with three short questions. Then we look at topics
+beyond the scope of this training and at how to continue after the workshop.
+
 ## Recap: which method would you use?
 
 Try to answer before opening the solutions. The {doc}`quick-reference` lists all the terms.
@@ -14,24 +17,32 @@ The flight-booking agent must never book a flight that costs more than 500 EUR. 
 :::
 
 :::{solution}
-C. Skills, memory and instructions only guide the LLM, which can ignore them or miscalculate. Only
-code enforces the limit. See {doc}`adding-skills`.
+**C**: skills, memory and instructions only guide the LLM, which can ignore them or miscalculate.
+Only code enforces the limit. See {doc}`adding-skills`.
 :::
 
-:::{exercise} Processing travel expenses
-An application processes travel expenses. It always extracts the data from the receipt, then
-checks it against the travel policy, then submits it. Which approach fits best?
+:::{exercise} Choosing the method
+Which method fits each task best? Pick one of the four options for each task.
 
-- **A**: A single LLM call
-- **B**: Programmatic hand-off
-- **C**: Agent delegation
-- **D**: One agent with all tools
+1. Filter and compute over terabytes of data that have no API to query them
+2. Follow soft guidelines, such as the style of a booking confirmation
+3. Interact with the local environment, for example by running some commands
+4. Run a long workflow with strict steps
+
+- **A**: Skills
+- **B**: A multi-agent workflow with programmatic hand-off
+- **C**: Tools
+- **D**: A remote MCP server that runs next to the data
 :::
 
 :::{solution}
-B. The steps are fixed, so code calls the agents in order and validates the output of each agent
-before the next step. This is more predictable than letting an orchestrator decide. See
-{doc}`multi-agent`.
+1. **D**: the MCP server runs where the data is and returns only the results, so the data does not
+   have to move. See {doc}`mcp`.
+2. **A**: skills guide the agent but do not enforce rules. See {doc}`adding-skills`.
+3. **C**: tools run on the machine of the harness. A local MCP server works too. See
+   {doc}`agent-basics`.
+4. **B**: code calls the agents in a fixed order and validates the output of each step. See
+   {doc}`multi-agent`.
 :::
 
 :::{exercise} Reading partner websites
@@ -45,7 +56,7 @@ The agent will read flight offers from partner websites. How do you protect it?
 :::
 
 :::{solution}
-C. Website content can contain indirect prompt injection, like the poisoned row in
+**C**: website content can contain indirect prompt injection, like the poisoned row in
 [Exercise 8.1](security.md#exercise-81-prompt-injection). A skill alone does not enforce anything,
 and memory would make the injected text affect all future sessions. See {doc}`security`.
 :::
@@ -72,6 +83,21 @@ Source: *The Psychology of Science: A Reconnaissance* (1966)
 - An agent pays off when the next step depends on intermediate results. Example: finding a flight
   that fits the travel policy, the user's preferences and the available seats.
 - Start with the simplest solution and add autonomy only when it is needed.
+
+### Serving your own models
+
+The examples use Aitta, but they work with any server that offers an OpenAI-compatible API. Set
+`MODEL_BASE_URL`, `MODEL_NAME` and `OPENAI_API_KEY` in `.env` to point them to another server.
+
+- On a supercomputer, you can serve models yourself, for example with
+  [vLLM](https://github.com/Lumi-supercomputer/LUMI-AI-Guide/tree/main/10-LLM-inference) or with
+  [llama.cpp](https://swedenaifactory.se/short-tutorials/2026/03/using-an-llm-on-a-supercomputer/).
+  A supercomputer is meant for research and development, not for production: jobs wait in a queue
+  and maintenance stops all services. Use it to develop and evaluate your agent, and run the
+  production service elsewhere. See the LUMI AI Factory guide on the
+  [road to production](https://lumi-ai-factory.eu/user-support/road-to-production/).
+- Your institution may also host LLMs. Any service that gives API access to the models should
+  work. See the [models that Pydantic AI supports](https://pydantic.dev/docs/ai/models/overview/).
 
 ### More multi-agent patterns
 
